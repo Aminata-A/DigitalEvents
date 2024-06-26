@@ -16,8 +16,14 @@ Route::resource('evenement_users', EvenementUserController::class);
 
 // Authentification
 Route::controller(AuthController::class)->group(function () {
+    // inscription user simple
     Route::get('register-user', 'showRegistrationFormUser')->name('register');
     Route::post('register-user', 'registerUser')->name('register-traitement');
+    // inscription association
+    Route::get('register-association', 'showRegistrationFormAssociation')->name('register.association');
+    Route::post('register-association', 'registerAssociation')->name('register-traitement.association');
+
+
     Route::get('login', 'showLoginForm')->name('login');
     Route::post('login', 'login');
     Route::get('logout', 'logout')->name('logout');
