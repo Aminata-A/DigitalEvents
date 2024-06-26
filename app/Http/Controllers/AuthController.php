@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserSimpeInscriptionRequest;
 
@@ -28,5 +30,37 @@ class AuthController extends Controller
             'phone' => $validatedData['phone'],
             'logo' => $validatedData['logo'],
         ]);
+    }
+
+    public function showLoginForm()
+    {
+        return view('authentifications.users.login');
+    }
+
+    public function login(LoginRequest $request)
+    {
+        // Les données sont déjà validées par LoginRequest
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            // Vérifier le rôle de l'utilisateur
+            // $user = Auth::user();
+            // if ($user->role === 'personnel') {
+            //     // Rediriger l'administrateur vers le tableau de bord administrateur
+            //     return redirect()->intended('/dashboard');
+            // } else {
+            //     // 
+            // }
+            // Rediriger l'utilisateur vers la page d'accueil
+            return redirect()->intended('/');
+        }
+
+        // Authentification échouée, rediriger avec une erreur
+        return back()->withErrors([
+            'email' => 'Email invalide !',
+            'password' => 'Mot de passe incorrect !',
+        ])->onlyInput('email');
     }
 }

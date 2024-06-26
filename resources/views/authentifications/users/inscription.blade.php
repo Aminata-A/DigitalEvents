@@ -44,13 +44,13 @@
             <img src="{{ asset('auth/img/bienvenue.png') }}" alt="Image" class="img-fluid">
         </div>
         <div class="col-md-6">
-            <div class="">
+            <div class="mb-5">
                 <div class="card-body">
-                    <h1 class="card-title">Inscription</h1>
+                    <h2 class="card-title">Inscription</h2>
                     <form method="POST" action="{{ route('register-traitement') }}" enctype="multipart/form-data">
                         @csrf
                     
-                        <div class="mb-3">
+                        <div class="mb-2">
                             <label for="name" class="form-label">Nom Complet</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="nom complet" style="border-color: #FF8200" value="{{ old('name') }}">
                             @error('name')
@@ -60,7 +60,7 @@
                             @enderror
                         </div>
                     
-                        <div class="mb-3">
+                        <div class="mb-2">
                             <label for="email" class="form-label">Adresse email</label>
                             <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="adresse email" style="border-color: #FF8200" value="{{ old('email') }}">
                             @error('email')
@@ -70,7 +70,7 @@
                             @enderror
                         </div>
                     
-                        <div class="mb-3">
+                        <div class="mb-2">
                             <label for="phone" class="form-label">Téléphone</label>
                             <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" placeholder="Téléphone" style="border-color: #FF8200" value="{{ old('phone') }}">
                             @error('phone')
@@ -80,7 +80,7 @@
                             @enderror
                         </div>
                     
-                        <div class="mb-3">
+                        <div class="mb-2">
                             <label for="password" class="form-label">Mot de passe</label>
                             <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="mot de passe" style="border-color: #FF8200" >
                             @error('password')
@@ -90,7 +90,7 @@
                             @enderror
                         </div>
                     
-                        <div class="mb-3">
+                        <div class="mb-2">
                             <label for="logo" class="form-label">Photo profil</label>
                             <input type="file" class="form-control @error('logo') is-invalid @enderror" id="logo" name="logo" style="border-color: #FF8200" value="{{ old('logo') }}">
                             @error('logo')
@@ -101,6 +101,9 @@
                         </div>
                         
                         <button type="submit" class="btn form-control" style="background-color: #FF8200; color:white; display:flex; justify-content:center; align-items:center">S'inscrire</button>
+                        <div class="mb-3" style="display: flex; justify-content:center; align-items:center">
+                            <p class="mt-2">Vous avez déjà un compte. Cliquer <a href="{{ route('login') }}">ici</a></p>
+                        </div>
                     </form>
                     
                 </div>
