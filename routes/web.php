@@ -16,8 +16,8 @@ Route::resource('evenement_users', EvenementUserController::class);
 
 // Authentification
 Route::controller(AuthController::class)->group(function () {
-    Route::get('register', 'showRegistrationFormUser')->name('register');
-    Route::post('register', 'register');
+    Route::get('register-user', 'showRegistrationFormUser')->name('register');
+    Route::post('register-user', 'registerUser')->name('register-traitement');
     Route::get('login', 'showLoginForm')->name('login');
     Route::post('login', 'login');
     Route::post('logout', 'logout')->name('logout');

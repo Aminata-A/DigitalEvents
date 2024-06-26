@@ -47,46 +47,52 @@
             <div class="">
                 <div class="card-body">
                     <h1 class="card-title">Inscription</h1>
-                    <form method="POST" action="#" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('register-traitement') }}" enctype="multipart/form-data">
+                        @csrf
+                    
                         <div class="mb-3">
                             <label for="name" class="form-label">Nom Complet</label>
-                            <input type="text" class="form-control" @error('name') is-invalid @enderror id="name" name="name" placeholder="nom complet" style="border-color: #FF8200">
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="nom complet" style="border-color: #FF8200" value="{{ old('name') }}">
                             @error('name')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
                             @enderror
                         </div>
+                    
                         <div class="mb-3">
                             <label for="email" class="form-label">Adresse email</label>
-                            <input type="email" class="form-control" @error('email') is-invalid @enderror id="email" name="email" placeholder="adresse email" style="border-color: #FF8200">
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="adresse email" style="border-color: #FF8200" value="{{ old('email') }}">
                             @error('email')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
                             @enderror
                         </div>
+                    
                         <div class="mb-3">
                             <label for="phone" class="form-label">Téléphone</label>
-                            <input type="text" class="form-control" @error('phone') is-invalid @enderror id="phone" name="phone" placeholder="Téléphone" style="border-color: #FF8200">
+                            <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" placeholder="Téléphone" style="border-color: #FF8200" value="{{ old('phone') }}">
                             @error('phone')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
                             @enderror
                         </div>
+                    
                         <div class="mb-3">
                             <label for="password" class="form-label">Mot de passe</label>
-                            <input type="password" class="form-control" @error('phone') is-invalid @enderror id="password" name="password" placeholder="mot de passe" style="border-color: #FF8200">
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="mot de passe" style="border-color: #FF8200" >
                             @error('password')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
                             @enderror
                         </div>
+                    
                         <div class="mb-3">
                             <label for="logo" class="form-label">Photo profil</label>
-                            <input type="file" class="form-control" @error('logo') is-invalid @enderror id="logo" name="logo" style="border-color: #FF8200">
+                            <input type="file" class="form-control @error('logo') is-invalid @enderror" id="logo" name="logo" style="border-color: #FF8200" value="{{ old('logo') }}">
                             @error('logo')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -96,6 +102,7 @@
                         
                         <button type="submit" class="btn form-control" style="background-color: #FF8200; color:white; display:flex; justify-content:center; align-items:center">S'inscrire</button>
                     </form>
+                    
                 </div>
             </div>
         </div>
