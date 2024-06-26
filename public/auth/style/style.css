@@ -43,7 +43,7 @@ input[type="file"] {
     width: 730px; /* Maintient le rapport d'aspect de l'image */
     height: 53rem;
     overflow-x: hidden;
-    
+    display: none;
     }
    
 }
