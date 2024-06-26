@@ -30,6 +30,8 @@ class AuthController extends Controller
             'phone' => $validatedData['phone'],
             'logo' => $validatedData['logo'],
         ]);
+
+        return redirect(route('login'));
     }
 
     public function showLoginForm()
@@ -62,5 +64,11 @@ class AuthController extends Controller
             'email' => 'Email invalide !',
             'password' => 'Mot de passe incorrect !',
         ])->onlyInput('email');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect(route('login'));
     }
 }
