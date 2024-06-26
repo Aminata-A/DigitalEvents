@@ -22,7 +22,19 @@ return new class extends Migration
             $table->string('logo')->nullable();
             $table->string('adress')->nullable();
             $table->string('contact_detail')->nullable();
-            $table->string('activity_area')->nullable();
+            $table->enum('activity_area', [
+                'Événements corporatifs',
+                'Événements sportifs',
+                'Événements culturels',
+                'Mariages',
+                'Anniversaires',
+                'Salons et expositions',
+                'Concerts et spectacles',
+                'Conférences et séminaires',
+                'Festivals',
+                'Événements communautaires',
+                'Autres',
+            ])->nullable();
             $table->string('ninea')->nullable();
             $table->date('creation_date')->nullable();
             $table->enum('account_status', ['activated','disabled'])->default('activated')->nullable();

@@ -9,56 +9,61 @@ use App\Http\Requests\UpdateEvenementUserRequest;
 class EvenementUserController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
+    * Display a listing of the resource.
+    */
     public function index()
     {
-        //
+        
     }
 
+    public function accueil(){
+        $reservations = EvenementUser::with(['user', 'evenement'])->get();
+        return view('accueils.accueil', compact('reservations'));
+    }
+    
     /**
-     * Show the form for creating a new resource.
-     */
+    * Show the form for creating a new resource.
+    */
     public function create()
     {
         //
     }
-
+    
     /**
-     * Store a newly created resource in storage.
-     */
+    * Store a newly created resource in storage.
+    */
     public function store(StoreEvenementUserRequest $request)
     {
         //
     }
-
+    
     /**
-     * Display the specified resource.
-     */
+    * Display the specified resource.
+    */
     public function show(EvenementUser $evenementUser)
     {
         //
     }
-
+    
     /**
-     * Show the form for editing the specified resource.
-     */
+    * Show the form for editing the specified resource.
+    */
     public function edit(EvenementUser $evenementUser)
     {
         //
     }
-
+    
     /**
-     * Update the specified resource in storage.
-     */
+    * Update the specified resource in storage.
+    */
     public function update(UpdateEvenementUserRequest $request, EvenementUser $evenementUser)
     {
         //
     }
-
+    
     /**
-     * Remove the specified resource from storage.
-     */
+    * Remove the specified resource from storage.
+    */
     public function destroy(EvenementUser $evenementUser)
     {
         //
