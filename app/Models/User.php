@@ -19,8 +19,24 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone',
+        'description',
+        'logo',
+        'adress',
+        'contact_detail',
+        'activity_area',
+        'ninea',
+        'creation_date',
+        'account_status',
+        'validation_status',
         'password',
     ];
+    public function evenement(){
+        $this->hasMany(Evenement::class);
+    }
+    public function evenements(){
+        return $this->belongsToMany(User::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

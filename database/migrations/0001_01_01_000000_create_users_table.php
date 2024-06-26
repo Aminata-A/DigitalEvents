@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Validation\Rules\Enum;
 
 return new class extends Migration
 {
@@ -16,6 +17,16 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('phone')->unique();
+            $table->text('description')->nullable();
+            $table->string('logo')->nullable();
+            $table->string('adress')->nullable();
+            $table->string('contact_detail')->nullable();
+            $table->string('activity_area')->nullable();
+            $table->string('ninea')->nullable();
+            $table->date('creation_date')->nullable();
+            $table->enum('account_status', ['activated','disabled'])->default('activated')->nullable();
+            $table->enum('validation_status', ['valid','invalid'])->default('invalid')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
