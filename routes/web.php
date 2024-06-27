@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EvenementController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\EvenementUserController;
 
 Route::get('/', function () {
@@ -28,3 +29,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
     Route::get('logout', 'logout')->name('logout');
 });
+
+
+// Permissions
+Route::resource('permissions', PermissionController::class);
