@@ -9,7 +9,6 @@ body {
     background-color: #fff;
     color: #051d30;
     overflow-x: hidden;
-    overflow-y: hidden;
 }
 
 .auth {
@@ -26,7 +25,7 @@ body {
     display: block;
 }
 .form-control {
-    padding: 1.5rem;
+    padding: 1rem;
     border-radius: 10px;
 }
 input[type="file"] {
