@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserSimpeInscriptionRequest;
+use App\Http\Requests\AssociationInscriptionRequest;
 
 class AuthController extends Controller
 {
@@ -31,7 +33,7 @@ class AuthController extends Controller
             'logo' => $validatedData['logo'],
         ]);
 
-        return redirect(route('login'));
+        return redirect()->route('login')->with('success', 'Inscription réussie.');
     }
 
     public function showLoginForm()
@@ -75,5 +77,33 @@ class AuthController extends Controller
     public function showRegistrationFormAssociation()
     {
         return view('authentifications.associations.inscription');
+    }
+
+    public function registerAssociation(AssociationInscriptionRequest $request)
+    {
+        $validatedData = $request->validated();
+
+        // Handle the logo upload
+        if ($request->hasFile('logo')) {
+            $logoPath = $request->file('logo')->store('logos', 'public');
+            $validatedData['logo'] = $logoPath;
+        }
+
+        User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+            'phone' => $validatedData['phone'],
+            'logo' => $validatedData['logo'],
+            'description' => $validatedData['description'],
+            'adress' => $validatedData['adress'],
+            'activity_area' => $validatedData['activity_area'],
+            'ninea' => $validatedData['ninea'],
+            'creation_date' => $validatedData['creation_date'],
+            'account_status' => User::getDefaultAccountStatus(),
+            'validation_status' => User::getDefaultValidationStatus()
+        ]);
+
+        return redirect()->route('login')->with('success', 'Inscription réussie.');
     }
 }

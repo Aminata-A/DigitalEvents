@@ -31,10 +31,12 @@ class User extends Authenticatable
         'validation_status',
         'password',
     ];
-    public function evenement(){
+    public function evenement()
+    {
         $this->hasMany(Evenement::class);
     }
-    public function evenements(){
+    public function evenements()
+    {
         return $this->belongsToMany(User::class);
     }
 
@@ -59,5 +61,15 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public static function getDefaultAccountStatus()
+    {
+        return 'activated'; 
+    }
+
+    public static function getDefaultValidationStatus()
+    {
+        return 'invalid'; 
     }
 }

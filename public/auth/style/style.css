@@ -19,10 +19,10 @@ body {
     justify-content: center;
 }
 
-.col-md-4 img {
+.col-md-6 img {
     width: 700px; /* Maintient le rapport d'aspect de l'image */
     height: 53rem;
-    
+    overflow-x: hidden;
     display: block;
 }
 .form-control {
@@ -35,17 +35,13 @@ input[type="file"] {
     justify-content: center;
 }
 
-.form {
-    display: flex;
-    gap: 2rem;
-    
-}
+
 
 @media only screen and (max-width: 768px) {
     body {
         overflow-y:scroll;
     }
-    .col-md-4 img {
+    .col-md-6 img {
     width: 730px; /* Maintient le rapport d'aspect de l'image */
     height: 53rem;
     overflow-x: hidden;

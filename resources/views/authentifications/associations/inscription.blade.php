@@ -9,27 +9,23 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('auth/style/style.css') }}" />
     <style>
-        body  {
+        body {
             overflow-y: scroll;
             padding: 0;
-            margin: 0
-
+            margin: 0;
         }
-        
+
         .col-md-4 img {
             width: 800px; /* Maintient le rapport d'aspect de l'image */
-            height: 56rem;
+            height: 59rem;
         }
-        
-        
+
         .form-control {
             padding: 1rem;
             border-radius: 10px;
             border-color: #FF8200;
         }
-        
-        
-       
+
         .btn {
             background-color: #FF8200;
             color: white;
@@ -40,10 +36,11 @@
             padding: 0.75rem;
             border-radius: 10px;
         }
-        
+
         .text-center p {
             margin-top: 1rem;
         }
+
         .form-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -60,8 +57,9 @@
             <div class="col-md-8">
                 <div class="card-body">
                     <h2 class="card-title">Inscription</h2>
-                    <form method="POST" action="{{ route('register-traitement') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('register-traitement.association') }}" enctype="multipart/form-data">
                         @csrf
+                        
                         <div class="form-container">
                             <div class="form-group">
                                 <label for="name" class="form-label">Nom de l'association</label>
@@ -128,7 +126,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="creation_date" class="form-label">Date fondation</label>
-                                <input type="text" class="form-control @error('creation_date') is-invalid @enderror" id="creation_date" name="creation_date" placeholder="date fondation">
+                                <input type="date" class="form-control @error('creation_date') is-invalid @enderror" id="creation_date" name="creation_date" placeholder="date fondation">
                                 @error('creation_date')
                                     <div class="invalid-feedback">
                                         {{ $message }}
