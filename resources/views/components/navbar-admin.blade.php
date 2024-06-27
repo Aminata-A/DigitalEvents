@@ -32,10 +32,18 @@
         .btn-modifier {
     background-color: #FF8200;
     color: white;
+    border-radius: 25px
 }
 .btn-supprimer {
     background-color: red;
     color: white;
+    border-radius: 25px
+}
+.btn-autoriser {
+    background-color: #F5F5F5;
+    color: #FF8200;
+    border: 1px solid #FF8200;
+    border-radius: 25px
 }
 .search-bar {
     margin-bottom: 20px;
@@ -54,7 +62,7 @@
 .btn-ajout {
     border: #FF8200 1px solid;
     color: #FF8200;
-    background: #D9D9D9;
+    background: #F5F5F5;
     border-radius: 25px;
     padding: 7px 15px
 }
@@ -73,9 +81,13 @@ th, td {
             .btn-icon {
                 display: inline-block;
             }
-            .btn-modifier, .btn-supprimer {
+            .btn-modifier, .btn-supprimer, .btn-autoriser {
                 background: white
             }
+            .btn-autoriser {
+                border: 1px solid white;
+            }
+
         }
         @media (min-width: 768px) {
            
@@ -100,10 +112,10 @@ th, td {
                 <a class="nav-link active" href="#">Tableau de bord</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Rôles</a>
+                <a class="nav-link" href="{{ route('roles.index') }}">Rôles</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Permissions</a>
+                <a class="nav-link" href="{{ route('permissions.index') }}">Permissions</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Utilisateurs</a>

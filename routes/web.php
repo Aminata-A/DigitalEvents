@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EvenementController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\EvenementUserController;
+use App\Http\Controllers\RoleController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,3 +34,4 @@ Route::controller(AuthController::class)->group(function () {
 
 // Permissions
 Route::resource('permissions', PermissionController::class);
+Route::resource('roles', RoleController::class);
