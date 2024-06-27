@@ -23,4 +23,9 @@ class UserController extends Controller
     {
         return view('users.dashboard');
     }
+
+    public function detailUser()
+    {
+        return view('users.detail');
+    }
 }

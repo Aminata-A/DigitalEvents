@@ -139,6 +139,7 @@ th, td {
             font-weight: normal;
             margin: 0;
         }
+        
 
 @media (max-width: 768px) {
             .btn-text {
@@ -217,8 +218,9 @@ th, td {
                 <a class="nav-link {{ request()->routeIs('permissions.index') ? 'active' : '' }}" href="{{ route('permissions.index') }}">Permissions</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}" href="{{ route('users.index') }}">Utilisateurs</a>
+                <a class="nav-link {{ request()->routeIs('users.index', 'detail.user') ? 'active' : '' }}" href="{{ route('users.index') }}">Utilisateurs</a>
             </li>
+            
         </ul>
         <button class="btn my-2 my-sm-0 btn-header" type="button">Déconnexion</button>
         <a href="{{ route('profil.admin') }}"><span class="navbar-text ml-3" style="color: #FF8200">Mouhammad</span></a>
