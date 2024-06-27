@@ -46,6 +46,7 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
         }
+        
     </style>
 </head>
 <body>

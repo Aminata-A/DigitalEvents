@@ -47,5 +47,13 @@ input[type="file"] {
     overflow-x: hidden;
     display: none;
     }
-   
+   .col-md-4 img{
+    display: none;
+   }
+   .row {
+    font-size: 12px
+}
+::placeholder {
+    font-size: 12px;
+}
 }
