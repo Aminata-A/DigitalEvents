@@ -13,4 +13,9 @@ class UserController extends Controller
         $users = User::all();
         return view('users.index', compact('users'));
     }
+
+    public function profilAdmin()
+    {
+        return view('users.profil');
+    }
 }

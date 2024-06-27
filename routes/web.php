@@ -2,10 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\EvenementController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\EvenementUserController;
-use App\Http\Controllers\RoleController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,3 +36,6 @@ Route::controller(AuthController::class)->group(function () {
 // Permissions
 Route::resource('permissions', PermissionController::class);
 Route::resource('roles', RoleController::class);
+Route::resource('users', UserController::class);
+Route::get('/dashboard', [UserController::class, 'dashboardAdmin'])->name('dashboard.admin');
+Route::get('/profil-admin', [UserController::class, 'profilAdmin'])->name('profil.admin');

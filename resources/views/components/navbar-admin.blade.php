@@ -72,8 +72,52 @@ th, td {
 .action {
     display: flex;
     justify-content: space-around;
-    align-items: center
+   
 }
+.profile-header {
+            background-color: #ff8500;
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .profile-header img {
+            border-radius: 15px;
+            width: 100%;
+            max-width: 100%;
+        }
+        .profile-info {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .profile-info h3 {
+            font-weight: bold;
+            text-align: start
+        }
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            
+            margin: 1rem 0;
+            gap: 20px;
+            
+        }
+        .contact-info {
+            display: flex;
+            
+            margin: 1rem 0;
+            gap: 20px;
+            
+        }
+        .btn-custom {
+            border-color: #ff8500;
+            color: #ff8500;
+            border-radius: 25px;
+            width: 15%
+        }
+
 @media (max-width: 768px) {
             .btn-text {
                 display: none;
@@ -87,15 +131,48 @@ th, td {
             .btn-autoriser {
                 border: 1px solid white;
             }
-
+            .responsive-mobile {
+                display: none
+            }
+            th, td {
+                font-size: 10px;   
+            }
+            .profile-header img {
+                display: none
+            }            
+            .profile-header {
+                padding: 6rem;
+                text-align: center
+            }  
+            .contact-info {
+            display: flex;
+            flex-direction: column;
+            margin: 1rem 0;
+            text-align: start;
+            gap: 10px;
+            
         }
+        .profile-info {
+            gap: 10px;
+        }
+        .btn-custom {
+            width: 50%;
+        }
+                 
+        }
+
+
         @media (min-width: 768px) {
            
             .btn-icon {
                 display: none;
             }
             
+            
         }
+
+
+        
         
     </style>
 </head>
@@ -109,7 +186,7 @@ th, td {
     <div class="collapse navbar-collapse" id="navbarNav" style="font-size: 20px; font-weight:500; color:#05243C">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link active" href="#">Tableau de bord</a>
+                <a class="nav-link active" href="{{ route('dashboard.admin') }}">Tableau de bord</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('roles.index') }}">Rôles</a>
@@ -118,11 +195,11 @@ th, td {
                 <a class="nav-link" href="{{ route('permissions.index') }}">Permissions</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Utilisateurs</a>
+                <a class="nav-link" href="{{ route('users.index') }}">Utilisateurs</a>
             </li>
         </ul>
         <button class="btn my-2 my-sm-0 btn-header" type="button">Déconnexion</button>
-        <span class="navbar-text ml-3" style="color: #FF8200">Mouhammad</span>
+        <a href="{{ route('profil.admin') }}"><span class="navbar-text ml-3" style="color: #FF8200">Mouhammad</span></a>
     </div>
 </nav>
 
