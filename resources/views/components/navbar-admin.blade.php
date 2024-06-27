@@ -118,6 +118,28 @@ th, td {
             width: 15%
         }
 
+        .boites {
+            margin-top: 6rem;
+        }
+        .stat-card {
+            background-color: #fff7ef;
+            border: 1px solid #ff8500;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .stat-card h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .stat-card p {
+            font-size: 1rem;
+            font-weight: normal;
+            margin: 0;
+        }
+
 @media (max-width: 768px) {
             .btn-text {
                 display: none;
@@ -183,19 +205,19 @@ th, td {
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav" style="font-size: 20px; font-weight:500; color:#05243C">
+    <div class="collapse navbar-collapse" id="navbarNav" style="font-size: 20px; font-weight: 500; color: #05243C">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link active" href="{{ route('dashboard.admin') }}">Tableau de bord</a>
+                <a class="nav-link {{ request()->routeIs('dashboard.admin') ? 'active' : '' }}" href="{{ route('dashboard.admin') }}">Tableau de bord</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('roles.index') }}">Rôles</a>
+                <a class="nav-link {{ request()->routeIs('roles.index') ? 'active' : '' }}" href="{{ route('roles.index') }}">Rôles</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('permissions.index') }}">Permissions</a>
+                <a class="nav-link {{ request()->routeIs('permissions.index') ? 'active' : '' }}" href="{{ route('permissions.index') }}">Permissions</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('users.index') }}">Utilisateurs</a>
+                <a class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}" href="{{ route('users.index') }}">Utilisateurs</a>
             </li>
         </ul>
         <button class="btn my-2 my-sm-0 btn-header" type="button">Déconnexion</button>

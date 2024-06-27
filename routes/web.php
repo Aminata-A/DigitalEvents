@@ -39,3 +39,4 @@ Route::resource('roles', RoleController::class);
 Route::resource('users', UserController::class);
 Route::get('/dashboard', [UserController::class, 'dashboardAdmin'])->name('dashboard.admin');
 Route::get('/profil-admin', [UserController::class, 'profilAdmin'])->name('profil.admin');
+Route::get('/detail-user', [UserController::class, 'detailUser'])->name('detail.user');

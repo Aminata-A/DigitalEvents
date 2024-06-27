@@ -18,4 +18,9 @@ class UserController extends Controller
     {
         return view('users.profil');
     }
+
+    public function dashboardAdmin()
+    {
+        return view('users.dashboard');
+    }
 }
