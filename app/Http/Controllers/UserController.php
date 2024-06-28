@@ -57,4 +57,40 @@ class UserController extends Controller
     
         return redirect()->route('users.index')->with('status', 'utilisateur supprimée avec succès');
     }
+
+    public function validateAccount($id)
+    {
+        $user = User::find($id);
+        $user->validation_status = 'valid';
+        $user->save();
+
+        return redirect()->back()->with('success', 'Compte validé avec succès.');
+    }
+
+    public function invalidateAccount($id)
+    {
+        $user = User::find($id);
+        $user->validation_status = 'invalid';
+        $user->save();
+
+        return redirect()->back()->with('success', 'Compte invalidé avec succès.');
+    }
+
+    public function activateAccount($id)
+    {
+        $user = User::find($id);
+        $user->account_status = 'activated';
+        $user->save();
+
+        return redirect()->back()->with('success', 'Compte activé avec succès.');
+    }
+
+    public function deactivateAccount($id)
+    {
+        $user = User::find($id);
+        $user->account_status = 'disabled';
+        $user->save();
+
+        return redirect()->back()->with('success', 'Compte désactivé avec succès.');
+    }
 }

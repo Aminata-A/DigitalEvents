@@ -139,7 +139,26 @@ th, td {
             font-weight: normal;
             margin: 0;
         }
-        
+
+        .status-button {
+            border-radius: 25px;
+        }
+        .success {
+            border: 1px solid green;
+            background: green;
+            color: white
+        }
+
+        .failed {
+            border: 1px solid red;
+            background: red;
+            color: white
+        }
+
+        .boutons {
+            display: flex;
+            gap: 3rem
+        }
 
 @media (max-width: 768px) {
             .btn-text {
@@ -185,10 +204,20 @@ th, td {
         .titre-edit {
             font-size: 14px;
         }
+        
+        .detail-container h4{
+            font-size: 14px
+        }
                  
         }
 
-
+        .responsive-img {
+        max-width: 100%;
+        height: auto;
+        width: 9rem;
+        height: 5rem;
+        object-fit: contain; /* or use 'cover' if you want to cover the entire area */
+    }
         @media (min-width: 768px) {
            
             .btn-icon {
@@ -228,7 +257,12 @@ th, td {
             
         </ul>
         <button class="btn my-2 my-sm-0 btn-header" type="button">Déconnexion</button>
-        <a href="{{ route('profil.admin') }}"><span class="navbar-text ml-3" style="color: #FF8200">Mouhammad</span></a>
+        <a href="{{ route('profil.admin') }}">
+            <span class="navbar-text ml-3" style="color: #FF8200">
+                {{ Auth::user()->name }}
+            </span>
+        </a>
+        
     </div>
 </nav>
 
