@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -24,8 +26,35 @@ class UserController extends Controller
         return view('users.dashboard');
     }
 
-    public function detailUser()
+    public function show($user)
     {
-        return view('users.detail');
+        $user = User::findOrFail($user);
+        return view('users.detail', compact('user'));
+    }
+
+    public function edit(User $user)
+    {
+        $roles = Role::pluck('name','name')->all();
+        $userRole = $user->roles->pluck('name', 'name')->all();
+        return view('users.edit', compact('user', 'roles', 'userRole'));
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $request->validate([
+            'roles' => 'required',
+        ]);
+
+        $user->syncRoles($request->roles);
+
+        return redirect()->route('users.index')->with('status', 'Le rôle du user modifié avec succès');
+    }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+    
+        return redirect()->route('users.index')->with('status', 'utilisateur supprimée avec succès');
     }
 }

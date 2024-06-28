@@ -75,7 +75,7 @@ th, td {
    
 }
 .profile-header {
-            background-color: #ff8500;
+            background-color: #FF8200;
             color: white;
             padding: 2rem;
             border-radius: 15px;
@@ -112,8 +112,8 @@ th, td {
             
         }
         .btn-custom {
-            border-color: #ff8500;
-            color: #ff8500;
+            border-color: #FF8200;
+            color: #FF8200;
             border-radius: 25px;
             width: 15%
         }
@@ -123,7 +123,7 @@ th, td {
         }
         .stat-card {
             background-color: #fff7ef;
-            border: 1px solid #ff8500;
+            border: 1px solid #FF8200;
             border-radius: 10px;
             padding: 2rem;
             text-align: center;
@@ -181,6 +181,10 @@ th, td {
         .btn-custom {
             width: 50%;
         }
+
+        .titre-edit {
+            font-size: 14px;
+        }
                  
         }
 
@@ -190,6 +194,7 @@ th, td {
             .btn-icon {
                 display: none;
             }
+            
             
             
         }
@@ -212,13 +217,13 @@ th, td {
                 <a class="nav-link {{ request()->routeIs('dashboard.admin') ? 'active' : '' }}" href="{{ route('dashboard.admin') }}">Tableau de bord</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('roles.index') ? 'active' : '' }}" href="{{ route('roles.index') }}">Rôles</a>
+                <a class="nav-link {{ request()->routeIs('roles.index', 'role.permissions') ? 'active' : '' }}" href="{{ route('roles.index') }}">Rôles</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('permissions.index') ? 'active' : '' }}" href="{{ route('permissions.index') }}">Permissions</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('users.index', 'detail.user') ? 'active' : '' }}" href="{{ route('users.index') }}">Utilisateurs</a>
+                <a class="nav-link {{ request()->routeIs('users.index', 'users.show') ? 'active' : '' }}" href="{{ route('users.index') }}">Utilisateurs</a>
             </li>
             
         </ul>

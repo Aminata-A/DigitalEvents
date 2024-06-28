@@ -56,10 +56,10 @@
                             <span class="btn-text">Modifier</span>
                             <span class="btn-icon"><img src="{{ asset('admin/img/edit.svg') }}" alt="edit icone"></span>
                         </button>
-                        <form action="{{ route('permissions.destroy', $permission->id) }}" method="POST" class="d-inline" id="deleteForm">
+                        <form action="{{ route('permissions.destroy', $permission->id) }}" method="POST" class="d-inline" >
                             @csrf
                             @method('DELETE')
-                            <button type="button" class="btn btn-supprimer" onclick="if (confirm('Êtes-vous sûr de vouloir supprimer cet élément ?')) { document.getElementById('deleteForm').submit(); }">
+                            <button type="submit" class="btn btn-supprimer">
                                 <span class="btn-text">Supprimer</span>
                                 <span class="btn-icon"><img src="{{ asset('admin/img/delete.svg') }}" alt="delete icone"></span>
                             </button>
