@@ -57,7 +57,7 @@ body {
     color: #051D30;
     padding: 5px 10px;
     border-radius: 5px;
-    font-weight: bold;
+    font-size: 12px ;
 }
 .card-body {
     display: flex;
@@ -77,15 +77,19 @@ body {
     -webkit-box-orient: vertical;
 }
 .badge {
-    font-size: 0.875rem;
     padding: 0.5rem 1rem;
     margin-bottom: 0.5rem;
     border-radius: 10rem;
     border: none;
+    font-weight: 400;
 }
 .orange {
-    background-color: #FFF3E6;
+    background-color: #e2e6ea;
     /* color: white; */
+}
+.text-dark{
+    background-color: #fce6ce;
+    color: #fff;
 }
 
 .btn-light {
