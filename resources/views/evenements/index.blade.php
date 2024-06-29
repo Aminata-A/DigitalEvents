@@ -8,6 +8,43 @@
     <link rel="stylesheet" href="{{ asset('evenements/evenements.css') }}" />
 </head>
 <body>
+    <!-- Header avec Dropdown pour les associations -->
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">DigitalEvents</a>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('evenement') }}">Accueil</a>
+                </li>
+                @if (Auth::check())
+                    {{-- @if (Auth::user()->hasRole(['association'])) --}}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="{{ route('evenement')}}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               Événement
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{{ route('creation') }}">Création d'Événement</a>
+                            </div>
+                        </li>
+                    {{-- @endif --}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('logout') }}">Déconnexion</a>
+                    </li>
+                    <li class="nav-item">
+                        <span class="nav-link">Connecté en tant que {{ Auth::user()->name }}</span>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">Connexion</a>
+                    </li>
+                @endif
+            </ul>
+        </div>
+    </nav>
+</header>
+
     <div class="container mt-4">
         <div class="banniere">
             <img src="https://img.freepik.com/vecteurs-libre/modele-sans-couture-lignes-organiques-irregulieres-orange_1409-4190.jpg?t=st=1719417420~exp=1719421020~hmac=e0da1aea7e251917a9394925bb9a5f1211ffe8353400c44f56ff1a9f0c86ebf8&w=826" alt="Banner Image">
