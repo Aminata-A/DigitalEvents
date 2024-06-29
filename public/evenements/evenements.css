@@ -87,6 +87,9 @@ body {
     background-color: #e2e6ea;
     /* color: white; */
 }
+.button-banner{
+    background-color: #fff;
+}
 .text-dark{
     background-color: #fce6ce;
     color: #fff;
