@@ -152,7 +152,7 @@
                         </div>
 
                         <button type="submit" class="btn evenement rounded-pill">Créer l'événement</button>
-                        <a href="{{ route('accueil') }}" class="btn btn-annuler rounded-pill">Annuler</a>
+                        <a href="{{ route('evenement') }}" class="btn btn-annuler rounded-pill">Annuler</a>
 
                     </form>
                 </div>
