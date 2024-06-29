@@ -1,0 +1,112 @@
+body {
+    width: 100%;
+    overflow-x: hidden;
+}
+.banniere {
+    height: 70vh;
+    background: #FF8200;
+    border-radius: 20px;
+    position: relative;
+    text-align: center;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.banniere img {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+.banniere div {
+    z-index: 1;
+}
+.banniere a {
+    color: #FF8200;
+}
+.banniere a:hover {
+    color: #FF8200;
+}
+.banniere h1 {
+    font-size: 45px;
+}
+.card {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.8rem;
+    margin-bottom: 30px;
+}
+.card-img-top {
+    border-radius: 0.8rem  0.8rem 0 0;
+
+    height: 150px;
+    width: 100%;
+    object-fit: cover;
+}
+.activity-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #051D30;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+}
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+.card-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+.badge {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 10rem;
+    border: none;
+}
+.orange {
+    background-color: #FFF3E6;
+    /* color: white; */
+}
+
+.btn-light {
+    background-color: #f8f9fa;
+    color: #212529;
+}
+.btn-light:hover {
+    background-color: #e2e6ea;
+    color: #212529;
+}
+.filter-sidebar {
+    position: sticky;
+    top: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.btn-light{
+    background-color: #FF8200;
+    border: none;
+    color: #fff;
+}
