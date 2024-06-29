@@ -2,65 +2,124 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Evenement;
+use Illuminate\Http\Request;
+use App\Models\EvenementUser;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreEvenementRequest;
 use App\Http\Requests\UpdateEvenementRequest;
 
 class EvenementController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $evenements = Evenement::with(['user'])->get()->map(function ($evenement) {
+            $evenement->remaining_places = $evenement->places - EvenementUser::where('evenement_id', $evenement->id)->count();
+            return $evenement;
+        });
+        
+        return view('evenements.index', compact('evenements'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function evenement(Request $request)
+    {
+        $query = Evenement::with(['user']);
+        
+        if ($request->has('activity_area')) {
+            $query->whereHas('user', function ($query) use ($request) {
+                $query->where('activity_area', $request->activity_area);
+            });
+        }
+        
+        $evenements = $query->get()->map(function ($evenement) {
+            $evenement->remaining_places = $evenement->places - EvenementUser::where('evenement_id', $evenement->id)->count();
+            return $evenement;
+        });
+
+        $activity_areas = User::pluck('activity_area')->unique();
+        
+        return view('evenements.index', compact('evenements', 'activity_areas'));
+    }
+
     public function create()
     {
-        //
+        return view('evenements.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreEvenementRequest $request)
+    public function creation(StoreEvenementRequest $request)
     {
-        //
+        $validatedData = $request->validated();
+    
+        if ($request->hasFile('image')) {
+            $image = $request->file('image')->store('images', 'public');
+            $validatedData['image'] = $image;
+        }
+        
+        $validatedData['user_id'] = 1;
+        
+        Evenement::create($validatedData);
+        
+        return redirect()->route('evenement')->with('success', 'Événement créé avec succès!');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Evenement $evenement)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Evenement $evenement)
     {
-        //
+        return view('evenements.update', compact('evenement'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    public function modifier(UpdateEvenementRequest $request, Evenement $evenement)
+    {
+        $validatedData = $request->validated();
+
+        $evenement = Evenement::findOrFail(1);
+
+        $evenement->name = $request->input('name');
+        $evenement->event_start_date = $request->input('event_start_date');
+        $evenement->event_end_date = $request->input('event_end_date');
+        $evenement->registration_deadline = $request->input('registration_deadline');
+        $evenement->location = $request->input('location');
+        $evenement->places = $request->input('places');
+        $evenement->description = $request->input('description');
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = time() . '_' . $image->getClientOriginalName();
+            $path = storage_path('images');
+            $image->move($path, $filename);
+            $evenement->image = 'images/' . $filename;
+        }
+
+        $evenement->save();
+
+        return redirect()->route('evenement')->with('success', 'Événement modifié avec succès'); 
+    }
+
     public function update(UpdateEvenementRequest $request, Evenement $evenement)
     {
         //
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Evenement $evenement)
-    {
-        //
+    public function supprimer(Evenement $evenement){
+                // Supprimer l'image associée à l'événement s'il en existe une
+                if ($evenement->image) {
+                    Storage::disk('public')->delete($evenement->image);
+                }
+        
+                // Supprimer l'événement de la base de données
+                $evenement->delete();
+        
+                return redirect()->route('evenement')->with('success', 'Événement supprimé avec succès');
+            }
     }
-}
+
+    // public function destroy(Evenement $evenement)
+    // {
+    //     //
+    // }
+

@@ -5,14 +5,21 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EvenementController;
 use App\Http\Controllers\EvenementUserController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 //Route::get('/', [EvenementController::class, 'accueil'])->name('accueil');
-Route::resource('evenements', EvenementController::class);
-Route::resource('evenement_users', EvenementUserController::class);
+// Route de l'accueil
+// Route::get('/accueil', [EvenementController::class, 'accueil'])->name('accueil');
+Route::get('/evenement', [EvenementController::class, 'evenement'])->name('evenement');
+Route::get('/creation', [EvenementController::class, 'create'])->name('creation');
+Route::post('/creation', [EvenementController::class, 'creation'])->name('creation.store');
+Route::put('/modifier/{id}', [EvenementController::class, 'modifier'])->name('modifier');
+Route::delete('/supprimer/{id}', [EvenementController::class, 'supprimer'])->name('supprimer');
 
+// Routes pour les événements
+Route::resource('evenements', EvenementController::class);
+
+// Routes pour les utilisateurs d'événements
+Route::resource('evenement_users', EvenementUserController::class);
 
 // Authentification
 Route::controller(AuthController::class)->group(function () {
@@ -28,3 +35,4 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
     Route::get('logout', 'logout')->name('logout');
 });
+
