@@ -146,7 +146,7 @@
                         </div>
                         <div class="form-group">
                             <label for="logo" class="form-label">Logo</label>
-                            <input type="file" class="form-control @error('logo') is-invalid @enderror" id="logo" name="logo">
+                            <input type="file" class="form-control1 @error('logo') is-invalid @enderror" id="logo" name="logo">
                             @error('logo')
                                 <div class="invalid-feedback">
                                     {{ $message }}

@@ -92,12 +92,10 @@
                     
                         <div class="mb-2">
                             <label for="logo" class="form-label">Photo profil</label>
-                            <input type="file" class="form-control @error('logo') is-invalid @enderror" id="logo" name="logo" style="border-color: #FF8200" value="{{ old('logo') }}">
-                            @error('logo')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                            <input type="file" class="form-control1 @error('logo') is-invalid @enderror" id="logo" name="logo" value="{{ old('logo') }}">
+                            @if ($errors->has('logo'))
+                                <span class="text-danger">{{ $errors->first('logo') }}</span>
+                            @endif
                         </div>
                         
                         <button type="submit" class="btn form-control" style="background-color: #FF8200; color:white; display:flex; justify-content:center; align-items:center">S'inscrire</button>
