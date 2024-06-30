@@ -1,7 +1,10 @@
+/* Global styles */
 body {
     width: 100%;
     overflow-x: hidden;
 }
+
+/* Bannière */
 .banniere {
     height: 70vh;
     background: #FF8200;
@@ -14,6 +17,7 @@ body {
     justify-content: center;
     padding: 20px;
 }
+
 .banniere img {
     position: absolute;
     right: 0;
@@ -25,30 +29,66 @@ body {
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
 }
+
 .banniere div {
     z-index: 1;
 }
+
 .banniere a {
     color: #FF8200;
 }
+
 .banniere a:hover {
     color: #FF8200;
 }
+
 .banniere h1 {
     font-size: 45px;
 }
+
+/* Cartes d'événements */
 .card {
     border: 1px solid rgba(0, 0, 0, 0.125);
-    border-radius: 0.8rem;
+    border-radius: 10px; /* Coins arrondis */
     margin-bottom: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre légère */
 }
-.card-img-top {
-    border-radius: 0.8rem  0.8rem 0 0;
 
+.card-img-top {
+    border-radius: 10px 10px 0 0; /* Coins arrondis pour l'image */
     height: 150px;
     width: 100%;
     object-fit: cover;
 }
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem; /* Espacement du contenu */
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.card-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.badge {
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 10rem;
+    border: none;
+    font-weight: 400;
+}
+
 .activity-badge {
     position: absolute;
     top: 10px;
@@ -57,44 +97,22 @@ body {
     color: #051D30;
     padding: 5px 10px;
     border-radius: 5px;
-    font-size: 12px ;
+    font-size: 12px;
 }
-.card-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 1rem;
-}
-.card-title {
-    font-size: 1.25rem;
-    font-weight: bold;
-}
-.card-text {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-}
-.badge {
-    padding: 0.5rem 1rem;
-    margin-bottom: 0.5rem;
-    border-radius: 10rem;
-    border: none;
-    font-weight: 400;
-}
+
 .orange {
     background-color: #e2e6ea;
-    /* color: white; */
 }
-.button-banner{
-    background-color: #fff;
-}
-.text-dark{
+
+.text-dark {
     background-color: #fce6ce;
     color: #fff;
 }
 
+/* Boutons et autres styles */
+.button-banner {
+    background-color: #fff;
+}
 .btn-light {
     background-color: #f8f9fa;
     color: #212529;
@@ -110,10 +128,5 @@ body {
     padding: 10px;
     background-color: #f8f9fa;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-.btn-light{
-    background-color: #FF8200;
-    border: none;
-    color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
