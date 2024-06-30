@@ -9,10 +9,10 @@
         </div>
     </div>
     <div class="profile-info mt-5">
-        <h3>Mouhammad Ndour</h3>
+        <h3>{{ $user->name }}</h3>
         <div class="contact-info">
-            <span><img src="{{ asset('admin/img/phone.svg') }}" alt="icone phone" style="margin-right: 5px;"> 77 640 67 23</span>
-            <span><img src="{{ asset('admin/img/mail.svg') }}" alt="icone mail" style="margin-right: 5px;"> company@gmail.com</span>
+            <span><img src="{{ asset('admin/img/phone.svg') }}" alt="icone phone" style="margin-right: 5px;">{{ $user->phone }}</span>
+            <span><img src="{{ asset('admin/img/mail.svg') }}" alt="icone mail" style="margin-right: 5px;">{{ $user->email }}</span>
         </div>
         <button class="btn btn-outline btn-custom">Modifier profile</button>
     </div>

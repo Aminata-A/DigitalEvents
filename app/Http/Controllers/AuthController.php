@@ -49,16 +49,15 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            // Vérifier le rôle de l'utilisateur
-            // $user = Auth::user();
-            // if ($user->role === 'personnel') {
-            //     // Rediriger l'administrateur vers le tableau de bord administrateur
-            //     return redirect()->intended('/dashboard');
-            // } else {
-            //     // 
-            // }
-            // Rediriger l'utilisateur vers la page d'accueil
-            return redirect()->intended('/');
+            $user = Auth::user();
+            if ($user->hasRole('admin')) {
+                return redirect()->intended('/dashboard');
+            } elseif($user->hasRole('association')) {
+                return redirect()->intended('/evenement');
+            }else {
+                return redirect()->intended('/');
+            }
+            
         }
 
         // Authentification échouée, rediriger avec une erreur
