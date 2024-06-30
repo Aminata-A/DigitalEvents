@@ -31,6 +31,7 @@ class User extends Authenticatable
         'account_status',
         'validation_status',
         'password',
+        'is_association'
     ];
     public function evenement()
     {
@@ -64,6 +65,10 @@ class User extends Authenticatable
         ];
     }
 
+    protected $casts = [
+        'activity_area' => 'string', // Si nécessaire, caster en string
+    ];
+
     public static function getDefaultAccountStatus()
     {
         return 'activated'; 
@@ -73,4 +78,16 @@ class User extends Authenticatable
     {
         return 'invalid'; 
     }
+    
+    protected static function booted()
+    {
+        static::created(function ($user) {
+            if ($user->is_association) {
+                $user->assignRole('association');
+            } else {
+                $user->assignRole('user');
+            }
+        });
+    }
+    
 }

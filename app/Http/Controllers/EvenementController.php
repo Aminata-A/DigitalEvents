@@ -9,6 +9,7 @@ use App\Models\EvenementUser;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\StoreEvenementRequest;
 use App\Http\Requests\UpdateEvenementRequest;
 
@@ -60,20 +61,34 @@ class EvenementController extends Controller
     }
     
     public function creation(StoreEvenementRequest $request)
-    {
-        $validatedData = $request->validated();
-        
-        if ($request->hasFile('image')) {
-            $image = $request->file('image')->store('images', 'public');
-            $validatedData['image'] = $image;
-        }
-        
-        $validatedData['user_id'] = 1;
-        
-        Evenement::create($validatedData);
-        
-        return redirect()->route('evenement')->with('success', 'Événement créé avec succès!');
+{
+    $validatedData = $request->validated();
+    
+    if ($request->hasFile('image')) {
+        $image = $request->file('image')->store('images', 'public');
+        $validatedData['image'] = $image;
     }
+    
+    $user = Auth::user();
+
+    // Vérifier l'état de validation et le statut du compte de l'utilisateur
+    if ($user->validation_status !== 'valid') {
+        return Redirect::back()->withErrors(['message' => 'Votre compte est en attente de validation par l\'administrateur. Veuillez patienter pour publier un événement.']);
+    }
+
+    if ($user->account_status !== 'activated') {
+        return Redirect::back()->withErrors(['message' => 'Votre compte est actuellement désactivé. Veuillez contacter l\'administrateur pour activer votre compte avant de publier un événement.']);
+    }
+    
+    // Ajouter les valeurs par défaut
+    $validatedData['user_id'] = Auth::id(); // Récupérer l'ID de l'utilisateur connecté
+    $validatedData['validation_status'] = 'valid';
+    $validatedData['account_status'] = 'activated';
+    
+    Evenement::create($validatedData);
+    
+    return redirect()->route('evenement')->with('success', 'Événement créé avec succès!');
+}
     
     public function show(Evenement $evenement)
     {

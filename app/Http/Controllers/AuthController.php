@@ -31,6 +31,7 @@ class AuthController extends Controller
             'password' => Hash::make($validatedData['password']),
             'phone' => $validatedData['phone'],
             'logo' => $validatedData['logo'],
+            'is_association' => false,
         ]);
 
         return redirect()->route('login')->with('success', 'Inscription réussie.');
@@ -100,7 +101,8 @@ class AuthController extends Controller
             'ninea' => $validatedData['ninea'],
             'creation_date' => $validatedData['creation_date'],
             'account_status' => User::getDefaultAccountStatus(),
-            'validation_status' => User::getDefaultValidationStatus()
+            'validation_status' => User::getDefaultValidationStatus(),
+            'is_association' => true,
         ]);
 
         return redirect()->route('login')->with('success', 'Inscription réussie.');
