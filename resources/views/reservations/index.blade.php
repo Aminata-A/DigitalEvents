@@ -3,6 +3,12 @@
 
 @section('content') --}}
 <div class="container">
+    <div class="container">
+        <h1>{{ $evenement->title }}</h1>
+        <p>{{ $evenement->description }}</p>
+    
+
+    </div>
     <h1>Mes Réservations</h1>
 
     @if (session('success'))

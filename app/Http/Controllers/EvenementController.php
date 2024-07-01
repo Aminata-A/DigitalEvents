@@ -33,6 +33,9 @@ class EvenementController extends Controller
                 $query->where('activity_area', $request->activity_area);
             });
         }
+        // Vous pouvez récupérer les informations nécessaires pour le formulaire d'édition
+        $evenements = Evenement::all();
+        $users = User::all();
         
         $evenements = $query->get()->map(function ($evenement) {
             $evenement->remaining_places = $evenement->places - EvenementUser::where('evenement_id', $evenement->id)->count();

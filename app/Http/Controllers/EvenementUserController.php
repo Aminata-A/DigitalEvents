@@ -66,7 +66,7 @@ class EvenementUserController extends Controller
      */
     public function show(EvenementUser $evenementUser)
     {
-        // Affichez les détails de la réservation spécifique si nécessaire
+        return view('reservations.create');
     }
     
     /**
