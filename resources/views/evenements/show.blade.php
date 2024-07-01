@@ -10,7 +10,7 @@
         .banner {
             background-size: cover;
             background-position: center;
-            padding: 50px 0;
+            padding: 70px 0;
             text-align: center;
             margin-bottom: 20px;
             margin-left: 100px;
@@ -20,7 +20,7 @@
         .banner img {
             width: 100%;
             height: auto;
-            max-height: 300px; /* Hauteur maximale ajustable selon vos besoins */
+            max-height: 400px; /* Hauteur maximale ajustable selon vos besoins */
             object-fit: cover;
             border-radius: 10px;
         }
@@ -78,7 +78,7 @@
 
     <!-- Bannière avec image -->
     <div class="banner">
-        <img src="{{ asset('images/Rectangle.png') }}" class="img-fluid rounded-start event-img" alt="Image Événement">
+        <img src="{{ asset('images/Rectangle_6.png') }}" class="img-fluid rounded-start event-img" alt="Image Événement">
 
 
     </div>

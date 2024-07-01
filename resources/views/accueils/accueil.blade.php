@@ -39,7 +39,7 @@
         .event-img {
             height: 300px;
             object-fit: cover;
-            width: 700px;
+            width: 1500px;
 
         }
         .card-event {
@@ -50,6 +50,34 @@
             display: flex;
             flex-wrap: wrap; /* Ajoutez cette ligne si vous voulez permettre aux cartes de passer à la ligne suivante */
             justify-content: space-between; /* Ajoutez de l'espace entre les cartes */
+        }
+
+        .types-section {
+            margin-top: 50px;
+            padding: 50px 0;
+            background-color: #f8f9fa;
+        }
+
+        .types-section .content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .types-section .content .image {
+            flex: 1;
+            padding-right: 20px;
+        }
+
+        .types-section .content .text {
+            flex: 1;
+            padding-left: 20px;
+        }
+
+        .types-section img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -105,7 +133,8 @@
                                     <h5 class="card-title">{{ $evenement->name }}</h5>
                                     <p class="card-text">{{ $evenement->description }}</p>
                                     <p class="card-text"><small class="text-muted">Dernière mise à jour il y a 3 minutes</small></p>
-                                    <a href="#" class="btn btn-primary">Voir plus</a>
+                                    <a href="{{ route('evenements.show', ['id' => $evenement->id]) }}" class="btn btn-primary">voir plus</a>
+
                                 </div>
                             </div>
                         </div>
@@ -115,6 +144,21 @@
         </div>
     </div>
 </div>
+<!-- Nos types d'événements Section -->
+<section class="types-section">
+    <div class="container">
+        <h2 class="text-center">Nos types d'événements</h2>
+        <div class="content">
+            <div class="image">
+                <img src="{{ asset('"images/image_22.png"') }}" alt="Type d'événement">
+            </div>
+            <div class="text">
+                <h3>Type d'événement</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
+            </div>
+        </div>
+    </div>
+</section>
 
     <!-- Bootstrap JavaScript et dépendances -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
