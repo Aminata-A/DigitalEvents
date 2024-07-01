@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\EvenementUser;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
@@ -11,6 +12,13 @@ use App\Http\Controllers\EvenementUserController;
 // Routes publiques (non authentifiées)
 Route::get('/', [EvenementController::class, 'accueil'])->name('accueil');
 Route::get('/evenement', [EvenementController::class, 'evenement'])->name('evenement');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/reservations', [EvenementUserController::class, 'index'])->name('reservations.index');
+    Route::post('/reservations/create', [EvenementUserController::class, 'store'])->name('reservations.store');
+    Route::put('/reservations/{reservation}/update', [EvenementUserController::class, 'update'])->name('reservations.update');
+});
+
 
 // Routes pour la création et gestion des événements
 Route::resource('evenements', EvenementController::class);

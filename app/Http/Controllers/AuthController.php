@@ -31,6 +31,7 @@ class AuthController extends Controller
             'password' => Hash::make($validatedData['password']),
             'phone' => $validatedData['phone'],
             'logo' => $validatedData['logo'],
+            'is_association' => false,
         ]);
 
         return redirect()->route('login')->with('success', 'Inscription réussie.');
@@ -49,16 +50,15 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            // Vérifier le rôle de l'utilisateur
-            // $user = Auth::user();
-            // if ($user->role === 'personnel') {
-            //     // Rediriger l'administrateur vers le tableau de bord administrateur
-            //     return redirect()->intended('/dashboard');
-            // } else {
-            //     // 
-            // }
-            // Rediriger l'utilisateur vers la page d'accueil
-            return redirect()->intended('/');
+            $user = Auth::user();
+            if ($user->hasRole('admin')) {
+                return redirect()->intended('/dashboard');
+            } elseif($user->hasRole('association')) {
+                return redirect()->intended('/evenement');
+            }else {
+                return redirect()->intended('/');
+            }
+            
         }
 
         // Authentification échouée, rediriger avec une erreur
@@ -101,7 +101,8 @@ class AuthController extends Controller
             'ninea' => $validatedData['ninea'],
             'creation_date' => $validatedData['creation_date'],
             'account_status' => User::getDefaultAccountStatus(),
-            'validation_status' => User::getDefaultValidationStatus()
+            'validation_status' => User::getDefaultValidationStatus(),
+            'is_association' => true,
         ]);
 
         return redirect()->route('login')->with('success', 'Inscription réussie.');

@@ -2,70 +2,107 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Evenement;
+use Illuminate\Http\Request;
 use App\Models\EvenementUser;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreEvenementUserRequest;
 use App\Http\Requests\UpdateEvenementUserRequest;
 
 class EvenementUserController extends Controller
 {
     /**
-    * Display a listing of the resource.
-    */
+     * Affiche la liste des réservations.
+     */
+    /**
+     * Affiche les réservations de l'utilisateur connecté.
+     */
     public function index()
     {
-        
-    }
+        $user = Auth::user();
+        $reservations = EvenementUser::where('user_id', $user->id)
+            ->with('evenement')
+            ->get();
 
-    public function accueil(){
-        $reservations = EvenementUser::with(['user', 'evenement'])->get();
-        return view('accueils.accueil', compact('reservations'));
+        return view('reservations.index', compact('reservations'));
     }
     
     /**
-    * Show the form for creating a new resource.
-    */
+     * Affiche le formulaire de création de réservation.
+     */
     public function create()
     {
-        //
+        // Vous pouvez récupérer la liste des événements disponibles pour la réservation
+        $evenements = Evenement::all();
+        // Vous pouvez également récupérer la liste des utilisateurs si nécessaire
+        $users = User::all();
+        return view('reservations.create', compact('evenements', 'users'));
     }
     
     /**
-    * Store a newly created resource in storage.
-    */
-    public function store(StoreEvenementUserRequest $request)
+     * Enregistre une nouvelle réservation.
+     */
+   /**
+     * Crée une réservation pour l'utilisateur connecté.
+     */
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'evenement_id' => 'required|exists:evenements,id',
+        ]);
+
+        $user = Auth::user();
+        EvenementUser::create([
+            'user_id' => $user->id,
+            'evenement_id' => $request->evenement_id,
+        ]);
+
+        return redirect()->route('reservations.index')->with('success', 'Réservation créée avec succès.');
     }
     
     /**
-    * Display the specified resource.
-    */
+     * Affiche les détails d'une réservation spécifique.
+     */
     public function show(EvenementUser $evenementUser)
     {
-        //
+        // Affichez les détails de la réservation spécifique si nécessaire
     }
     
     /**
-    * Show the form for editing the specified resource.
-    */
+     * Affiche le formulaire pour modifier une réservation.
+     */
     public function edit(EvenementUser $evenementUser)
     {
-        //
+        // Vous pouvez récupérer les informations nécessaires pour le formulaire d'édition
+        $evenements = Evenement::all();
+        $users = User::all();
+        return view('reservations.edit', compact('evenementUser', 'evenements', 'users'));
     }
     
     /**
-    * Update the specified resource in storage.
-    */
-    public function update(UpdateEvenementUserRequest $request, EvenementUser $evenementUser)
+     * Met à jour une réservation existante.
+     */
+    public function update(Request $request, EvenementUser $reservation)
     {
-        //
+        $request->validate([
+            'status' => 'required|in:accepted,declined',
+        ]);
+
+        $reservation->update([
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('reservations.index')->with('success', 'Réservation mise à jour avec succès.');
     }
     
     /**
-    * Remove the specified resource from storage.
-    */
+     * Supprime une réservation spécifique.
+     */
     public function destroy(EvenementUser $evenementUser)
     {
-        //
+        $evenementUser->delete();
+        
+        return redirect()->route('accueil')->with('success', 'Réservation supprimée avec succès.');
     }
 }
