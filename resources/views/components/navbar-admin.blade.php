@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
-    <link rel="stylesheet" href="{{ asset('spatie/style/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('admin/style/style.css') }}" />
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -159,6 +159,9 @@ th, td {
             display: flex;
             gap: 3rem
         }
+        .navbar-size li a, .navbar-size {
+            font-size: 16px;
+        }
 
 @media (max-width: 768px) {
             .btn-text {
@@ -241,7 +244,7 @@ th, td {
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav" style="font-size: 20px; font-weight: 500; color: #05243C">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mr-auto navbar-size">
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('dashboard.admin') ? 'active' : '' }}" href="{{ route('dashboard.admin') }}">Tableau de bord</a>
             </li>
@@ -256,9 +259,9 @@ th, td {
             </li>
             
         </ul>
-        <a href=" {{ route("logout") }} "><button class="btn my-2 my-sm-0 btn-header" type="button">Déconnexion</button></a>
+        <a href=" {{ route("logout") }} "><button class="btn my-2 my-sm-0 btn-header navbar-size" type="button">Déconnexion</button></a>
         <a href="{{ route('profil.admin') }}">
-            <span class="navbar-text ml-3" style="color: #FF8200">
+            <span class="navbar-text ml-3 navbar-size" style="color: #FF8200">
                 {{ Auth::user()->name }}
             </span>
         </a>

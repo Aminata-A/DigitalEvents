@@ -37,7 +37,7 @@ Route::group(['prefix' => 'auth'], function () {
 });
 
 // Routes pour la gestion des rôles et des permissions
-Route::resource('roles', RoleController::class)->except(['destroy', 'edit', 'update']);
+Route::resource('roles', RoleController::class)->except(['destroy', 'edit', 'update'])->middleware('auth');
 Route::delete('roles/{id}', [RoleController::class, 'destroy'])->name('roles.destroy')->middleware('permission:delete role');
 Route::get('roles/{role}/edit', [RoleController::class, 'edit'])->name('roles.edit')->middleware('permission:update role');
 Route::put('roles/{role}', [RoleController::class, 'update'])->name('roles.update')->middleware('permission:update role');
