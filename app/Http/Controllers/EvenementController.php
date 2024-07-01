@@ -20,77 +20,102 @@ class EvenementController extends Controller
             $evenement->remaining_places = $evenement->places - EvenementUser::where('evenement_id', $evenement->id)->count();
             return $evenement;
         });
-        
+
         return view('evenements.index', compact('evenements'));
     }
-    
+    public function accueil()
+    {
+        $evenements = Evenement::all();
+
+        return view('accueils.accueil', compact('evenements'));
+    }
+
     public function evenement(Request $request)
     {
         $query = Evenement::with(['user']);
-        
+
         if ($request->has('activity_area')) {
             $query->whereHas('user', function ($query) use ($request) {
                 $query->where('activity_area', $request->activity_area);
             });
         }
-        
+
         $evenements = $query->get()->map(function ($evenement) {
             $evenement->remaining_places = $evenement->places - EvenementUser::where('evenement_id', $evenement->id)->count();
             return $evenement;
         });
-        
+
         $activity_areas = User::pluck('activity_area')->unique();
-        
+
         return view('evenements.index', compact('evenements', 'activity_areas'));
     }
-    
+
+
     // Méthode pour afficher les événements de l'utilisateur connecté
     public function mesEvenements()
     {
         $user = Auth::user();
         // Assurez-vous que 'user' est correctement chargé avec 'with()'
         $evenements = Evenement::where('user_id', $user->id)->with('user')->get();
-    
+
         return view('evenements.mes-evenements', compact('evenements'));
     }
-    
+
     public function create()
     {
         return view('evenements.create');
     }
-    
+
     public function creation(StoreEvenementRequest $request)
     {
         $validatedData = $request->validated();
-        
+
         if ($request->hasFile('image')) {
             $image = $request->file('image')->store('images', 'public');
             $validatedData['image'] = $image;
         }
-        
+
         $validatedData['user_id'] = 1;
-        
+
         Evenement::create($validatedData);
-        
+
         return redirect()->route('evenement')->with('success', 'Événement créé avec succès!');
     }
-    
-    public function show(Evenement $evenement)
+
+    public function show($id)
     {
-        //
+        // Trouver l'événement correspondant à l'ID
+        $evenement = Evenement::with('users')->find($id);
+
+        // Vérifier si l'événement existe
+        if (!$evenement) {
+            abort(404); // Ou gérer le cas de non trouvé d'une autre manière
+        }
+
+        // Récupérer les réservations de l'événement à travers les utilisateurs
+        $reservations = $evenement->users->flatMap->reservations;
+
+        // Vérifier si des réservations existent
+        if ($reservations) {
+            // Passer les données à la vue pour l'affichage
+            return view('Evenements.show', compact('evenement', 'reservations'));
+        } else {
+            // Si aucune réservation n'existe, passer un tableau vide
+            return view('Evenements.show', compact('evenement', 'reservations'));
+        }
     }
-    
+
     public function edit(Evenement $evenement)
     {
         return view('evenements.update', compact('evenement'));
     }
-    
+
     public function modifier(UpdateEvenementRequest $request, Evenement $evenement)
     {
         $validatedData = $request->validated();
-        
+
         $evenement = Evenement::findOrFail(1);
-        
+
         $evenement->name = $request->input('name');
         $evenement->event_start_date = $request->input('event_start_date');
         $evenement->event_end_date = $request->input('event_end_date');
@@ -98,7 +123,7 @@ class EvenementController extends Controller
         $evenement->location = $request->input('location');
         $evenement->places = $request->input('places');
         $evenement->description = $request->input('description');
-        
+
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $filename = time() . '_' . $image->getClientOriginalName();
@@ -106,12 +131,12 @@ class EvenementController extends Controller
             $image->move($path, $filename);
             $evenement->image = 'images/' . $filename;
         }
-        
+
         $evenement->save();
-        
-        return redirect()->route('evenement')->with('success', 'Événement modifié avec succès'); 
+
+        return redirect()->route('evenement')->with('success', 'Événement modifié avec succès');
     }
-    
+
     public function update(UpdateEvenementRequest $request, Evenement $evenement)
     {
         //
@@ -121,10 +146,10 @@ class EvenementController extends Controller
         if ($evenement->image) {
             Storage::disk('public')->delete($evenement->image);
         }
-        
+
         // Supprimer l'événement de la base de données
         $evenement->delete();
-        
+
         return redirect()->route('evenement')->with('success', 'Événement supprimé avec succès');
     }
 }

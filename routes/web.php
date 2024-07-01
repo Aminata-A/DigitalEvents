@@ -18,6 +18,8 @@ Route::get('/creation', [EvenementController::class, 'create'])->name('creation'
 Route::post('/creation', [EvenementController::class, 'creation'])->name('creation.store');
 Route::put('/modifier/{id}', [EvenementController::class, 'modifier'])->name('modifier');
 Route::delete('/supprimer/{id}', [EvenementController::class, 'supprimer'])->name('supprimer');
+Route::get('/evenements/{id}', 'EvenementController@show')->name('evenements.show');
+
 Route::get('/mes-evenements', [EvenementController::class, 'mesEvenements'])->name('mes-evenements');
 
 // Routes pour les utilisateurs d'événements

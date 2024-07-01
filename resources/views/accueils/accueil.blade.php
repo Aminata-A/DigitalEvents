@@ -1,166 +1,123 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <title>Evenements</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil - DigitalEvents</title>
+    <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
     <style>
-        body {
-            width: 100%;
-            overflow-x: hidden;
+        .navbar-brand {
+            font-weight: bold;
+            color: #333; /* Couleur du texte du logo */
         }
-        .banniere {
-            width: 100%;
-            height: 70vh;
-            margin: 0 auto;
-            background: #FF8200;
-            border-radius: 20px;
-            position: relative;
+        .banner {
+            background-image: url('{{ asset('img/vert_minimaliste_evenement_printemps_banniere_1.png') }}'); /* Chemin vers votre image de bannière */
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0;
             text-align: center;
-            padding: 20px;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            color: #fff; /* Couleur du texte sur l'image */
         }
-        .banniere img {
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 50%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.5;
-            border-top-right-radius: 20px;
-            border-bottom-right-radius: 20px;
-        }
-        .banniere div{
-            z-index: 1;
-        }        
-        .banniere a{
-            color: #FF8200
-        }        
-        .banniere a:hover{
-            color: #FF8200
-        }
-        .banniere h1 {
-            font-size: 45px;
-        }
-        .card {
-            height: 300px;
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-        .card:hover {
-            transform: translateY(-10px);
-        }
-        .card-img-top {
-            height: 150px;
-            object-fit: cover;
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
-        }
-        .card-body {
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .card-title {
-            font-size: 20px;
+        .banner h1 {
+            font-size: 48px;
             font-weight: bold;
         }
-        .card-text {
-            flex-grow: 1;
-            margin-bottom: 15px;
+        .banner p {
+            font-size: 24px;
         }
-        .card-footer {
-            background-color: #FFF3E6;
-            border-top: 1px solid rgba(0,0,0,0.125);
-            border-bottom-left-radius: 15px;
-            border-bottom-right-radius: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .events {
+            padding: 40px 0;
         }
-        .btn-details {
-            background-color: #FF8200;
-            border: none;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 15px;
-        }
-        .btn-details:disabled {
-            background-color: grey;
-        }
-        .badge-places {
-            background-color: #FF8200;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 15px;
-        }
-        .filter-sidebar {
-            position: sticky;
-            top: 20px;
+        .events h2 {
+            font-size: 24px;
+            color: #333;
+            font-weight: bold;
             margin-bottom: 20px;
-            padding: 10px;
-            background-color: #f8f9fa;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        @media (min-width: 768px) { 
-            .card-columns {
-                column-count: 3;
-            }
+        .event-img {
+            height: 300px;
+            object-fit: cover;
+            width: 700px;
+
+        }
+        .card-event {
+            flex: 1 0 30%;
+            margin: 10px;
+        }
+        .events .cards-container {
+            display: flex;
+            flex-wrap: wrap; /* Ajoutez cette ligne si vous voulez permettre aux cartes de passer à la ligne suivante */
+            justify-content: space-between; /* Ajoutez de l'espace entre les cartes */
         }
     </style>
 </head>
 <body>
-    <div class="container mt-4">
-        <div class="banniere">
-            <img src="https://img.freepik.com/vecteurs-libre/modele-sans-couture-lignes-organiques-irregulieres-orange_1409-4190.jpg?t=st=1719417420~exp=1719421020~hmac=e0da1aea7e251917a9394925bb9a5f1211ffe8353400c44f56ff1a9f0c86ebf8&w=826" alt="Banner Image">
-            <div>
-                <h1>Nos événements</h1>
-                <a href="#" class="btn btn-light rounded-pill px-3">Bouton</a>
-                <a href="#" class="btn btn-light rounded-pill px-3">Bouton</a>
+
+    <!-- Navbar -->y
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+                    <a class="nav-link" href="#">Événements</a>
+                    <a class="nav-link" href="#">Réservations</a>
+                </div>
             </div>
         </div>
-        <div class="row mt-4">
-            <div class="col-md-3">
-                <div class="filter-sidebar">
-                    <h5>Filtrer par activité</h5>
-                    <form method="GET" action="{{ route('evenement') }}">
-                        <div class="form-group">
-                            <label for="activity_area">Sélectionner une activité</label>
-                            <select class="form-control" id="activity_area" name="activity_area">
-                                @foreach($activity_areas as $activity_area)
-                                <option value="{{ $activity_area }}">{{ $activity_area }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary rounded-pill px-3 mt-2">Filtrer</button>
-                    </form>
-                </div>
-            </div>
-            <div class="col-md-9">
-                <div class="card-columns">
-                    @foreach($evenements as $evenement)
-                    <div class="card">
-                        <img class="card-img-top" src="{{ asset('storage/' . $evenement->image) }}" alt="{{ $evenement->name }}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $evenement->name }}</h5>
-                            <p class="card-text">{{ $evenement->description }}</p>
-                        </div>
-                        <div class="card-footer">
-                            <span class="badge-places">Places restantes: {{ $evenement->remaining_places }}</span>
-                            <a href="#" class="btn btn-details" @if($evenement->remaining_places == 0) disabled @endif>Réserver</a>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-            </div>
+    </nav>
+
+    <!-- Banner -->
+    <div class="banner">
+        <div class="container-fluid">
+            <img src="{{ asset('images/Vert_Minimaliste.png') }}" alt="Bannière" class="img-fluid">
         </div>
     </div>
+
+    <!-- À propos de nous -->
+    <div class="about-us">
+        <div class="container">
+            <h2>À propos de nous</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus fermentum massa eu dolor varius, et semper lectus aliquam. Nulla tincidunt mauris sit amet erat pretium, sit amet lobortis urna tincidunt. Nulla facilisi.</p>
+            <p>Integer volutpat dignissim lectus, ac dapibus lorem euismod ut. Vestibulum eu magna ac velit condimentum posuere. Vivamus sagittis nisi non risus commodo, a consectetur felis malesuada.</p>
+        </div>
+    </div>
+
+   <!-- Événements à venir -->
+<div class="events">
+    <div class="container">
+        <h2>Événements à venir</h2>
+        <div class="cards-container">
+            @foreach ($evenements as $evenement)
+            <div class="card-event">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="{{ asset('images/Rectangle.png') }}" class="img-fluid rounded-start event-img" alt="Image Événement">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Titre de l'événement 1</h5>
+                                <p class="card-text">Description de l'événement 1.</p>
+                                <p class="card-text"><small class="text-muted">Dernière mise à jour il y a 3 minutes</small></p>
+                                <a href="#" class="btn btn-primary">Voir plus</a>
+                            </div>
+                        </div>
+            @endforeach
+        </div>
+    </div>
+</div>
+
+
+    <!-- Bootstrap JavaScript et dépendances -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>
