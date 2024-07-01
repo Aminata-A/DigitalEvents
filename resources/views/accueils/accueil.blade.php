@@ -88,31 +88,33 @@
         </div>
     </div>
 
-   <!-- Événements à venir -->
+  <!-- Événements à venir -->
 <div class="events">
     <div class="container">
         <h2>Événements à venir</h2>
         <div class="cards-container">
             @foreach ($evenements as $evenement)
-            <div class="card-event">
-                <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="{{ asset('images/Rectangle.png') }}" class="img-fluid rounded-start event-img" alt="Image Événement">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Titre de l'événement 1</h5>
-                                <p class="card-text">Description de l'événement 1.</p>
-                                <p class="card-text"><small class="text-muted">Dernière mise à jour il y a 3 minutes</small></p>
-                                <a href="#" class="btn btn-primary">Voir plus</a>
+                <div class="card-event">
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="{{ asset('images/Rectangle.png') }}" class="img-fluid rounded-start event-img" alt="Image Événement">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $evenement->name }}</h5>
+                                    <p class="card-text">{{ $evenement->description }}</p>
+                                    <p class="card-text"><small class="text-muted">Dernière mise à jour il y a 3 minutes</small></p>
+                                    <a href="#" class="btn btn-primary">Voir plus</a>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                </div>
             @endforeach
         </div>
     </div>
 </div>
-
 
     <!-- Bootstrap JavaScript et dépendances -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
