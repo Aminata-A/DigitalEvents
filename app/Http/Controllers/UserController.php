@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Evenement;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -17,14 +18,24 @@ class UserController extends Controller
     }
 
     public function profilAdmin()
-    {
-        return view('users.profil');
-    }
+{
+    $user = auth()->user(); // Récupère l'utilisateur actuellement connecté
+    return view('users.profil', compact('user'));
+}
 
-    public function dashboardAdmin()
-    {
-        return view('users.dashboard');
-    }
+
+public function dashboardAdmin()
+{
+    // Récupérer les utilisateurs en fonction de leurs rôles et états de validation
+    $validatedAssociationsCount = User::role('association')->where('validation_status', 'valid')->count();
+    $pendingAssociationsCount = User::role('association')->where('validation_status', 'invalid')->count();
+    $usersCount = User::role('user')->count(); // Pour les utilisateurs ayant le rôle 'user'
+    $eventsCount = Evenement::count(); // Pour récupérer le nombre total d'événements
+
+    // Passer les données à la vue
+    return view('users.dashboard', compact('validatedAssociationsCount', 'pendingAssociationsCount', 'usersCount', 'eventsCount'));
+}
+
 
     public function show($user)
     {

@@ -89,7 +89,7 @@
                                     </div>
                                 @enderror
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="activity_area" class="form-label">Secteur d'activité</label>
                                 <input type="text" class="form-control @error('activity_area') is-invalid @enderror" id="activity_area" name="activity_area" placeholder="secteur d'activité" value="{{ old('activity_area') }}">
                                 @error('activity_area')
@@ -97,7 +97,30 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
+                            </div> --}}
+                            <div class="form-group">
+                                <label for="activity_area" class="form-label">Secteur d'activité</label>
+                                <select class="form-control @error('activity_area') is-invalid @enderror" id="activity_area" name="activity_area" aria-placeholder="Sélectionner un secteur d'activité">
+                                    <option value="Événements corporatifs" {{ old('activity_area') == 'Événements corporatifs' ? 'selected' : '' }}>Événements corporatifs</option>
+                                    <option value="Événements sportifs" {{ old('activity_area') == 'Événements sportifs' ? 'selected' : '' }}>Événements sportifs</option>
+                                    <option value="Événements culturels" {{ old('activity_area') == 'Événements culturels' ? 'selected' : '' }}>Événements culturels</option>
+                                    <option value="Anniversaires" {{ old('activity_area') == 'Anniversaires' ? 'selected' : '' }}>Anniversaires</option>
+                                    <option value="Salons et expositions" {{ old('activity_area') == 'Salons et expositions' ? 'selected' : '' }}>Salons et expositions</option>
+                                    <option value="Concerts et spectacles" {{ old('activity_area') == 'Concerts et spectacles' ? 'selected' : '' }}>Concerts et spectacles</option>
+                                    <option value="Conférences et séminaires" {{ old('activity_area') == 'Conférences et séminaires' ? 'selected' : '' }}>Conférences et séminaires</option>
+                                    <option value="Festivals" {{ old('activity_area') == 'Festivals' ? 'selected' : '' }}>Festivals</option>
+                                    <option value="Événements communautaires" {{ old('activity_area') == 'Événements communautaires' ? 'selected' : '' }}>Événements communautaires</option>
+                                    <option value="Autres" {{ old('activity_area') == 'Autres' ? 'selected' : '' }}>Autres</option>
+                                    <option value="Mariages" {{ old('activity_area') == 'Mariages' ? 'selected' : '' }}>Mariages</option>
+                                </select>
+                                @error('activity_area')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
+                            
+                            
                             <div class="form-group">
                                 <label for="phone" class="form-label">Téléphone</label>
                                 <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" placeholder="Téléphone" value="{{ old('phone') }}">
@@ -146,7 +169,7 @@
                         </div>
                         <div class="form-group">
                             <label for="logo" class="form-label">Logo</label>
-                            <input type="file" class="form-control @error('logo') is-invalid @enderror" id="logo" name="logo">
+                            <input type="file" class="form-control1 @error('logo') is-invalid @enderror" id="logo" name="logo">
                             @error('logo')
                                 <div class="invalid-feedback">
                                     {{ $message }}

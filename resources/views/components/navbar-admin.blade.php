@@ -256,7 +256,7 @@ th, td {
             </li>
             
         </ul>
-        <button class="btn my-2 my-sm-0 btn-header" type="button">Déconnexion</button>
+        <a href=" {{ route("logout") }} "><button class="btn my-2 my-sm-0 btn-header" type="button">Déconnexion</button></a>
         <a href="{{ route('profil.admin') }}">
             <span class="navbar-text ml-3" style="color: #FF8200">
                 {{ Auth::user()->name }}
