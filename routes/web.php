@@ -10,7 +10,7 @@ use App\Http\Controllers\EvenementUserController;
 
 // Routes publiques (non authentifiées)
 Route::get('/', [EvenementController::class, 'accueil'])->name('accueil');
-Route::get('/evenement', [EvenementController::class, 'evenement'])->name('evenement');
+
 
 // Routes pour la création et gestion des événements
 Route::resource('evenements', EvenementController::class);
@@ -36,26 +36,49 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-// Routes pour la gestion des rôles et des permissions
-Route::resource('roles', RoleController::class)->except(['destroy', 'edit', 'update'])->middleware('auth');
-Route::delete('roles/{id}', [RoleController::class, 'destroy'])->name('roles.destroy')->middleware('permission:delete role');
-Route::get('roles/{role}/edit', [RoleController::class, 'edit'])->name('roles.edit')->middleware('permission:update role');
-Route::put('roles/{role}', [RoleController::class, 'update'])->name('roles.update')->middleware('permission:update role');
 
-Route::resource('permissions', PermissionController::class)->except(['destroy', 'edit', 'update']);
-Route::delete('permissions/{id}', [PermissionController::class, 'destroy'])->name('permissions.destroy')->middleware('permission:delete permission');
-Route::get('permissions/{permission}/edit', [PermissionController::class, 'edit'])->name('permissions.edit')->middleware('permission:update permission');
-Route::put('permissions/{permission}', [PermissionController::class, 'update'])->name('permissions.update')->middleware('permission:update permission');
 
-// Routes pour l'administration des utilisateurs
-Route::resource('users', UserController::class)->except(['create', 'store']);
-Route::get('/dashboard', [UserController::class, 'dashboardAdmin'])->name('dashboard.admin');
-Route::get('/profil-admin', [UserController::class, 'profilAdmin'])->name('profil.admin');
-Route::post('/user/{id}/validate', [UserController::class, 'validateAccount'])->name('user.validate');
-Route::post('/user/{id}/invalidate', [UserController::class, 'invalidateAccount'])->name('user.invalidate');
-Route::post('/user/{id}/activate', [UserController::class, 'activateAccount'])->name('user.activate');
-Route::post('/user/{id}/deactivate', [UserController::class, 'deactivateAccount'])->name('user.deactivate');
+Route::middleware(['auth'])->group(function () {
 
-// Routes spécifiques pour les permissions associées aux rôles
-Route::get('roles/{id}/give-permissions', [RoleController::class, 'addPermissionToRole'])->name('role.permissions')->middleware('permission:add permission');
-Route::put('roles/{id}/give-permissions', [RoleController::class, 'givePermissionToRole'])->name('role.permissions.update')->middleware('permission:add permission');
+    Route::controller(RoleController::class)->group(function () {
+        // Routes de ressource sans destroy, edit, update
+        Route::resource('roles', RoleController::class)->except(['destroy', 'edit', 'update']);
+
+        // Route pour la suppression des rôles avec middleware
+        Route::delete('roles/{id}', 'destroy')->name('roles.destroy')->middleware('permission:delete role');
+
+        // Routes pour l'édition et la mise à jour des rôles avec middleware
+        Route::get('roles/{role}/edit', 'edit')->name('roles.edit')->middleware('permission:update role');
+        Route::put('roles/{role}', 'update')->name('roles.update')->middleware('permission:update role');
+
+        // Routes spécifiques pour les permissions associées aux rôles avec middleware
+        Route::get('roles/{id}/give-permissions', 'addPermissionToRole')->name('role.permissions')->middleware('permission:add permission');
+        Route::put('roles/{id}/give-permissions', 'givePermissionToRole')->name('role.permissions.update')->middleware('permission:add permission');
+    });
+
+
+    Route::controller(PermissionController::class)->group(function () {
+        // Routes de ressource sans destroy, edit, update
+        Route::resource('permissions', PermissionController::class)->except(['destroy', 'edit', 'update']);
+
+        // Route pour la suppression des permissions avec middleware
+        Route::delete('permissions/{id}', 'destroy')->name('permissions.destroy')->middleware('permission:delete permission');
+
+        // Routes pour l'édition et la mise à jour des permissions avec middleware
+        Route::get('permissions/{permission}/edit', 'edit')->name('permissions.edit')->middleware('permission:update permission');
+        Route::put('permissions/{permission}', 'update')->name('permissions.update')->middleware('permission:update permission');
+    });
+
+    Route::controller(UserController::class)->group(function () {
+        // Routes de ressource sans create et store
+        Route::resource('users', UserController::class)->except(['create', 'store']);
+
+        // Routes supplémentaires pour l'administration des utilisateurs
+        Route::get('/dashboard', 'dashboardAdmin')->name('dashboard.admin');
+        Route::get('/profil-admin', 'profilAdmin')->name('profil.admin');
+        Route::post('/user/{id}/validate', 'validateAccount')->name('user.validate');
+        Route::post('/user/{id}/invalidate', 'invalidateAccount')->name('user.invalidate');
+        Route::post('/user/{id}/activate', 'activateAccount')->name('user.activate');
+        Route::post('/user/{id}/deactivate', 'deactivateAccount')->name('user.deactivate');
+    });
+});
