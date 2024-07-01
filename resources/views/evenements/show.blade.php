@@ -78,7 +78,7 @@
 
     <!-- Bannière avec image -->
     <div class="banner">
-        <img src="{{ asset('image/Rectangle.png') }}" class="img-fluid rounded-start event-img" alt="Image Événement">
+        <img src="{{ asset('images/Rectangle.png') }}" class="img-fluid rounded-start event-img" alt="Image Événement">
 
 
     </div>

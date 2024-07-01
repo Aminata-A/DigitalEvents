@@ -13,14 +13,14 @@ class EvenementUserController extends Controller
     */
     public function index()
     {
-        
+
     }
 
     public function accueil(){
         $reservations = EvenementUser::with(['user', 'evenement'])->get();
         return view('accueils.accueil', compact('reservations'));
     }
-    
+
     /**
     * Show the form for creating a new resource.
     */
@@ -28,7 +28,7 @@ class EvenementUserController extends Controller
     {
         //
     }
-    
+
     /**
     * Store a newly created resource in storage.
     */
@@ -36,15 +36,33 @@ class EvenementUserController extends Controller
     {
         //
     }
-    
+
     /**
     * Display the specified resource.
     */
-    public function show(EvenementUser $evenementUser)
+    public function show($id)
     {
-        //
+        // Trouver l'événement correspondant à l'ID
+        $evenement = Evenement::with('users')->find($id);
+
+        // Vérifier si l'événement existe
+        if (!$evenement) {
+            abort(404); // Ou gérer le cas de non trouvé d'une autre manière
+        }
+
+        // Récupérer les réservations de l'événement à travers les utilisateurs
+        $reservations = $evenement->users->flatMap->reservations;
+
+        // Vérifier si des réservations existent
+        if ($reservations) {
+            // Passer les données à la vue pour l'affichage
+            return view('Evenements.show', compact('evenement', 'reservations'));
+        } else {
+            // Si aucune réservation n'existe, passer un tableau vide
+            return view('Evenements.show', compact('evenement', 'reservations'));
+        }
     }
-    
+
     /**
     * Show the form for editing the specified resource.
     */
@@ -52,7 +70,7 @@ class EvenementUserController extends Controller
     {
         //
     }
-    
+
     /**
     * Update the specified resource in storage.
     */
@@ -60,7 +78,7 @@ class EvenementUserController extends Controller
     {
         //
     }
-    
+
     /**
     * Remove the specified resource from storage.
     */

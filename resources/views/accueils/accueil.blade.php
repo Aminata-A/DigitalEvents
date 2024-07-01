@@ -98,7 +98,7 @@
                     <div class="card mb-3" style="max-width: 540px;">
                         <div class="row g-0">
                             <div class="col-md-4">
-                                <img src="{{ asset('images/Rectangle.png') }}" class="img-fluid rounded-start event-img" alt="Image Événement">
+                                <img src="{{ asset('images/Rectangle_6.png') }}" class="img-fluid rounded-start event-img" alt="Image Événement">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
