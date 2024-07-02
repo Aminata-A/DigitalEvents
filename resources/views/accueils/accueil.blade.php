@@ -45,11 +45,13 @@
         .card-event {
             flex: 1 0 30%;
             margin: 10px;
+
         }
         .events .cards-container {
             display: flex;
             flex-wrap: wrap; /* Ajoutez cette ligne si vous voulez permettre aux cartes de passer à la ligne suivante */
             justify-content: space-between; /* Ajoutez de l'espace entre les cartes */
+            
         }
 
         .types-section {
@@ -153,7 +155,30 @@
                 <img src="{{ asset('"images/image_22.png"') }}" alt="Type d'événement">
                         </div>
             <div class="text">
-                <h3>Type d'événement</h3>
+                <h3>Evénements corporatifs</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="content">
+            <div class="text">
+                <h3>Evénements sportifs</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
+            </div>
+            <div class="image">
+                <img src="{{ asset('images/image_23.png') }}" class="img-fluid rounded-start event-img" alt="Type d'événement">
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="content">
+            <div class="image">
+                <img src="{{ asset('images/image_24.png') }}" class="img-fluid rounded-start event-img" alt="Type d'événement">
+            </div>
+            <div class="text">
+                <h3>Evénements salons et expositions</h3>
+
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
             </div>
         </div>
@@ -191,6 +216,7 @@
                 </nav>
             </div>
         </div>
+
     </div>
 </section>
 
