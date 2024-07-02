@@ -18,6 +18,7 @@
                         Événement
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{{ route('evenement') }}">Événement</a>
                         <a class="dropdown-item" href="{{ route('creation') }}">Création d'Événement</a>
                         <a class="dropdown-item" href="{{ route('mes-evenements') }}">Mes Événements</a>
                     </div>

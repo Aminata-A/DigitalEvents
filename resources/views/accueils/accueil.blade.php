@@ -74,7 +74,6 @@
             padding-left: 20px;
         }
 
-
         .types-section img {
             width: 100%;
             height: auto;
@@ -151,69 +150,11 @@
         <h2 class="text-center">Nos types d'événements</h2>
         <div class="content">
             <div class="image">
-                <img src="{{ asset('images/image_22.png') }}" class="img-fluid rounded-start event-img" alt="Type d'événement">
-            </div>
+                <img src="{{ asset('"images/image_22.png"') }}" alt="Type d'événement">
+                        </div>
             <div class="text">
-                <h3>Evénements corporatifs</h3>
+                <h3>Type d'événement</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-
-        <div class="content">
-
-            <div class="text">
-                <h3>EvénementS sportifs</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
-            </div>
-            <div class="image">
-                <img src="{{ asset('images/image_23.png') }}" class="img-fluid rounded-start event-img" alt="Type d'événement">
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="content">
-            <div class="image">
-                <img src="{{ asset('images/image_24.png') }}" class="img-fluid rounded-start event-img" alt="Type d'événement">
-            </div>
-            <div class="text">
-                <h3>Evénements salons et expositions</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Nos partenaires -->
-<section class="partners-section">
-    <div class="container">
-        <h2>Nos Partenaires</h2>
-        <div class="row">
-            <div class="col-md-3 col-sm-6">
-                <img src="{{ asset('images/partner1.png') }}" class="img-fluid partner-logo" alt="Partenaire 1">
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <img src="{{ asset('images/partner2.png') }}" class="img-fluid partner-logo" alt="Partenaire 2">
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <img src="{{ asset('images/partner3.png') }}" class="img-fluid partner-logo" alt="Partenaire 3">
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <img src="{{ asset('images/partner4.png') }}" class="img-fluid partner-logo" alt="Partenaire 4">
-            </div>
-        </div>
-        <!-- Pagination -->
-        <div class="row mt-4">
-            <div class="col-12">
-                <nav aria-label="Page navigation">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item"><a class="page-link" href="#">Précédent</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Suivant</a></li>
-                    </ul>
-                </nav>
             </div>
         </div>
     </div>
