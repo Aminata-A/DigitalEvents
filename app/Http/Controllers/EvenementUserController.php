@@ -125,4 +125,22 @@ class EvenementUserController extends Controller
         
         return redirect()->route('accueil')->with('success', 'Réservation supprimée avec succès.');
     }
+
+    public function showAllReservations($id)
+{
+    // Trouver l'événement correspondant à l'ID
+    $evenement = Evenement::find($id);
+
+    // Vérifier si l'événement existe
+    if (!$evenement) {
+        abort(404); // Ou gérer le cas de non trouvé d'une autre manière
+    }
+
+    // Récupérer tous les utilisateurs de l'événement avec statut 'accepted'
+    $reservations = $evenement->users()->wherePivot('status', 'accepted')->get();
+
+    // Passer les données à la vue pour l'affichage
+    return view('evenements.liste', compact('evenement', 'reservations'));
+}
+
 }

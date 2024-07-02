@@ -35,6 +35,7 @@ Route::put('/modifier/{id}', [EvenementController::class, 'modifier'])->name('mo
 Route::delete('/supprimer/{id}', [EvenementController::class, 'supprimer'])->name('supprimer');
 Route::get('/evenements/{id}', [EvenementController::class, 'show'])->name('evenements.show');
 Route::put('/reservations/decline/{id}', [EvenementController::class, 'decline'])->name('reservations.decline');
+Route::get('evenements/{id}/reservations', [EvenementUserController::class, 'showAllReservations'])->name('evenements.reservations');
 
 
 Route::get('/mes-evenements', [EvenementController::class, 'mesEvenements'])->name('mes-evenements');

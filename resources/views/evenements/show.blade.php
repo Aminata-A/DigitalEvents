@@ -107,7 +107,8 @@
                         @endforeach
                     </tbody>
                 </table>
-                <a href="#" class="btn btn-lien">Voir tous</a>
+                <a href="{{ route('evenements.reservations', $evenement->id) }}" class="btn btn-lien">Voir tous</a>
+
             </div>
         </div>
     </div>
