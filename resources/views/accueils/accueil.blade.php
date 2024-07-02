@@ -48,6 +48,12 @@
 
         }
 
+        .card-text.description {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+    }
+
         .card {
             width: 100%;
             height: 90%;
@@ -121,12 +127,19 @@
     <div class="about-us">
         <div class="container">
             <h2>À propos de nous</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus fermentum massa eu dolor varius, et semper lectus aliquam. Nulla tincidunt mauris sit amet erat pretium, sit amet lobortis urna tincidunt. Nulla facilisi.</p>
-            <p>Integer volutpat dignissim lectus, ac dapibus lorem euismod ut. Vestibulum eu magna ac velit condimentum posuere. Vivamus sagittis nisi non risus commodo, a consectetur felis malesuada.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus fermentum massa eu dolor varius, et semper lectus aliquam. Nulla tincidunt mauris sit amet erat pretium, sit amet lobortis urna tincidunt. Nulla facilisi.
+            Integer volutpat dignissim lectus, ac dapibus lorem euismod ut. Vestibulum eu magna ac velit condimentum posuere. Vivamus sagittis nisi non risus commodo, a consectetur felis malesuada.
+            Integer volutpat dignissim lectus, ac dapibus lorem euismod ut. Vestibulum eu magna ac velit condimentum posuere. Vivamus sagittis nisi non risus commodo, a consectetur felis malesuada
+            Integer volutpat dignissim lectus, ac dapibus lorem euismod ut. Vestibulum eu magna ac velit condimentum posuere. Vivamus sagittis nisi non risus commodo, a consectetur felis malesuada
+            Integer volutpat dignissim lectus, ac dapibus lorem euismod ut. Vestibulum eu magna ac velit condimentum posuere. Vivamus sagittis nisi non risus commodo, a consectetur felis malesuada
+        </p>
         </div>
     </div>
+    @php
+    use Illuminate\Support\Str;
+    @endphp
 
-  <!-- Événements à venir -->
+ <!-- Événements à venir -->
 <div class="events">
     <div class="container">
         <h2>Événements à venir</h2>
@@ -141,8 +154,11 @@
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $evenement->name }}</h5>
-                                    <p class="card-text">{{ $evenement->description }}Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus fermentum massa eu dolor varius, et semper lectus aliquam. Nulla tincidunt mauris sit amet erat pretium, sit amet lobortis urna tincidunt. Nulla facilisi.
+                                    <p class="card-text description">{{ $evenement->description }}
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus fermentum massa eu dolor varius, et semper lectus aliquam. Nulla tincidunt mauris sit amet erat pretium, sit amet lobortis urna tincidunt. Nulla facilisi.
+                                        Integer volutpat dignissim lectus, ac dapibus lorem euismod ut. Vestibulum eu magna ac velit condimentum posuere. Vivamus sagittis nisi non risus commodo, a consectetur felis malesuada.
+                                        Integer volutpat dignissim lectus, ac dapibus lorem euismod ut. Vestibulum eu magna ac velit condimentum posuere. Vivamus sagittis nisi non risus commodo, a consectetur felis malesuada
+                                        Integer volutpat dignissim lectus, ac dapibus lorem euismod ut.
                                     </p>
                                     <p class="card-text"><small class="text-muted">Dernière mise à jour il y a 3 minutes</small></p>
                                     <a href="{{ route('evenements.show', ['id' => $evenement->id]) }}" class="btn btn-primary">voir plus</a>
@@ -154,6 +170,8 @@
             @endforeach
         </div>
     </div>
+</div>
+
 </div>
 <!-- Nos types d'événements Section -->
 <section class="types-section">
