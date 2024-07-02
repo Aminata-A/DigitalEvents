@@ -33,7 +33,7 @@
                                     <p class="card-text">{{ $evenement->description }}</p>
                                     <div class="d-flex justify-content-between">
                                         <button class="badge orange">{{ $evenement->places }} places</button>
-                                        <form action="{{ route('supprimer-evenement', $evenement->id) }}" method="POST">
+                                        <form action="{{ route('supprimer', $evenement->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger">Supprimer</button>
