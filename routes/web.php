@@ -10,7 +10,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\EvenementUserController;
 
 // Routes publiques (non authentifiées)
-// Route::get('/', [EvenementController::class, 'accueil'])->name('accueil');
+Route::get('/', [EvenementController::class, 'accueil'])->name('accueil');
 Route::get('/evenement', [EvenementController::class, 'evenement'])->name('evenement');
 Route::get('/evenement-detail', [EvenementController::class, 'evenementDetail'])->name('evenement-detail');
 
@@ -30,6 +30,8 @@ Route::get('/mes-evenements', [EvenementController::class, 'mesEvenements'])->na
 Route::resource('evenements', EvenementController::class);
 Route::put('/modifier/{id}', [EvenementController::class, 'modifier'])->name('modifier');
 Route::delete('/supprimer/{id}', [EvenementController::class, 'supprimer'])->name('supprimer');
+Route::get('/evenements/{id}', [EvenementController::class, 'show'])->name('evenements.show');
+
 Route::get('/mes-evenements', [EvenementController::class, 'mesEvenements'])->name('mes-evenements');
 
 // Routes pour les utilisateurs d'événements

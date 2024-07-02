@@ -25,9 +25,10 @@ class EvenementUserController extends Controller
             ->with('evenement')
             ->get();
 
+
         return view('reservations.index', compact('reservations'));
     }
-    
+
     /**
      * Affiche le formulaire de création de réservation.
      */
@@ -39,7 +40,7 @@ class EvenementUserController extends Controller
         $users = User::all();
         return view('reservations.create', compact('evenements', 'users'));
     }
-    
+
     /**
      * Enregistre une nouvelle réservation.
      */
@@ -60,15 +61,34 @@ class EvenementUserController extends Controller
 
         return redirect()->route('reservations.index')->with('success', 'Réservation créée avec succès.');
     }
-    
+
     /**
-     * Affiche les détails d'une réservation spécifique.
-     */
-    public function show(EvenementUser $evenementUser)
+
+    * Display the specified resource.
+    */
+    public function show($id)
     {
-        return view('reservations.create');
+        // Trouver l'événement correspondant à l'ID
+        $evenement = Evenement::with('users')->find($id);
+
+        // Vérifier si l'événement existe
+        if (!$evenement) {
+            abort(404); // Ou gérer le cas de non trouvé d'une autre manière
+        }
+
+        // Récupérer les réservations de l'événement à travers les utilisateurs
+        $reservations = $evenement->users->flatMap->reservations;
+
+        // Vérifier si des réservations existent
+        if ($reservations) {
+            // Passer les données à la vue pour l'affichage
+            return view('Evenements.show', compact('evenement', 'reservations'));
+        } else {
+            // Si aucune réservation n'existe, passer un tableau vide
+            return view('Evenements.show', compact('evenement', 'reservations'));
+        }
     }
-    
+
     /**
      * Affiche le formulaire pour modifier une réservation.
      */
@@ -79,7 +99,7 @@ class EvenementUserController extends Controller
         $users = User::all();
         return view('reservations.edit', compact('evenementUser', 'evenements', 'users'));
     }
-    
+
     /**
      * Met à jour une réservation existante.
      */
@@ -95,7 +115,7 @@ class EvenementUserController extends Controller
 
         return redirect()->route('reservations.index')->with('success', 'Réservation mise à jour avec succès.');
     }
-    
+
     /**
      * Supprime une réservation spécifique.
      */
