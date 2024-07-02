@@ -45,11 +45,13 @@
         .card-event {
             flex: 1 0 30%;
             margin: 10px;
+
         }
         .events .cards-container {
             display: flex;
             flex-wrap: wrap; /* Ajoutez cette ligne si vous voulez permettre aux cartes de passer à la ligne suivante */
             justify-content: space-between; /* Ajoutez de l'espace entre les cartes */
+            
         }
 
         .types-section {
