@@ -6,6 +6,8 @@
     <title>Détails de l'événement</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
         .banner {
             background-size: cover;
@@ -49,22 +51,28 @@
             max-width: 600px; /* Largeur maximale du tableau des réservations */
             padding-top: 40px;
             margin-left: 100px;
-
         }
         .reservation-list table {
             width: 100%;
         }
         .details-icons {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: flex-start;
             margin-top: 10px;
         }
         .icon-item {
-            margin: 0 10px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .icon-item i {
+            margin-right: 5px;
+            color: darkorange; /* Couleur des icônes en orange */
         }
         .btn-orange {
-            background-color:darkorange;;
-            border-color: darkorange;;
+            background-color: darkorange;
+            border-color: darkorange;
             color: white;
         }
         .btn-orange:hover {
@@ -75,12 +83,9 @@
     </style>
 </head>
 <body>
-
     <!-- Bannière avec image -->
     <div class="banner">
         <img src="{{ asset('images/Rectangle_6.png') }}" class="img-fluid rounded-start event-img" alt="Image Événement">
-
-
     </div>
 
     <div class="container">
@@ -88,8 +93,6 @@
         <div class="container-details">
             <div class="evenement-details">
                 <!-- Détails de l'événement -->
-
-
                 <h2>TITRE 1{{ $evenement->title }}</h2>
                 <p> Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Assumenda aperiam adipisci corporis! Id quisquam voluptatibus
@@ -103,12 +106,12 @@
                         <span>{{ $evenement->location }}</span>
                     </div>
                     <div class="icon-item">
-                        <i class="fas fa-phone"></i>
+                        <i class="fas fa-phone-alt"></i>
                         <span>{{ $evenement->phone }}</span>
                     </div>
                     <div class="icon-item">
                         <i class="far fa-calendar-alt"></i>
-                        <span>{{ $evenement->date }}</span>
+                        <span>{{ $evenement->event_start_date }}</span>
                     </div>
                 </div>
             </div>
