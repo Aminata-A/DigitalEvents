@@ -10,6 +10,7 @@
         <input type="text" class="form-control d-inline-block" placeholder="role">
         <button class="btn btn-ajout d-inline-block">Filtrer</button>
     </div>
+    @if($users->count())
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -55,4 +56,9 @@
             @endforeach
         </tbody>
     </table>
+    <!-- Affichage des liens de pagination -->
+    {{ $users->links() }}
+    @else
+        <p>Aucun utilisateur trouvé.</p>
+    @endif
 </div>
