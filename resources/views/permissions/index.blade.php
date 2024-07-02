@@ -38,6 +38,7 @@
                 <button type="submit" class="btn btn-ajout mb-2">Ajouter</button>
             </form>
         </div>
+        @if($permissions->count())
         <table class="table table-bordered mt-4">
             <thead>
                 <tr>
@@ -70,6 +71,11 @@
                 @endforeach
             </tbody>
         </table>
+        <!-- Affichage des liens de pagination -->
+        {{ $permissions->links() }}
+        @else
+            <p>Aucune permission trouvée.</p>
+        @endif
     </div>
 
     <!-- Modal -->
