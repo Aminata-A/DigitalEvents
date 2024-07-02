@@ -143,4 +143,26 @@ class EvenementUserController extends Controller
     return view('evenements.liste', compact('evenement', 'reservations'));
 }
 
+public function downloadReservations($id)
+{
+    // Trouver l'événement correspondant à l'ID
+    $evenement = Evenement::find($id);
+
+    // Vérifier si l'événement existe
+    if (!$evenement) {
+        abort(404); // Ou gérer le cas de non trouvé d'une autre manière
+    }
+
+    // Récupérer tous les utilisateurs de l'événement avec statut 'accepted'
+    $reservations = $evenement->users()->wherePivot('status', 'accepted')->get();
+
+    // Générer le PDF
+    $pdf = PDF::loadView('evenements.pdf', compact('evenement', 'reservations'));
+
+    // Télécharger le PDF
+    return $pdf->download('reservations.pdf');
+}
+
+
+
 }
