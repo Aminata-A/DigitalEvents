@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('admin/style/style.css') }}" />
-    <title>All Reservations</title>
+    <title>Liste des participants</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -48,8 +48,9 @@
 <body>
     <x-headerEvenement/>
     <div class="container">
-        <button class="btn-download" onclick="window.location.href='{{ route('evenements.reservations.download', $evenement->id) }}'">Télécharger</button>
-
+        <a target="blank" href="{{ route('evenements.reservations.download', $evenement->id) }}">
+            <button class="btn-download">Télécharger</button>
+        </a>
         <h2>Liste réservation</h2>
         <table class="custom-table mt-5">
             <thead>
