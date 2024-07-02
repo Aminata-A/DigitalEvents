@@ -10,10 +10,11 @@ use App\Http\Requests\UpdatePermissionRequest;
 class PermissionController extends Controller
 {
     public function index()
-    {
-        $permissions = Permission::all();
-        return view('permissions.index', compact('permissions'));
-    }
+{
+    $permissions = Permission::paginate(6);
+    return view('permissions.index', compact('permissions'));
+}
+
 
     public function store(StorePermissionRequest $request)
     {
