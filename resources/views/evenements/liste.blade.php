@@ -35,12 +35,13 @@
             color: white;
             border: none;
             padding: 10px 20px;
-            border-radius: 5px;
+            border-radius: 25px;
             cursor: pointer;
             float: right;
         }
         .btn-download:hover {
             background-color: #e57200;
+            
         }
     </style>
 </head>
