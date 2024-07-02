@@ -22,23 +22,18 @@ class EvenementUserController extends Controller
     {
         $user = Auth::user();
         $reservations = EvenementUser::where('user_id', $user->id)
-            ->with('evenement')
-            ->get();
-
-
+                        ->with('evenement') // Charger la relation avec l'événement
+                        ->orderBy('created_at', 'desc') // Ordonner par date de création par exemple
+                        ->get();
+    
         return view('reservations.index', compact('reservations'));
     }
-
     /**
      * Affiche le formulaire de création de réservation.
      */
     public function create()
     {
-        // Vous pouvez récupérer la liste des événements disponibles pour la réservation
-        $evenements = Evenement::all();
-        // Vous pouvez également récupérer la liste des utilisateurs si nécessaire
-        $users = User::all();
-        return view('reservations.create', compact('evenements', 'users'));
+        //
     }
 
     /**
@@ -49,17 +44,7 @@ class EvenementUserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'evenement_id' => 'required|exists:evenements,id',
-        ]);
-
-        $user = Auth::user();
-        EvenementUser::create([
-            'user_id' => $user->id,
-            'evenement_id' => $request->evenement_id,
-        ]);
-
-        return redirect()->route('reservations.index')->with('success', 'Réservation créée avec succès.');
+        // 
     }
 
     /**
@@ -68,25 +53,7 @@ class EvenementUserController extends Controller
     */
     public function show($id)
     {
-        // Trouver l'événement correspondant à l'ID
-        $evenement = Evenement::with('users')->find($id);
-
-        // Vérifier si l'événement existe
-        if (!$evenement) {
-            abort(404); // Ou gérer le cas de non trouvé d'une autre manière
-        }
-
-        // Récupérer les réservations de l'événement à travers les utilisateurs
-        $reservations = $evenement->users->flatMap->reservations;
-
-        // Vérifier si des réservations existent
-        if ($reservations) {
-            // Passer les données à la vue pour l'affichage
-            return view('Evenements.show', compact('evenement', 'reservations'));
-        } else {
-            // Si aucune réservation n'existe, passer un tableau vide
-            return view('Evenements.show', compact('evenement', 'reservations'));
-        }
+        // 
     }
 
     /**
@@ -94,10 +61,7 @@ class EvenementUserController extends Controller
      */
     public function edit(EvenementUser $evenementUser)
     {
-        // Vous pouvez récupérer les informations nécessaires pour le formulaire d'édition
-        $evenements = Evenement::all();
-        $users = User::all();
-        return view('reservations.edit', compact('evenementUser', 'evenements', 'users'));
+       //
     }
 
     /**
@@ -105,15 +69,7 @@ class EvenementUserController extends Controller
      */
     public function update(Request $request, EvenementUser $reservation)
     {
-        $request->validate([
-            'status' => 'required|in:accepted,declined',
-        ]);
-
-        $reservation->update([
-            'status' => $request->status,
-        ]);
-
-        return redirect()->route('reservations.index')->with('success', 'Réservation mise à jour avec succès.');
+        // 
     }
 
     /**
@@ -121,8 +77,6 @@ class EvenementUserController extends Controller
      */
     public function destroy(EvenementUser $evenementUser)
     {
-        $evenementUser->delete();
-        
-        return redirect()->route('accueil')->with('success', 'Réservation supprimée avec succès.');
+        // 
     }
 }

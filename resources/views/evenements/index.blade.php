@@ -15,8 +15,6 @@
             <img src="https://img.freepik.com/vecteurs-libre/modele-sans-couture-lignes-organiques-irregulieres-orange_1409-4190.jpg?t=st=1719417420~exp=1719421020~hmac=e0da1aea7e251917a9394925bb9a5f1211ffe8353400c44f56ff1a9f0c86ebf8&w=826" alt="Banner Image">
             <div>
                 <h1>Nos événements</h1>
-                <a href="{{ route('creation') }}" class="btn button-banner  rounded-pill px-3">Créer un évènement</a>
-                <a href="{{ route('mes-evenements') }}" class="btn  rounded-pill button-banner px-3">Voir mes évènement </a>
             </div>
         </div>
         <div class="row mt-4">

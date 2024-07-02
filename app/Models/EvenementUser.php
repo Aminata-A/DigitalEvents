@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class EvenementUser extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'evenement_id', // Add 'evenement_id' to the fillable array
+        'user_id',
+        // Any other fields you want to mass assign
+    ];
 
     public function user()
     {

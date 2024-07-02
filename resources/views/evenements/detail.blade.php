@@ -28,7 +28,7 @@
             position: absolute;
             bottom: 20px;
             left: 10%;
-            transform: translateX(-50%);
+            transform: translateX(-20%);
             /* background-color: #fff; Arrière-plan blanc semi-transparent */
             padding: 10px 20px;
             border-radius: 5px;
@@ -55,7 +55,7 @@
             border-radius: 50%;
             margin-right: 10px;
         }
-        .text-danger{
+        .text-danger {
             background: #fff;
             padding: 10px;
             border-radius: 6px;
@@ -82,7 +82,7 @@
             padding: 5px 10px;
             border-radius: 20px;
         }
-        .body_detail{
+        .body_detail {
             display: flex;
         }
     </style>
@@ -116,17 +116,24 @@
         @endif
 
         <div class="card mb-3 card-no-border">
-            <div class="banniere">
+            <div class="banniere ">
                 <img src="{{ Storage::url($evenement->image) }}" alt="Banner Image">
-                <div class="btn-reserver rounded-pill">
+                <div class="btn-reserver rounded-pill d-flex">
                     @if($remaining_places > 0)
                     <form id="reservationForm" action="{{ route('evenement.reserver', $evenement->id) }}" method="POST">
                         @csrf
-                        <button type="submit" class="btn btn-light rounded-pill px-4">Réserver</button>
+                        <button type="submit" class="btn btn-light rounded-pill px-4 mr-2">Réserver</button>
                     </form>
                     @else
                     <p class="text-danger">Aucune place disponible</p>
                     @endif
+                    @auth
+                    @if (Auth::user()->id === $evenement->user_id)
+                    <div class="text-right">
+                        <a href="{{ route('evenements.edit', $evenement->id) }}" class="btn btn-primary  rounded-pill" style="background: #FF8200; border:none; ">Modifier l'événement</a>
+                    </div>
+                    @endif
+                @endauth
                 </div>
             </div>
             <div>
@@ -136,16 +143,16 @@
 
                         <p>{{ $evenement->description }}</p>
                         <div class="info-item">
-                            <i class="fas fa-users"></i> <strong>Places disponibles :</strong> {{ $remaining_places }}
+                            <i class="fas fa-users" style="color: #FF8200"></i> <strong>Places disponibles :</strong> {{ $remaining_places }}
                         </div>
                         <div class="info-item">
-                            <i class="far fa-calendar-alt"></i> <strong>Date de début :</strong> {{ $evenement->event_start_date }}
+                            <i class="far fa-calendar-alt" style="color: #FF8200"></i> <strong>Date de début :</strong> {{ $evenement->event_start_date }}
                         </div>
                         <div class="info-item">
-                            <i class="far fa-calendar-alt"></i> <strong>Date de fin :</strong> {{ $evenement->event_end_date }}
+                            <i class="far fa-calendar-alt" style="color: #FF8200"></i> <strong>Date de fin :</strong> {{ $evenement->event_end_date }}
                         </div>
                         <div class="info-item">
-                            <i class="fas fa-map-marker-alt"></i> <strong>Lieu :</strong> {{ $evenement->location }}
+                            <i class="fas fa-map-marker-alt" style="color: #FF8200"></i> <strong>Lieu :</strong> {{ $evenement->location }}
                         </div>
                     </div>
                     <div class="row">
@@ -162,6 +169,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
         
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

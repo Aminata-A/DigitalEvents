@@ -79,7 +79,11 @@ body {
     font-size: 1.25rem;
     font-weight: bold;
     font-family: "Montserrat", sans-serif;
-
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 
 .card-text {

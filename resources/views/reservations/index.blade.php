@@ -1,49 +1,33 @@
-<!-- resources/views/reservations/index.blade.php -->
-{{-- @extends('layouts.app')
 
-@section('content') --}}
-<div class="container">
-    <div class="container">
-        <h1>{{ $evenement->title }}</h1>
-        <p>{{ $evenement->description }}</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evenements</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Inclusion de Font Awesome -->
+<body>
     
+@include('components.headerEvenement')
 
-    </div>
+{{-- @section('content') --}}
+<div class="container">
     <h1>Mes Réservations</h1>
 
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
+    @foreach($reservations as $reservation)
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">{{ $reservation->evenement->name }}</h5>
+                <p class="card-text">{{ $reservation->evenement->description }}</p>
+                <p class="card-text">Date: {{ $reservation->evenement->event_start_date }}</p>
+                <p class="card-text">Lieu: {{ $reservation->evenement->location }}</p>
+                <p class="card-text">Status: {{ $reservation->status }}</p>
+                <!-- Ajoutez d'autres détails de l'événement selon vos besoins -->
+            </div>
         </div>
-    @endif
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Événement</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($reservations as $reservation)
-                <tr>
-                    <td>{{ $reservation->evenement->title }}</td>
-                    <td>{{ $reservation->status }}</td>
-                    <td>
-                        <form action="{{ route('reservations.update', $reservation->id) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <select name="status" class="form-select">
-                                <option value="accepted" {{ $reservation->status == 'accepted' ? 'selected' : '' }}>Accepté</option>
-                                <option value="declined" {{ $reservation->status == 'declined' ? 'selected' : '' }}>Refusé</option>
-                            </select>
-                            <button type="submit" class="btn btn-primary mt-2">Mettre à jour</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    @endforeach
 </div>
+</body>
+
 {{-- @endsection --}}

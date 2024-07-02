@@ -14,7 +14,6 @@
             <img src="https://img.freepik.com/vecteurs-libre/modele-sans-couture-lignes-organiques-irregulieres-orange_1409-4190.jpg?t=st=1719417420~exp=1719421020~hmac=e0da1aea7e251917a9394925bb9a5f1211ffe8353400c44f56ff1a9f0c86ebf8&w=826" alt="Banner Image">
             <div>
                 <h1>Mes Événements</h1>
-                <a href="{{ route('creation') }}" class="btn btn-light rounded-pill px-3">Créer un Événement</a>
             </div>
         </div>
         <div class="row mt-4">
@@ -33,10 +32,10 @@
                                     <p class="card-text">{{ $evenement->description }}</p>
                                     <div class="d-flex justify-content-between">
                                         <button class="badge orange">{{ $evenement->places }} places</button>
-                                        <form action="{{ route('supprimer-evenement', $evenement->id) }}" method="POST">
+                                        <form action="{{ route('supprimer', $evenement->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                                            <button type="submit" class="btn btn-danger rounded-pill " style="background: red; font-size:11px;">Supprimer</button>
                                         </form>
                                     </div>
                                 </div>
