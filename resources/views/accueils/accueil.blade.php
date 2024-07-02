@@ -190,19 +190,20 @@
         <h2>Nos Partenaires</h2>
         <div class="row">
             <div class="col-md-3 col-sm-6">
-                <img src="{{ asset('images/partner1.png') }}" class="img-fluid partner-logo" alt="Partenaire 1">
+                <img src="{{ asset('images/image 25.png') }}" class="img-fluid partner-logo" alt="Partenaire 1">
             </div>
             <div class="col-md-3 col-sm-6">
-                <img src="{{ asset('images/partner2.png') }}" class="img-fluid partner-logo" alt="Partenaire 2">
+                <img src="{{ asset('images/image 26.png') }}" class="img-fluid partner-logo" alt="Partenaire 2">
             </div>
             <div class="col-md-3 col-sm-6">
-                <img src="{{ asset('images/partner3.png') }}" class="img-fluid partner-logo" alt="Partenaire 3">
+                <img src="{{ asset('images/image 27.png') }}" class="img-fluid partner-logo" alt="Partenaire 3">
             </div>
             <div class="col-md-3 col-sm-6">
-                <img src="{{ asset('images/partner4.png') }}" class="img-fluid partner-logo" alt="Partenaire 4">
+                <img src="{{ asset('images/image 28.png') }}" class="img-fluid partner-logo" alt="Partenaire 4">
             </div>
+
         </div>
-        <!-- Pagination -->
+        {{-- <!-- Pagination -->
         <div class="row mt-4">
             <div class="col-12">
                 <nav aria-label="Page navigation">
@@ -215,7 +216,7 @@
                     </ul>
                 </nav>
             </div>
-        </div>
+        </div> --}}
     </div>
 </section>
 
