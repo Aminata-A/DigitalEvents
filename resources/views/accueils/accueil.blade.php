@@ -160,11 +160,9 @@
         </div>
     </div>
     <div class="container">
-
         <div class="content">
-
             <div class="text">
-                <h3>EvénementS sportifs</h3>
+                <h3>Evénements sportifs</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
             </div>
             <div class="image">
@@ -203,20 +201,7 @@
             </div>
 
         </div>
-        {{-- <!-- Pagination -->
-        <div class="row mt-4">
-            <div class="col-12">
-                <nav aria-label="Page navigation">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item"><a class="page-link" href="#">Précédent</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Suivant</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div> --}}
+
     </div>
 </section>
 
