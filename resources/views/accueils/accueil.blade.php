@@ -37,9 +37,9 @@
             margin-bottom: 20px;
         }
         .event-img {
-            height: 190px;
+            height: 231px;
             object-fit: cover;
-            width: 1500px;
+            width: 1800px;
 
         }
         .card-event {
@@ -138,14 +138,13 @@
     @php
     use Illuminate\Support\Str;
     @endphp
-
- <!-- Événements à venir -->
+<!-- Événements à venir -->
 <div class="events">
     <div class="container">
         <h2>Événements à venir</h2>
-        <div class="cards-container">
+        <div class="row">
             @foreach ($evenements as $evenement)
-                <div class="card-event">
+                <div class="col-md-4 mb-4">
                     <div class="card mb-3" style="max-width: 540px;">
                         <div class="row g-0">
                             <div class="col-md-4">
@@ -154,14 +153,15 @@
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $evenement->name }}</h5>
-                                    <p class="card-text description">{{ $evenement->description }}
+                                    <p class="card-text description">{{ Str::limit($evenement->description, 150) }}
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus fermentum massa eu dolor varius, et semper lectus aliquam. Nulla tincidunt mauris sit amet erat pretium, sit amet lobortis urna tincidunt. Nulla facilisi.
-                                        Integer volutpat dignissim lectus, ac dapibus lorem euismod ut. Vestibulum eu magna ac velit condimentum posuere. Vivamus sagittis nisi non risus commodo, a consectetur felis malesuada.
-                                        Integer volutpat dignissim lectus, ac dapibus lorem euismod ut. Vestibulum eu magna ac velit condimentum posuere. Vivamus sagittis nisi non risus commodo, a consectetur felis malesuada
-                                        Integer volutpat dignissim lectus, ac dapibus lorem euismod ut.
+            Integer volutpat dignissim lectus, ac dapibus lorem euismod ut. Vestibulum eu magna ac velit condimentum posuere. Vivamus sagittis nisi non risus commodo, a consectetur felis malesuada.
+            Integer volutpat dignissim lectus, ac dapibus lorem euismod ut. Vestibulum eu magna ac velit condimentum posuere. Vivamus sagittis nisi non risus commodo, a consectetur felis malesuada
+            Integer volutpat dignissim lectus, ac dapibus lorem euismod ut. Vestibulum eu magna ac velit condimentum posuere. Vivamus sagittis nisi non risus commodo, a consectetur felis malesuada
+            Integer volutpat dignissim lectus, ac dapibus lorem euismod ut. Vestibulum eu magna ac velit condimentum posuere.
                                     </p>
                                     <p class="card-text"><small class="text-muted">Dernière mise à jour il y a 3 minutes</small></p>
-                                    <a href="{{ route('evenements.show', ['id' => $evenement->id]) }}" class="btn btn-primary">voir plus</a>
+                                    <a href="{{ route('evenements.show', ['id' => $evenement->id]) }}" class="btn btn-primary">Voir plus</a>
                                 </div>
                             </div>
                         </div>
@@ -171,6 +171,8 @@
         </div>
     </div>
 </div>
+
+
 
 </div>
 <!-- Nos types d'événements Section -->
