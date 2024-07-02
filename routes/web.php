@@ -101,5 +101,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/user/{id}/invalidate', 'invalidateAccount')->name('user.invalidate');
         Route::post('/user/{id}/activate', 'activateAccount')->name('user.activate');
         Route::post('/user/{id}/deactivate', 'deactivateAccount')->name('user.deactivate');
+
+        
     });
 });
+
+Route::get('/user/pdf', [UserController::class, 'generatePDF'])->name('user.pdf');
