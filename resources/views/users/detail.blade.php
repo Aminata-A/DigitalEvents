@@ -1,9 +1,9 @@
 <x-navbar-admin/>
-<div class="container detail-container">
+<div class="container detail-container mt-5">
     <div class="profile-header">
         <div class="col-12 col-md-6 mt-5">
             <h1>Profile Admin</h1>
-            <img src="{{ Storage::url('public/logos/' . $user->logo) }}" alt="Background Image" class="responsive-img" style="margin-left: -13rem">
+            {{-- <img src="{{ Storage::url('public/logos/' . $user->logo) }}" alt="Background Image" class="responsive-img" style="margin-left: -13rem"> --}}
         </div>
         <div class="col-12 col-md-6">
             <img src="{{ asset('admin/img/group.png') }}" alt="Background Image">
@@ -38,7 +38,7 @@
     </div>
     <div class="row mt-4">
         <div class="col-md-6 col-sm-12">
-            <h4>Statut du compte: {{ $user->account_status }}</h4>
+            <h4>Statut du compte : {{ $user->account_status }}</h4>
             <div class="boutons">
                 <form action="{{ route('user.activate', $user->id) }}" method="POST" style="display:inline;">
                     @csrf
