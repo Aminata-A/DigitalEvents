@@ -10,7 +10,7 @@ use App\Http\Controllers\EvenementUserController;
 
 // Routes publiques (non authentifiées)
 Route::get('/', [EvenementController::class, 'accueil'])->name('accueil');
-
+Route::get('/evenement', [EvenementController::class, 'evenement'])->name('evenement');
 
 // Routes pour la création et gestion des événements
 Route::resource('evenements', EvenementController::class);
