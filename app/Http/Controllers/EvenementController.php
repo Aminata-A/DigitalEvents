@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Evenement;
 use Illuminate\Http\Request;
 use App\Models\EvenementUser;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -45,13 +46,55 @@ class EvenementController extends Controller
         return view('evenements.index', compact('evenements', 'activity_areas'));
     }
     
-    // Méthode pour afficher les événements de l'utilisateur connecté
+    public function evenementDetail($id)
+    {
+        $evenement = Evenement::with(['user'])->findOrFail($id);
+        $remaining_places = $evenement->places - EvenementUser::where('evenement_id', $evenement->id)->count();
+        
+        return view('evenements.detail', compact('evenement', 'remaining_places'));
+    }
+    
+    public function reserver($id)
+    {
+        $userId = Auth::id();
+    
+        // Ensure you use the correct pivot table name: `evenement_user` or `evenement_users`
+        $exists = DB::table('evenement_users')
+            ->where('evenement_id', $id)
+            ->where('user_id', $userId)
+            ->exists();
+    
+        //  $evenement = Evenement::findOrFail($id);
+
+        // // Vérifiez si l'utilisateur est authentifié
+        // if (!Auth::check()) {
+        //     return redirect()->route('evenement.show', $id)->withErrors(['Vous devez être connecté pour réserver.']);
+        // }
+
+        // $user = Auth::user();
+
+        // // Vérifiez si l'utilisateur a déjà réservé pour cet événement
+        // if ($evenement->users()->where('user_id', $user->id)->exists()) {
+        //     return redirect()->route('evenement.show', $id)->withErrors(['Vous avez déjà réservé pour cet événement.']);
+        // }
+
+        // // Vérifiez si des places sont disponibles
+        // $remaining_places = $evenement->places - $evenement->users()->count();
+        // if ($remaining_places <= 0) {
+        //     return redirect()->route('evenement.show', $id)->withErrors(['Aucune place disponible.']);
+        // }
+
+        // // Ajoutez l'utilisateur à l'événement
+        // $evenement->users()->attach($user->id);
+
+        return redirect()->back()->with('reservation_success', 'Réservation faite avec succès.');
+    }
+    
     public function mesEvenements()
     {
         $user = Auth::user();
-        // Assurez-vous que 'user' est correctement chargé avec 'with()'
-        $evenements = Evenement::where('user_id', $user->id)->with('user')->get();
-    
+        $evenements = EvenementUser::where('user_id', $user->id)->with('evenement')->get();
+        
         return view('evenements.mes-evenements', compact('evenements'));
     }
     
@@ -61,38 +104,24 @@ class EvenementController extends Controller
     }
     
     public function creation(StoreEvenementRequest $request)
-{
-    $validatedData = $request->validated();
-    
-    if ($request->hasFile('image')) {
-        $image = $request->file('image')->store('images', 'public');
-        $validatedData['image'] = $image;
-    }
-    
-    $user = Auth::user();
-
-    // Vérifier l'état de validation et le statut du compte de l'utilisateur
-    if ($user->validation_status !== 'valid') {
-        return Redirect::back()->withErrors(['message' => 'Votre compte est en attente de validation par l\'administrateur. Veuillez patienter pour publier un événement.']);
-    }
-
-    if ($user->account_status !== 'activated') {
-        return Redirect::back()->withErrors(['message' => 'Votre compte est actuellement désactivé. Veuillez contacter l\'administrateur pour activer votre compte avant de publier un événement.']);
-    }
-    
-    // Ajouter les valeurs par défaut
-    $validatedData['user_id'] = Auth::id(); // Récupérer l'ID de l'utilisateur connecté
-    $validatedData['validation_status'] = 'valid';
-    $validatedData['account_status'] = 'activated';
-    
-    Evenement::create($validatedData);
-    
-    return redirect()->route('evenement')->with('success', 'Événement créé avec succès!');
-}
-    
-    public function show(Evenement $evenement)
     {
-        //
+        // Vérifie si l'utilisateur a le rôle "association"
+        if (!Auth::user()->hasRole('association')) {
+            return redirect()->route('home')->with('error', 'Vous n\'avez pas les permissions nécessaires pour créer un événement.');
+        }
+        
+        $validatedData = $request->validated();
+        
+        if ($request->hasFile('image')) {
+            $image = $request->file('image')->store('images', 'public');
+            $validatedData['image'] = $image;
+        }
+        
+        $validatedData['user_id'] = Auth::id();
+        
+        Evenement::create($validatedData);
+        
+        return redirect()->route('evenement')->with('success', 'Événement créé avec succès!');
     }
     
     public function edit(Evenement $evenement)
@@ -104,22 +133,12 @@ class EvenementController extends Controller
     {
         $validatedData = $request->validated();
         
-        $evenement = Evenement::findOrFail(1);
-        
-        $evenement->name = $request->input('name');
-        $evenement->event_start_date = $request->input('event_start_date');
-        $evenement->event_end_date = $request->input('event_end_date');
-        $evenement->registration_deadline = $request->input('registration_deadline');
-        $evenement->location = $request->input('location');
-        $evenement->places = $request->input('places');
-        $evenement->description = $request->input('description');
+        $evenement->update($validatedData);
         
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $filename = time() . '_' . $image->getClientOriginalName();
-            $path = storage_path('images');
-            $image->move($path, $filename);
-            $evenement->image = 'images/' . $filename;
+            Storage::disk('public')->delete($evenement->image);
+            $image = $request->file('image')->store('images', 'public');
+            $evenement->image = $image;
         }
         
         $evenement->save();
@@ -127,25 +146,14 @@ class EvenementController extends Controller
         return redirect()->route('evenement')->with('success', 'Événement modifié avec succès'); 
     }
     
-    public function update(UpdateEvenementRequest $request, Evenement $evenement)
+    public function supprimer(Evenement $evenement)
     {
-        //
-    }
-    public function supprimer(Evenement $evenement){
-        // Supprimer l'image associée à l'événement s'il en existe une
         if ($evenement->image) {
             Storage::disk('public')->delete($evenement->image);
         }
         
-        // Supprimer l'événement de la base de données
         $evenement->delete();
         
         return redirect()->route('evenement')->with('success', 'Événement supprimé avec succès');
     }
 }
-
-// public function destroy(Evenement $evenement)
-// {
-//     //
-// }
-
