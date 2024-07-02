@@ -9,6 +9,7 @@ use App\Models\EvenementUser;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreEvenementUserRequest;
 use App\Http\Requests\UpdateEvenementUserRequest;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class EvenementUserController extends Controller
 {

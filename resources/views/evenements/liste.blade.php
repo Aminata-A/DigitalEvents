@@ -48,7 +48,8 @@
 <body>
     <x-headerEvenement/>
     <div class="container">
-        <button class="btn-download">Télécharger</button>
+        <button class="btn-download" onclick="window.location.href='{{ route('evenements.reservations.download', $evenement->id) }}'">Télécharger</button>
+
         <h2>Liste réservation</h2>
         <table class="custom-table mt-5">
             <thead>
