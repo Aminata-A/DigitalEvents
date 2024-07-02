@@ -10,16 +10,16 @@
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
         body {
-    font-family: "Montserrat", sans-serif;
-    font-size: 14px;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-    background-color: #fff;
-    color: #051d30;
-    overflow-x: hidden;
-}
-        .custom-header img{
+            font-family: "Montserrat", sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #051d30;
+            overflow-x: hidden;
+        }
+        .custom-header img {
             width: 100%;
             background-size: cover;
             height: 40vh;
@@ -50,9 +50,8 @@
             border-radius: 10px;
             border: 1px solid #ff0000;
             background: #ff0000;
-            color: white
+            color: white;
         }
-        
     </style>
 </head>
 <body>
@@ -74,8 +73,18 @@
                 </div>
             </div>
             <div class="col-lg-4 col-md-12">
+                @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+                @endif
+                @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+                @endif
                 <h2>Liste des réservations</h2>
-                <table class="table table-bordered" >
+                <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th>Nom complet</th>
@@ -83,13 +92,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($reservations as $reservation)
-                        <tr>
-                            
-                               <td>{{ $reservation->name }}</td> 
-                               <td><button class="btn btn-red btn-sm">Décliner</button></td>
-                            @endforeach
-                        </tr>
+                        @foreach($reservations as $reservation)
+<tr>
+    <td>{{ $reservation->name }}</td>
+    <td>
+        <form action="{{ route('reservations.decline', $reservation->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+            <input type="hidden" name="status" value="declined">
+            <button type="submit" class="btn btn-red btn-sm">Décliner</button>
+        </form>
+    </td>
+</tr>
+@endforeach
+
                     </tbody>
                 </table>
                 <a href="#" class="btn btn-lien">Voir tous</a>

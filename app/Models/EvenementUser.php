@@ -10,11 +10,16 @@ class EvenementUser extends Model
 {
     use HasFactory;
 
+    
+
+    protected $fillable = ['status', 'user_id', 'evenement_id'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+   
 
     // public function evenement()
     // {
@@ -25,9 +30,14 @@ class EvenementUser extends Model
         return $this->places - $this->users()->count();
     }
 
-    public function evenements(): BelongsToMany
-    {
-        return $this->belongsToMany(Evenement::class, 'reservations');
-    }
+    // public function evenements(): BelongsToMany
+    // {
+    //     return $this->belongsToMany(Evenement::class, 'evenement_users');
+    // }
+
+    public function evenement()
+{
+    return $this->belongsTo(Evenement::class, 'evenement_id');
+}
 
 }

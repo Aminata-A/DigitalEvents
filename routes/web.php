@@ -14,6 +14,9 @@ Route::get('/', [EvenementController::class, 'accueil'])->name('accueil');
 Route::get('/evenement', [EvenementController::class, 'evenement'])->name('evenement');
 Route::get('/evenement-detail', [EvenementController::class, 'evenementDetail'])->name('evenement-detail');
 
+
+
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/reservations', [EvenementUserController::class, 'index'])->name('reservations.index');
     Route::post('/reservations/create', [EvenementUserController::class, 'store'])->name('reservations.store');
@@ -27,15 +30,18 @@ Route::get('/mes-evenements', [EvenementController::class, 'mesEvenements'])->na
 
 
 // Routes pour la création et gestion des événements
-Route::resource('evenements', EvenementController::class);
+// Route::resource('evenements', EvenementController::class);
 Route::put('/modifier/{id}', [EvenementController::class, 'modifier'])->name('modifier');
 Route::delete('/supprimer/{id}', [EvenementController::class, 'supprimer'])->name('supprimer');
 Route::get('/evenements/{id}', [EvenementController::class, 'show'])->name('evenements.show');
+Route::put('/reservations/decline/{id}', [EvenementController::class, 'decline'])->name('reservations.decline');
+
 
 Route::get('/mes-evenements', [EvenementController::class, 'mesEvenements'])->name('mes-evenements');
 
 // Routes pour les utilisateurs d'événements
 Route::resource('evenement_users', EvenementUserController::class)->only(['index', 'show', 'store', 'destroy']);
+
 
 // Routes d'authentification et gestion des utilisateurs
 Route::group(['prefix' => 'auth'], function () {
