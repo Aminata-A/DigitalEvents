@@ -10,20 +10,24 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\EvenementUserController;
 
 // Routes publiques (non authentifiées)
-Route::get('/', [EvenementController::class, 'accueil'])->name('accueil');
+// Route::get('/', [EvenementController::class, 'accueil'])->name('accueil');
 Route::get('/evenement', [EvenementController::class, 'evenement'])->name('evenement');
+Route::get('/evenement-detail', [EvenementController::class, 'evenementDetail'])->name('evenement-detail');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/reservations', [EvenementUserController::class, 'index'])->name('reservations.index');
     Route::post('/reservations/create', [EvenementUserController::class, 'store'])->name('reservations.store');
     Route::put('/reservations/{reservation}/update', [EvenementUserController::class, 'update'])->name('reservations.update');
+    Route::get('/creation', [EvenementController::class, 'create'])->name('creation');
+    Route::post('/creation', [EvenementController::class, 'creation'])->name('creation.store');
 });
+Route::get('/evenement/{id}', [EvenementController::class, 'evenementDetail'])->name('evenement.detail');
+Route::post('/evenement/{id}/reserver', [EvenementController::class, 'reserver'])->name('evenement.reserver');
+Route::get('/mes-evenements', [EvenementController::class, 'mesEvenements'])->name('mes.evenements');
 
 
 // Routes pour la création et gestion des événements
 Route::resource('evenements', EvenementController::class);
-Route::get('/creation', [EvenementController::class, 'create'])->name('creation');
-Route::post('/creation', [EvenementController::class, 'creation'])->name('creation.store');
 Route::put('/modifier/{id}', [EvenementController::class, 'modifier'])->name('modifier');
 Route::delete('/supprimer/{id}', [EvenementController::class, 'supprimer'])->name('supprimer');
 Route::get('/mes-evenements', [EvenementController::class, 'mesEvenements'])->name('mes-evenements');
