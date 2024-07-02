@@ -29,7 +29,8 @@
         .banner-text {
             position: absolute;
             top: 50%;
-            left: 50%;
+            left: 100%;
+            margin-right: 50%;
             transform: translate(-50%, -50%);
             color: #fff;
         }
@@ -38,16 +39,17 @@
             justify-content: space-between;
             align-items: flex-start;
             margin-top: 20px;
-            margin-right: 100px;
+            margin-right: 5px;
+
         }
         .evenement-details {
-            width: 70%; /* Largeur ajustable selon vos besoins */
+            width: 150%; /* Largeur ajustable selon vos besoins */
             margin-right: 20px; /* Marge à droite pour séparer des réservations */
             align-content: center;
             justify-content: center;
         }
         .reservation-list {
-            width: 70%; /* Largeur ajustable selon vos besoins */
+            width: 100%; /* Largeur ajustable selon vos besoins */
             max-width: 600px; /* Largeur maximale du tableau des réservations */
             padding-top: 40px;
             margin-left: 100px;
@@ -95,6 +97,10 @@
                 <!-- Détails de l'événement -->
                 <h2>TITRE 1{{ $evenement->title }}</h2>
                 <p> Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Assumenda aperiam adipisci corporis! Id quisquam voluptatibus
+                    aspernatur soluta saepe pariatur consequatur fugiat animi,
+                    eligendi laborum fugit impedit ut quae ea expedita.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Assumenda aperiam adipisci corporis! Id quisquam voluptatibus
                     aspernatur soluta saepe pariatur consequatur fugiat animi,
                     eligendi laborum fugit impedit ut quae ea expedita.

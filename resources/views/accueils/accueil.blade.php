@@ -81,6 +81,7 @@
             padding-left: 20px;
         }
 
+
         .types-section img {
             width: 100%;
             height: auto;
@@ -92,7 +93,7 @@
 </head>
 <body>
 
-    <!-- Navbar -->y
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
 
@@ -140,7 +141,9 @@
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $evenement->name }}</h5>
-                                    <p class="card-text">{{ $evenement->description }}</p>
+                                    <p class="card-text">{{ $evenement->description }}Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus fermentum massa eu dolor varius, et semper lectus aliquam. Nulla tincidunt mauris sit amet erat pretium, sit amet lobortis urna tincidunt. Nulla facilisi.
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus fermentum massa eu dolor varius, et semper lectus aliquam. Nulla tincidunt mauris sit amet erat pretium, sit amet lobortis urna tincidunt. Nulla facilisi.
+                                    </p>
                                     <p class="card-text"><small class="text-muted">Dernière mise à jour il y a 3 minutes</small></p>
                                     <a href="{{ route('evenements.show', ['id' => $evenement->id]) }}" class="btn btn-primary">voir plus</a>
                                 </div>
@@ -158,8 +161,8 @@
         <h2 class="text-center">Nos types d'événements</h2>
         <div class="content">
             <div class="image">
-                <img src="{{ asset('"images/image_22.png"') }}" alt="Type d'événement">
-                        </div>
+                <img src="{{ asset('images/image_22.png') }}" class="img-fluid rounded-start event-img" alt="Type d'événement">
+            </div>
             <div class="text">
                 <h3>Evénements corporatifs</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
@@ -184,7 +187,6 @@
             </div>
             <div class="text">
                 <h3>Evénements salons et expositions</h3>
-
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
             </div>
         </div>
@@ -196,31 +198,18 @@
         <h2>Nos Partenaires</h2>
         <div class="row">
             <div class="col-md-3 col-sm-6">
-                <img src="{{ asset('images/partner1.png') }}" class="img-fluid partner-logo" alt="Partenaire 1">
+                <img src="{{ asset('images/image 25.png') }}" class="img-fluid partner-logo" alt="Partenaire 1">
             </div>
             <div class="col-md-3 col-sm-6">
-                <img src="{{ asset('images/partner2.png') }}" class="img-fluid partner-logo" alt="Partenaire 2">
+                <img src="{{ asset('images/image 26.png') }}" class="img-fluid partner-logo" alt="Partenaire 2">
             </div>
             <div class="col-md-3 col-sm-6">
-                <img src="{{ asset('images/partner3.png') }}" class="img-fluid partner-logo" alt="Partenaire 3">
+                <img src="{{ asset('images/image 27.png') }}" class="img-fluid partner-logo" alt="Partenaire 3">
             </div>
             <div class="col-md-3 col-sm-6">
-                <img src="{{ asset('images/partner4.png') }}" class="img-fluid partner-logo" alt="Partenaire 4">
+                <img src="{{ asset('images/image 28.png') }}" class="img-fluid partner-logo" alt="Partenaire 4">
             </div>
-        </div>
-        <!-- Pagination -->
-        <div class="row mt-4">
-            <div class="col-12">
-                <nav aria-label="Page navigation">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item"><a class="page-link" href="#">Précédent</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Suivant</a></li>
-                    </ul>
-                </nav>
-            </div>
+
         </div>
 
     </div>
