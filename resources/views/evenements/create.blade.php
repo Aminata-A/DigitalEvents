@@ -42,6 +42,7 @@
 </head>
 
 <body>
+    @include('components.headerEvenement')
     @if (!Auth::user()->hasRole('association'))
     <div class="alert alert-danger mt-4">
         Vous n'avez pas les permissions nécessaires pour créer un événement.
