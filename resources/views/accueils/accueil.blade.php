@@ -37,7 +37,7 @@
             margin-bottom: 20px;
         }
         .event-img {
-            height: 300px;
+            height: 190px;
             object-fit: cover;
             width: 1500px;
 
@@ -47,11 +47,16 @@
             margin: 10px;
 
         }
+
+        .card {
+            width: 100%;
+            height: 90%;
+        }
         .events .cards-container {
             display: flex;
             flex-wrap: wrap; /* Ajoutez cette ligne si vous voulez permettre aux cartes de passer à la ligne suivante */
             justify-content: space-between; /* Ajoutez de l'espace entre les cartes */
-            
+
         }
 
         .types-section {
@@ -82,6 +87,8 @@
             height: auto;
             border-radius: 10px;
         }
+
+
     </style>
 </head>
 <body>
@@ -137,7 +144,6 @@
                                     <p class="card-text">{{ $evenement->description }}</p>
                                     <p class="card-text"><small class="text-muted">Dernière mise à jour il y a 3 minutes</small></p>
                                     <a href="{{ route('evenements.show', ['id' => $evenement->id]) }}" class="btn btn-primary">voir plus</a>
-
                                 </div>
                             </div>
                         </div>
