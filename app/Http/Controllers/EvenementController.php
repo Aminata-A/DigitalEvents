@@ -137,6 +137,7 @@ class EvenementController extends Controller
     {
         // Trouver l'événement correspondant à l'ID
         $evenement = Evenement::with('users')->find($id);
+        
 
         // Vérifier si l'événement existe
         if (!$evenement) {
@@ -144,15 +145,15 @@ class EvenementController extends Controller
         }
 
         // Récupérer les réservations de l'événement à travers les utilisateurs
-        $reservations = $evenement->users->flatMap->reservations;
+        $reservations = $evenement->users;
 
         // Vérifier si des réservations existent
         if ($reservations) {
             // Passer les données à la vue pour l'affichage
-            return view('Evenements.show', compact('evenement', 'reservations'));
+            return view('evenements.show', compact('evenement', 'reservations'));
         } else {
             // Si aucune réservation n'existe, passer un tableau vide
-            return view('Evenements.show', compact('evenement', 'reservations'));
+            return view('evenements.show', compact('evenement', 'reservations'));
         }
     }
 

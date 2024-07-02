@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Evenement extends Model
 {
@@ -26,9 +27,14 @@ class Evenement extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
-    public function users(){
-        return $this->belongsToMany(User::class,'evenement_users')
-                    ->withPivot('status')
-                    ->withTimestamps();
+    // public function users(){
+    //     return $this->belongsToMany(User::class,'evenement_users')
+    //                 ->withPivot('status')
+    //                 ->withTimestamps();
+    // }
+
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'evenement_users');
     }
 }

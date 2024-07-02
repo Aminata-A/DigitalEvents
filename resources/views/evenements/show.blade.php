@@ -1,162 +1,105 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Détails de l'événement</title>
+    <link rel="stylesheet" href="{{ asset('admin/style/style.css') }}" />
+    <title>Responsive Page</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
-        .banner {
+        @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+        body {
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    color: #051d30;
+    overflow-x: hidden;
+}
+        .custom-header img{
+            width: 100%;
             background-size: cover;
-            background-position: center;
-            padding: 70px 0;
-            text-align: center;
-            margin-bottom: 20px;
-            margin-left: 100px;
-            margin-right: 100px;
+            height: 40vh;
+            position: relative;
+            border-radius: 20px;
         }
-
-        .banner img {
-            width: 100%;
-            height: auto;
-            max-height: 400px; /* Hauteur maximale ajustable selon vos besoins */
-            object-fit: cover;
-            border-radius: 10px;
-        }
-        .banner-text {
+        .custom-header button {
             position: absolute;
-            top: 50%;
-            left: 100%;
-            margin-right: 50%;
-            transform: translate(-50%, -50%);
-            color: #fff;
+            bottom: 10px;
+            left: 10px;
         }
-        .container-details {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+        .custom-section {
+            padding: 20px;
+        }
+        .custom-footer {
             margin-top: 20px;
+        }
+        .custom-footer img {
+            width: 20px;
+            height: 20px;
             margin-right: 5px;
-
         }
-        .evenement-details {
-            width: 150%; /* Largeur ajustable selon vos besoins */
-            margin-right: 20px; /* Marge à droite pour séparer des réservations */
-            align-content: center;
-            justify-content: center;
+        .btn-lien {
+            color: #FF8200;
+            margin-left: -1rem;
         }
-        .reservation-list {
-            width: 100%; /* Largeur ajustable selon vos besoins */
-            max-width: 600px; /* Largeur maximale du tableau des réservations */
-            padding-top: 40px;
-            margin-left: 100px;
+        .btn-red {
+            border-radius: 10px;
+            border: 1px solid #ff0000;
+            background: #ff0000;
+            color: white
         }
-        .reservation-list table {
-            width: 100%;
-        }
-        .details-icons {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            margin-top: 10px;
-        }
-        .icon-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .icon-item i {
-            margin-right: 5px;
-            color: darkorange; /* Couleur des icônes en orange */
-        }
-        .btn-orange {
-            background-color: darkorange;
-            border-color: darkorange;
-            color: white;
-        }
-        .btn-orange:hover {
-            background-color: darkorange;
-            border-color: darkorange;
-            color: white;
-        }
+        
     </style>
 </head>
 <body>
-    <!-- Bannière avec image -->
-    <div class="banner">
-        <img src="{{ asset('images/Rectangle_6.png') }}" class="img-fluid rounded-start event-img" alt="Image Événement">
-    </div>
-
+    <x-headerEvenement/>
     <div class="container">
-        <a href="#" class="btn btn-orange mt-3">Retour</a>
-        <div class="container-details">
-            <div class="evenement-details">
-                <!-- Détails de l'événement -->
-                <h2>TITRE 1{{ $evenement->title }}</h2>
-                <p> Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Assumenda aperiam adipisci corporis! Id quisquam voluptatibus
-                    aspernatur soluta saepe pariatur consequatur fugiat animi,
-                    eligendi laborum fugit impedit ut quae ea expedita.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Assumenda aperiam adipisci corporis! Id quisquam voluptatibus
-                    aspernatur soluta saepe pariatur consequatur fugiat animi,
-                    eligendi laborum fugit impedit ut quae ea expedita.
-                    {{ $evenement->description }}
-                </p>
-                <div class="details-icons">
-                    <div class="icon-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>{{ $evenement->location }}</span>
-                    </div>
-                    <div class="icon-item">
-                        <i class="fas fa-phone-alt"></i>
-                        <span>{{ $evenement->phone }}</span>
-                    </div>
-                    <div class="icon-item">
-                        <i class="far fa-calendar-alt"></i>
-                        <span>{{ $evenement->event_start_date }}</span>
-                    </div>
+        <div class="custom-header mt-5">
+            <img src="{{ Storage::url($evenement->image) }}" class="card-img-top" alt="Event Image">
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-lg-8 col-md-12">
+                <a href="{{ route('accueil') }}" class="btn btn-link">Retour</a>
+                <h1>{{ $evenement->name }}</h1>
+                <p>{{ $evenement->description }}</p>
+                <div class="custom-footer">
+                    <p><img src="{{ asset('admin/img/location.svg') }}" alt="icone location"> {{ $evenement->location }} </p>
+                    <p><img src="{{ asset('admin/img/phone.svg') }}" alt="icone location"> {{ $evenement->user->phone }} </p>
+                    <p><img src="{{ asset('admin/img/calendar.svg') }}" alt="icone location"> Du {{ $evenement->event_start_date }} au {{ $evenement->event_end_date }}</p>
                 </div>
             </div>
-            <div class="container mt-5">
-                <div class="reservation-list">
-                  <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h3 class="mb-0">Liste des réservations</h3>
-                    <a href="#" class="btn btn-orange">Voir</a>
-                  </div>
-
-                  <div class="flex-container">
-                    <table class="table">
-                      <thead>
+            <div class="col-lg-4 col-md-12">
+                <h2>Liste des réservations</h2>
+                <table class="table table-bordered" >
+                    <thead>
                         <tr>
-                          <th scope="col">Nom complet</th>
-                          <th scope="col">Action</th>
+                            <th>Nom complet</th>
+                            <th>Action</th>
                         </tr>
-                      </thead>
-                      <tbody>
-                        <!-- Boucle pour afficher les réservations -->
-                        @foreach($reservations as $reservation)
+                    </thead>
+                    <tbody>
+                        @foreach ($reservations as $reservation)
                         <tr>
-                          <td>{{ $reservation->full_name }}</td>
-                          <td>
-                            <a href="#" class="btn btn-danger">décliné</a>
-                          </td>
+                            
+                               <td>{{ $reservation->name }}</td> 
+                               <td><button class="btn btn-red btn-sm">Décliner</button></td>
+                            @endforeach
                         </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
+                    </tbody>
+                </table>
+                <a href="#" class="btn btn-lien">Voir tous</a>
+            </div>
         </div>
     </div>
 
-    <!-- Bootstrap JavaScript et dépendances -->
+    <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
