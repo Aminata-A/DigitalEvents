@@ -93,19 +93,18 @@
                     </thead>
                     <tbody>
                         @foreach($reservations as $reservation)
-<tr>
-    <td>{{ $reservation->name }}</td>
-    <td>
-        <form action="{{ route('reservations.decline', $reservation->id) }}" method="POST">
-            @csrf
-            @method('PUT')
-            <input type="hidden" name="status" value="declined">
-            <button type="submit" class="btn btn-red btn-sm">Décliner</button>
-        </form>
-    </td>
-</tr>
-@endforeach
-
+                            <tr>
+                                <td>{{ $reservation->name }}</td>
+                                <td>
+                                    <form action="{{ route('reservations.decline', $reservation->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="status" value="declined">
+                                        <button type="submit" class="btn btn-red btn-sm">Décliner</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
                 <a href="#" class="btn btn-lien">Voir tous</a>

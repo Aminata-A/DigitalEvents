@@ -137,28 +137,24 @@ class EvenementController extends Controller
 
 
     public function show($id)
-    {
-        // Trouver l'événement correspondant à l'ID
-        $evenement = Evenement::with('users')->find($id);
+{
+    // Trouver l'événement correspondant à l'ID
+    $evenement = Evenement::with(['users' => function ($query) {
+        $query->wherePivot('status', 'accepted');
+    }])->find($id);
 
-
-        // Vérifier si l'événement existe
-        if (!$evenement) {
-            abort(404); // Ou gérer le cas de non trouvé d'une autre manière
-        }
-
-        // Récupérer les réservations de l'événement à travers les utilisateurs
-        $reservations = $evenement->users;
-
-        // Vérifier si des réservations existent
-        if ($reservations) {
-            // Passer les données à la vue pour l'affichage
-            return view('evenements.show', compact('evenement', 'reservations'));
-        } else {
-            // Si aucune réservation n'existe, passer un tableau vide
-            return view('evenements.show', compact('evenement', 'reservations'));
-        }
+    // Vérifier si l'événement existe
+    if (!$evenement) {
+        abort(404); // Ou gérer le cas de non trouvé d'une autre manière
     }
+
+    // Récupérer les réservations de l'événement à travers les utilisateurs avec statut 'accepted'
+    $reservations = $evenement->users;
+
+    // Passer les données à la vue pour l'affichage
+    return view('evenements.show', compact('evenement', 'reservations'));
+}
+
 
     public function decline(Request $request, $id)
 {
