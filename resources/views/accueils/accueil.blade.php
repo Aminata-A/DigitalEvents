@@ -159,6 +159,40 @@
         </div>
     </div>
 </section>
+<!-- Nos partenaires -->
+<section class="partners-section">
+    <div class="container">
+        <h2>Nos Partenaires</h2>
+        <div class="row">
+            <div class="col-md-3 col-sm-6">
+                <img src="{{ asset('images/partner1.png') }}" class="img-fluid partner-logo" alt="Partenaire 1">
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <img src="{{ asset('images/partner2.png') }}" class="img-fluid partner-logo" alt="Partenaire 2">
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <img src="{{ asset('images/partner3.png') }}" class="img-fluid partner-logo" alt="Partenaire 3">
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <img src="{{ asset('images/partner4.png') }}" class="img-fluid partner-logo" alt="Partenaire 4">
+            </div>
+        </div>
+        <!-- Pagination -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item"><a class="page-link" href="#">Précédent</a></li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">Suivant</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
 
     <!-- Bootstrap JavaScript et dépendances -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
