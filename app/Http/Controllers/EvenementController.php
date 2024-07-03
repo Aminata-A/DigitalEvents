@@ -7,6 +7,7 @@ use App\Models\Evenement;
 use Illuminate\Http\Request;
 use App\Models\EvenementUser;
 use App\Mail\ReservationDeclined;
+use App\Mail\ReservationConfirmed;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
@@ -64,6 +65,45 @@ class EvenementController extends Controller
         return view('evenements.detail', compact('evenement', 'remaining_places'));
     }
 
+    // public function reserver($id)
+    // {
+    //     // Vérifiez si l'utilisateur est authentifié
+    //     if (!Auth::check()) {
+    //         return redirect()->back()->withErrors(['message' => 'Vous devez être connecté pour réserver.']);
+    //     }
+
+    //     $userId = Auth::id();
+
+    //     // Vérifiez si l'utilisateur a déjà réservé pour cet événement
+    //     $existingReservation = EvenementUser::where('evenement_id', $id)
+    //         ->where('user_id', $userId)
+    //         ->first();
+
+    //     if ($existingReservation) {
+    //         return redirect()->back()->withErrors(['message' => 'Vous avez déjà réservé pour cet événement.']);
+    //     }
+
+    //     // Trouvez l'événement
+    //     $evenement = Evenement::findOrFail($id);
+
+    //     // Vérifiez s'il y a des places disponibles
+    //     $remaining_places = $evenement->places - EvenementUser::where('evenement_id', $id)->count();
+    //     if ($remaining_places <= 0) {
+    //         return redirect()->back()->withErrors(['message' => 'Aucune place disponible.']);
+    //     }
+
+    //     // Créez une nouvelle réservation
+    //     EvenementUser::create([
+    //         'evenement_id' => $id,
+    //         'user_id' => $userId,
+    //     ]);
+
+
+
+
+    //     return redirect()->back()->with('reservation_success', 'Réservation faite avec succès.');
+    // }
+
     public function reserver($id)
     {
         // Vérifiez si l'utilisateur est authentifié
@@ -92,13 +132,18 @@ class EvenementController extends Controller
         }
 
         // Créez une nouvelle réservation
-        EvenementUser::create([
+        $reservation = EvenementUser::create([
             'evenement_id' => $id,
             'user_id' => $userId,
         ]);
 
+        // Envoyez l'e-mail de confirmation
+        Mail::to(Auth::user()->email)->send(new ReservationConfirmed($reservation));
+
+        // Redirection avec un message de succès
         return redirect()->back()->with('reservation_success', 'Réservation faite avec succès.');
     }
+
 
     public function mesEvenements()
     {
