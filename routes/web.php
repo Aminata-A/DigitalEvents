@@ -14,6 +14,9 @@ Route::get('/', [EvenementController::class, 'accueil'])->name('accueil');
 Route::get('/evenement', [EvenementController::class, 'evenement'])->name('evenement');
 Route::get('/evenement-detail', [EvenementController::class, 'evenementDetail'])->name('evenement-detail');
 
+
+
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/reservations', [EvenementUserController::class, 'index'])->name('reservations.index');
     Route::get('/creation', [EvenementController::class, 'create'])->name('creation');
@@ -29,11 +32,16 @@ Route::resource('evenements', EvenementController::class);
 Route::put('/modifier/{id}', [EvenementController::class, 'modifier'])->name('modifier')->where('id', '[0-9]');
 Route::delete('/supprimer/{id}', [EvenementController::class, 'supprimer'])->name('supprimer')->where('id', '[0-9]');
 Route::get('/evenements/{id}', [EvenementController::class, 'show'])->name('evenements.show')->where('id', '[0-9]');
+Route::put('/reservations/decline/{id}', [EvenementController::class, 'decline'])->name('reservations.decline');
+Route::get('evenements/{id}/reservations', [EvenementUserController::class, 'showAllReservations'])->name('evenements.reservations');
+Route::get('evenements/{id}/reservations/download', [EvenementUserController::class, 'downloadReservations'])->name('evenements.reservations.download');
+
 
 Route::get('/mes-evenements', [EvenementController::class, 'mesEvenements'])->name('mes-evenements');
 
 // Routes pour les utilisateurs d'événements
 Route::resource('evenement_users', EvenementUserController::class)->only(['index', 'show', 'store', 'destroy']);
+
 
 // Routes d'authentification et gestion des utilisateurs
 Route::group(['prefix' => 'auth'], function () {
@@ -92,5 +100,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/user/{id}/invalidate', 'invalidateAccount')->name('user.invalidate');
         Route::post('/user/{id}/activate', 'activateAccount')->name('user.activate');
         Route::post('/user/{id}/deactivate', 'deactivateAccount')->name('user.deactivate');
+
+        
     });
 });
+
