@@ -29,6 +29,8 @@
         }
         .events {
             padding: 40px 0;
+            display: flex;
+            flex-wrap: wrap;
         }
         .events h2 {
             font-size: 24px;
@@ -57,24 +59,27 @@
 
         .card {
             width: 100%;
-            height: 90%;
+
         }
         .events .cards-container {
             display: flex;
-            flex-wrap: nowrap; /* Ajustez cette ligne pour empêcher les cartes de passer à la ligne suivante */
+            flex-wrap: wrap; /* Ajustez cette ligne pour empêcher les cartes de passer à la ligne suivante */
             justify-content: space-between; /* Ajoutez de l'espace entre les cartes */
             /* overflow-x: auto; Ajoutez cette ligne pour permettre le défilement horizontal si nécessaire */
         }
 
 
+
         .types-section {
             margin-top: 50px;
             padding: 50px 0;
-            background-color: #f8f9fa;
+
         }
 
         .types-section .content {
             display: flex;
+            flex-wrap: wrap;
+
             align-items: center;
             justify-content: center;
         }
@@ -98,7 +103,16 @@
         .text h2 {
             padding-top: 100px;
         }
+@media (max-width: 768px) {
+    .types-section .content {
+        flex-direction: column; /* Passer à la disposition en colonne pour les petits écrans */
+    }
 
+    .types-section .image, .types-section .text {
+        flex-basis: 100%; /* Les éléments prennent toute la largeur disponible en mode colonne */
+        margin-bottom: 20px; /* Espacement entre les éléments en mode colonne */
+    }
+}
 
     </style>
 </head>
@@ -140,17 +154,12 @@
         </p>
         </div>
     </div>
-
-@php
-use Illuminate\Support\Str;
-@endphp
-
 <!-- Événements à venir -->
 <div class="events">
-<div class="container">
-    <h2>Événements à venir</h2>
-    <div class="cards-container">
-        @foreach ($evenements as $evenement)
+    <div class="container">
+        <h2>Événements à venir</h2>
+        <div class="cards-container">
+            @foreach ($evenements as $evenement)
             <div class="card-event">
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
@@ -160,24 +169,23 @@ use Illuminate\Support\Str;
                         <div class="col-md-8">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $evenement->name }}</h5>
-                                <p class="card-text description">{{ Str::limit($evenement->description, 150) }}
-
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus fermentum massa eu dolor varius, et semper lectus aliquam. Nulla tincidunt mauris sit amet erat pretium, sit amet lobortis urna tincidunt. Nulla facilisi.
-        Integer volutpat dignissim lectus, ac dapibus lorem euismod ut. Vestibulum eu magna ac velit condimentum posuere. Vivamus sagittis nisi non risus commodo, a consectetur felis malesuada.
-        Integer volutpat dignissim lectus, ac dapibus lorem euismod ut. Vestibulum eu magna ac velit condimentum posuere. Vivamus sagittis nisi non risus commodo, a consectetur felis malesuada
-        Integer volutpat dignissim lectus, ac dapibus lorem euismod ut.
+                                <p class="card-text description">
+                                    {{ Str::limit($evenement->description, 150) }}
                                 </p>
-                                <p class="card-text"><small class="text-muted"></small></p>
+                                <p class="card-text">
+                                    <small class="text-muted">Dernière mise à jour: {{ $evenement->updated_at->diffForHumans() }}</small>
+                                </p>
                                 <a href="{{ route('evenements.show', ['id' => $evenement->id]) }}" class="btn btn-primary">Voir plus</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        @endforeach
+            @endforeach
+        </div>
     </div>
 </div>
-</div>
+
 
 
 </div>
