@@ -60,9 +60,24 @@ class EvenementController extends Controller
     public function evenementDetail($id)
     {
         $evenement = Evenement::with(['user'])->findOrFail($id);
-        $remaining_places = $evenement->places - EvenementUser::where('evenement_id', $evenement->id)->count();
-        
-        return view('evenements.detail', compact('evenement', 'remaining_places'));
+    $remaining_places = $evenement->places - EvenementUser::where('evenement_id', $evenement->id)->count();
+    $reservations = EvenementUser::where('evenement_id', $evenement->id)->with('user')->get();
+
+    // Vérifier si l'utilisateur est authentifié
+    if (Auth::check()) {
+        $user = Auth::user();
+        // Vérifier si l'utilisateur est l'organisateur de l'événement
+        if ($evenement->user_id == $user->id) {
+            // Rediriger vers la vue pour l'organisateur
+            return view('evenements.show', compact('evenement', 'remaining_places', 'reservations'));
+        } else {
+            // Rediriger vers la vue pour un utilisateur normal
+            return view('evenements.detail', compact('evenement', 'remaining_places'));
+        }
+    }
+
+    // Si l'utilisateur n'est pas authentifié, rediriger vers la vue pour un utilisateur normal
+    return view('evenements.detail', compact('evenement', 'remaining_places'));
     }
     
     // public function reserver($id)

@@ -46,7 +46,7 @@
                                 <p class="card-text">{{ $evenement->description }}</p>
                                 <div class="d-flex justify-content-between">
                                     <button class="badge orange">{{ $evenement->places }} places</button>
-                                    <a href="{{ route('evenement.detail', $evenement->id) }}" class="badge  text-dark">Voir Détails</a href="{{ route('evenement.detail', $evenement->id) }}">
+                                    <a href="{{ route('evenement.detail', $evenement->id) }}" class="badge text-dark">Voir Détails</a>
                                 </div>
                             </div>
                         </div>
@@ -54,6 +54,7 @@
                     @endforeach
                 </div>
             </div>
+            
         </div>
     </div>
     
