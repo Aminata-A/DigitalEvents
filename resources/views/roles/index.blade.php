@@ -24,6 +24,11 @@
             {{ session('status') }}
         </div>
         @endif
+        @if (session('error'))
+   <div class="alert alert-danger">
+       {{ session('error') }}
+   </div>
+   @endif
         <div class="search-bar">
             <form action="{{ route('roles.store') }}" method="POST" class="form-inline">
                 @csrf

@@ -44,11 +44,24 @@ class RoleController extends Controller
 
     public function destroy($id)
     {
-        $role = Role::findOrFail($id);
-        $role->delete();
+       $role = Role::findOrFail($id);
     
-        return redirect()->route('roles.index')->with('status', 'role supprimée avec succès');
+    
+       // Liste des rôles qui ne doivent pas être supprimés
+       $protectedRoles = ['admin', 'association', 'user'];
+    
+    
+       if (in_array($role->name, $protectedRoles)) {
+           return redirect()->route('roles.index')->with('error', 'Ce rôle ne peut pas être supprimé.');
+       }
+    
+    
+       $role->delete();
+    
+    
+       return redirect()->route('roles.index')->with('status', 'Rôle supprimé avec succès.');
     }
+    
 
     public function addPermissionToRole($id)
     {

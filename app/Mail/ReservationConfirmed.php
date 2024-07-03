@@ -10,7 +10,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ReservationDeclined extends Mailable
+class ReservationConfirmed extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -23,7 +23,7 @@ class ReservationDeclined extends Mailable
 
     public function build()
     {
-        return $this->subject('Votre réservation a été déclinée')
-                    ->view('emails.reservation_declined');
+        return $this->subject('Votre réservation a été accepté')
+                    ->view('emails.reservation_accepted');
     }
 }
