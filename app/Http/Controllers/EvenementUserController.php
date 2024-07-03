@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\EvenementUser;
+use App\Notifications\ReservationConfirmed;
+use Illuminate\Support\Facades\Notification;
 use App\Http\Requests\StoreEvenementUserRequest;
 use App\Http\Requests\UpdateEvenementUserRequest;
+
 
 class EvenementUserController extends Controller
 {
@@ -34,7 +37,17 @@ class EvenementUserController extends Controller
     */
     public function store(StoreEvenementUserRequest $request)
     {
-        //
+        // Validation et création de la réservation
+        $reservation = new Reservation();
+        $reservation->event_name = $request->event_name;
+        $reservation->user_id = $request->user()->id;
+        $reservation->save();
+
+        // Envoyer la notification à l'utilisateur
+        $request->user()->notify(new ReservationConfirmed($reservation));
+
+        return redirect()->route('reservations.index')->with('success', 'Réservation confirmée et email envoyé.');
+
     }
 
     /**
