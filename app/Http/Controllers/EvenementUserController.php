@@ -29,12 +29,17 @@ class EvenementUserController extends Controller
     
         return view('reservations.index', compact('reservations'));
     }
+
     /**
      * Affiche le formulaire de création de réservation.
      */
     public function create()
     {
-        //
+        // Vous pouvez récupérer la liste des événements disponibles pour la réservation
+        $evenements = Evenement::all();
+        // Vous pouvez également récupérer la liste des utilisateurs si nécessaire
+        $users = User::all();
+        return view('reservations.create', compact('evenements', 'users'));
     }
 
     /**
@@ -46,6 +51,7 @@ class EvenementUserController extends Controller
     public function store(Request $request)
     {
         // 
+
     }
 
     /**
@@ -63,6 +69,7 @@ class EvenementUserController extends Controller
     public function edit(EvenementUser $evenementUser)
     {
        //
+
     }
 
     /**
@@ -114,7 +121,7 @@ public function downloadReservations($id)
     // Générer le PDF
     $pdf = PDF::loadView('evenements.pdf', compact('evenement', 'reservations'));
 
-    
+
     // Télécharger le PDF
     return $pdf->stream('reservations.pdf');
 }
