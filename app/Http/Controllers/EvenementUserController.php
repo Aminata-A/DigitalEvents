@@ -114,6 +114,7 @@ public function downloadReservations($id)
     // Générer le PDF
     $pdf = PDF::loadView('evenements.pdf', compact('evenement', 'reservations'));
 
+    
     // Télécharger le PDF
     return $pdf->stream('reservations.pdf');
 }

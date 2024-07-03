@@ -22,7 +22,7 @@
         .custom-header img {
             width: 100%;
             background-size: cover;
-            height: 40vh;
+            height: 70vh;
             position: relative;
             border-radius: 20px;
         }
