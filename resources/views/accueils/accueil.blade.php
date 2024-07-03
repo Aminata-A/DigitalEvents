@@ -27,8 +27,8 @@
         .banner p {
             font-size: 24px;
         }
-        .events {
-            padding: 40px 0;
+                .events {
+            padding: 20px 0;
             display: flex;
             flex-wrap: wrap;
         }
@@ -36,37 +36,35 @@
             font-size: 24px;
             color: #333;
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
         .event-img {
-            height: 187px;
+            height: 100px;
             object-fit: cover;
-            width: 1500px;
+            width: 100px;
             padding-bottom: 5px;
-
         }
         .card-event {
             flex: 1 0 30%;
-            margin: 10px;
-
+            margin: 5px; /* Réduisez la marge ici pour diminuer l'espace entre les cartes */
         }
-
         .card-text.description {
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
-
         .card {
             width: 100%;
-
         }
         .events .cards-container {
             display: flex;
-            flex-wrap: wrap; /* Ajustez cette ligne pour empêcher les cartes de passer à la ligne suivante */
-            justify-content: space-between; /* Ajoutez de l'espace entre les cartes */
-            /* overflow-x: auto; Ajoutez cette ligne pour permettre le défilement horizontal si nécessaire */
+            flex-wrap: wrap;
+            justify-content: space-around;
+            
+
+            /* margin-right: 280px; */
         }
+
 
 
 
@@ -119,22 +117,57 @@
 <body>
 
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
+    <!-- resources/views/components/header.blade.php -->
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">DigitalEvents</a>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="#">Accueil</a>
-                    <a class="nav-link" href="#">Événements</a>
-                    <a class="nav-link" href="#">Réservations</a>
-                </div>
-            </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto px-4">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('accueil')}}">Accueil</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="{{ route('evenement') }}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Événement
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{{ route('evenement') }}">Événement</a>
+                        @auth
+                            @if (Auth::user()->hasRole('association'))
+                                <a class="dropdown-item" href="{{ route('creation') }}">Création d'Événement</a>
+                                <a class="dropdown-item" href="{{ route('mes-evenements') }}">Mes Événements</a>
+                            @endif
+                        @endauth
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('reservations.index')}}">Reservations</a>
+                </li>
+                @auth
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('logout') }}">Déconnexion</a>
+                </li>
+                @else
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}">Connexion</a>
+                </li>
+                @endauth
+            </ul>
+            <!-- Affichage de l'utilisateur connecté -->
+            @auth
+            <span class="navbar-text">
+                {{ Auth::user()->name }}
+            </span>
+            @endauth
         </div>
     </nav>
+</header>
+
 
     <!-- Banner -->
     <div class="banner">
@@ -155,37 +188,37 @@
         </p>
         </div>
     </div>
-<!-- Événements à venir -->
-<div class="events">
-    <div class="container">
-        <h2>Événements à venir</h2>
-        <div class="cards-container">
-            @foreach ($evenements as $evenement)
-            <div class="card-event">
-                <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="{{ asset('images/Rectangle_6.png') }}" class="img-fluid rounded-start event-img" alt="Image Événement">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $evenement->name }}</h5>
-                                <p class="card-text description">
-                                    {{ Str::limit($evenement->description, 150) }}
-                                </p>
-                                <p class="card-text">
-                                    <small class="text-muted">Dernière mise à jour: {{ $evenement->updated_at->diffForHumans() }}</small>
-                                </p>
-                                <a href="{{ route('evenements.show', ['id' => $evenement->id]) }}" class="btn btn-primary">Voir plus</a>
+
+    {{-- événements à venir --}}
+    <div id="eventCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            @foreach ($evenements->chunk(3) as $eventChunk)
+                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                    <div class="d-flex justify-content-center">
+                        @foreach ($eventChunk as $evenement)
+                            <div class="card mb-3 mx-2" style="width: 18rem;">
+                                <img src="{{ asset('images/image_24.png') }}" class="card-img-top" alt="Image Événement">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $evenement->name }}</h5>
+                                    <p class="card-text">{{ Str::limit($evenement->description, 150) }}</p>
+                                    <p class="card-text"><small class="text-muted">Dernière mise à jour: {{ $evenement->updated_at->diffForHumans() }}</small></p>
+                                    <a href="{{ route('evenements.show', ['id' => $evenement->id]) }}" class="btn btn-primary">Voir plus</a>
+                                </div>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
-            </div>
             @endforeach
         </div>
+        {{-- <button class="carousel-control-prev" type="button" data-bs-target="#eventCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#eventCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button> --}}
     </div>
-</div>
 
 
 
