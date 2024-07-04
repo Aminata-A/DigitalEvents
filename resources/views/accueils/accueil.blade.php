@@ -47,6 +47,7 @@
         .card-event {
             flex: 1 0 30%;
             margin: 5px; /* Réduisez la marge ici pour diminuer l'espace entre les cartes */
+            padding-bottom: 100px;
         }
         .card-text.description {
             overflow: hidden;
@@ -55,11 +56,13 @@
         }
         .card {
             width: 100%;
+
         }
         .events .cards-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around;
+
 
 
             /* margin-right: 280px; */
@@ -132,10 +135,7 @@
                     <a class="nav-link" href="{{ route('accueil')}}">Accueil</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="{{ route('evenement') }}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
-                        Événement
-                    </a>
+                    <a class="nav-link dropdown-toggle" href="{{ route('evenement') }}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Événement</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="{{ route('evenement') }}">Événement</a>
                         @auth
@@ -193,13 +193,15 @@
     </div>
 
     {{-- événements à venir --}}
-    <div id="eventCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            @foreach ($evenements->chunk(3) as $eventChunk)
-                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                    <div class="d-flex justify-content-center">
-                        @foreach ($eventChunk as $evenement)
-                            <div class="card mb-3 mx-2" style="width: 18rem;">
+<!-- Événements à venir -->
+<div id="eventCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
+    <div class="carousel-inner">
+        @foreach ($evenements->chunk(3) as $index => $eventChunk)
+            <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                <div class="row gx-0 justify-content-center">
+                    @foreach ($eventChunk as $evenement)
+                        <div class="col-md-3">
+                            <div class="card mb-3 mx-2">
                                 <img src="{{ asset('images/image_24.png') }}" class="card-img-top" alt="Image Événement">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $evenement->name }}</h5>
@@ -208,21 +210,22 @@
                                     <a href="{{ route('evenements.show', ['id' => $evenement->id]) }}" class="btn btn-primary">Voir plus</a>
                                 </div>
                             </div>
-                        @endforeach
-                    </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
-            @endforeach
-        </div>
-        {{-- <button class="carousel-control-prev" type="button" data-bs-target="#eventCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#eventCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button> --}}
+        @endforeach
     </div>
+    <a class="carousel-control-prev" href="#eventCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#eventCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
 
 
 
