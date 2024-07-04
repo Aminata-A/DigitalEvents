@@ -269,30 +269,32 @@ class EvenementController extends Controller
         return view('evenements.update', compact('evenement'));
     }
     
-    public function modifier(UpdateEvenementRequest $request, Evenement $evenement)
-{
-    // Valider les données du formulaire
-    $validatedData = $request->validated();
+    public function modifier(UpdateEvenementRequest $request, $id)
+    {
+        // Récupérer l'événement par son identifiant
+        $evenement = Evenement::findOrFail($id);
     
-    // Gérer le téléchargement de la nouvelle image
-    if ($request->hasFile('image')) {
-        // Supprimer l'ancienne image si elle existe
-        if ($evenement->image && Storage::disk('public')->exists($evenement->image)) {
-            Storage::disk('public')->delete($evenement->image);
+        // Valider les données du formulaire
+        $validatedData = $request->validated();
+        
+        // Gérer le téléchargement de la nouvelle image
+        if ($request->hasFile('image')) {
+            // Supprimer l'ancienne image si elle existe
+            if ($evenement->image && Storage::disk('public')->exists($evenement->image)) {
+                Storage::disk('public')->delete($evenement->image);
+            }
+            // Stocker la nouvelle image
+            $imagePath = $request->file('image')->store('images', 'public');
+            $validatedData['image'] = $imagePath;
         }
-        // Stocker la nouvelle image
-        $imagePath = $request->file('image')->store('images', 'public');
-        $validatedData['image'] = $imagePath;
+        
+        // Mettre à jour l'événement avec les données validées
+        $evenement->update($validatedData);
+    
+        // Redirection avec un message de succès
+        return redirect()->route('evenement')->with('success', 'Événement modifié avec succès');
     }
     
-    // Mettre à jour l'événement avec les données validées
-    $evenement->update($validatedData);
-    dd($validatedData);
-
-    // Redirection avec un message de succès
-    return redirect()->route('evenement')->with('success', 'Événement modifié avec succès');
-
-}   
     
     
     public function supprimer(Evenement $evenement, $id)
