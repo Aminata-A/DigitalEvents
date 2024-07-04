@@ -8,7 +8,7 @@
 
     <h1>Votre réservation a été acceptée</h1>
     <p>Bonjour {{ $reservation->user->name }},</p>
-    <p>Votre réservation pour l'événement {{ $reservation->evenement->name }} a bien été mis en compte  .</p>
+    <p>Votre réservation pour l'événement {{ $reservation->evenement->name }} a bien été prise en compte  .</p>
     <p>Merci d'avoir réserver à temps .</p>
 </body>
 </html>

@@ -30,7 +30,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-light rounded-pill px-3 mt-2">Filtrer</button>
+                        <button type="submit" class="btn btn-light rounded-pill px-3 mt-2"  style="background-color: #FF8200; color: #fff"  >Filtrer</button>
                     </form>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                                 <p class="card-text">{{ $evenement->description }}</p>
                                 <div class="d-flex justify-content-between">
                                     <button class="badge orange">{{ $evenement->places }} places</button>
-                                    <a href="{{ route('evenements.show', ['id' => $evenement->id]) }}" class="badge text-dark">Voir Détails</a>
+                                    <a href="{{ route('evenement.detail', ['id' => $evenement->id]) }}" class="badge text-dark">Voir Détails</a>
                                 </div>
                             </div>
                         </div>

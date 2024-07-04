@@ -60,33 +60,33 @@ class EvenementController extends Controller
     public function evenementDetail($id)
     {
         $evenement = Evenement::with(['user'])->findOrFail($id);
-    $remaining_places = $evenement->places - EvenementUser::where('evenement_id', $evenement->id)->count();
-    $reservations = EvenementUser::where('evenement_id', $evenement->id)->with('user')->get();
-
-    // Vérifier si l'utilisateur est authentifié
-    if (Auth::check()) {
-        $user = Auth::user();
-        // Vérifier si l'utilisateur est l'organisateur de l'événement
-        if ($evenement->user_id == $user->id) {
-
-            $evenement = Evenement::with(['users' => function ($query) {
-                $query->wherePivot('status', 'accepted');
-            }])->find($id);
-            
-            // Vérifier si l'événement existe
-            if (!$evenement) {
-                abort(404); // Ou gérer le cas de non trouvé d'une autre manière
+        $remaining_places = $evenement->places - EvenementUser::where('evenement_id', $evenement->id)->count();
+        $reservations = EvenementUser::where('evenement_id', $evenement->id)->with('user')->get();
+        
+        // Vérifier si l'utilisateur est authentifié
+        if (Auth::check()) {
+            $user = Auth::user();
+            // Vérifier si l'utilisateur est l'organisateur de l'événement
+            if ($evenement->user_id == $user->id) {
+                
+                $evenement = Evenement::with(['users' => function ($query) {
+                    $query->wherePivot('status', 'accepted');
+                }])->find($id);
+                
+                // Vérifier si l'événement existe
+                if (!$evenement) {
+                    abort(404); // Ou gérer le cas de non trouvé d'une autre manière
+                }
+                
+                // Récupérer les réservations de l'événement à travers les utilisateurs avec statut 'accepted'
+                $reservations = $evenement->users;
+                // Rediriger vers la vue pour l'organisateur
+                return view('evenements.show', compact('evenement', 'remaining_places', 'reservations'));
+            } else {
+                // Rediriger vers la vue pour un utilisateur normal
+                return view('evenements.detail', compact('evenement', 'remaining_places'));
             }
-            
-            // Récupérer les réservations de l'événement à travers les utilisateurs avec statut 'accepted'
-            $reservations = $evenement->users;
-            // Rediriger vers la vue pour l'organisateur
-            return view('evenements.show', compact('evenement', 'remaining_places', 'reservations'));
-        } else {
-            // Rediriger vers la vue pour un utilisateur normal
-            return view('evenements.detail', compact('evenement', 'remaining_places'));
         }
-    }
         $remaining_places = $evenement->places - EvenementUser::where('evenement_id', $evenement->id)->count();
         
         return view('evenements.detail', compact('evenement', 'remaining_places'));
@@ -132,7 +132,7 @@ class EvenementController extends Controller
         return redirect()->back()->with('reservation_success', 'Réservation faite avec succès.');
     }
     
-
+    
     public function mesEvenements()
     {
         // Récupérez l'utilisateur authentifié
@@ -146,7 +146,7 @@ class EvenementController extends Controller
             // Récupérez les événements auxquels l'utilisateur a participé
             $evenements = EvenementUser::where('user_id', $user->id)->with('evenement')->get();
         }
-
+        
         return view('evenements.mes-evenements', compact('evenements'));
     }
     
@@ -157,7 +157,7 @@ class EvenementController extends Controller
     
     public function creation(StoreEvenementRequest $request)
     {
-
+        
         // Vérifie si l'utilisateur a le rôle "association"
         if (!Auth::user()->hasRole('association')) {
             return redirect()->route('home')->with('error', 'Vous n\'avez pas les permissions nécessaires pour créer un événement.');
@@ -212,55 +212,55 @@ class EvenementController extends Controller
         return view('evenements.show', compact('evenement', 'reservations'));
     }
     
-//     public function showEvent($evenementId)
-// {
-//     $event = Evenement::findOrFail($evenementId); // Adjust this as per your actual model and method
-//     $reservations = EvenementUser::with('user')->where('evenement_id', $evenementId)->get();
-
-//     return view('your_view_name', compact('event', 'reservations'));
-// }
-
+    //     public function showEvent($evenementId)
+    // {
+    //     $event = Evenement::findOrFail($evenementId); // Adjust this as per your actual model and method
+    //     $reservations = EvenementUser::with('user')->where('evenement_id', $evenementId)->get();
     
-public function decline(Request $request, $evenementId, $userId)
-{
-    // Validate the request
-    $request->validate([
-        'status' => 'required|in:declined',
-    ]);
-
-    DB::beginTransaction();
-
-    try {
-        // Find the reservation by user_id and evenement_id
-        $reservation = EvenementUser::where('user_id', $userId)
-                                     ->where('evenement_id', $evenementId)
-                                     ->firstOrFail();
-
-        if (!$reservation) {
-            throw new \Exception('Aucune réservation trouvée pour cet utilisateur et cet événement.');
+    //     return view('your_view_name', compact('event', 'reservations'));
+    // }
+    
+    
+    public function decline(Request $request, $evenementId, $userId)
+    {
+        // Validate the request
+        $request->validate([
+            'status' => 'required|in:declined',
+        ]);
+        
+        DB::beginTransaction();
+        
+        try {
+            // Find the reservation by user_id and evenement_id
+            $reservation = EvenementUser::where('user_id', $userId)
+            ->where('evenement_id', $evenementId)
+            ->firstOrFail();
+            
+            if (!$reservation) {
+                throw new \Exception('Aucune réservation trouvée pour cet utilisateur et cet événement.');
+            }
+            
+            // Update the reservation status
+            $reservation->status = $request->input('status');
+            $reservation->save();
+            
+            // Send notification email to the associated user
+            Mail::to($reservation->user->email)->send(new ReservationDeclined($reservation));
+            
+            DB::commit();
+            
+            // Return to the previous page with a success message
+            return back()->with('success', 'La réservation a été déclinée et un email a été envoyé.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            
+            // Return to the previous page with an error message
+            return back()->with('error', 'Une erreur est survenue : ' . $e->getMessage());
         }
-
-        // Update the reservation status
-        $reservation->status = $request->input('status');
-        $reservation->save();
-
-        // Send notification email to the associated user
-        Mail::to($reservation->user->email)->send(new ReservationDeclined($reservation));
-
-        DB::commit();
-
-        // Return to the previous page with a success message
-        return back()->with('success', 'La réservation a été déclinée et un email a été envoyé.');
-    } catch (\Exception $e) {
-        DB::rollBack();
-
-        // Return to the previous page with an error message
-        return back()->with('error', 'Une erreur est survenue : ' . $e->getMessage());
     }
-}
-
-
-
+    
+    
+    
     
     public function edit(Evenement $evenement)
     {
@@ -268,40 +268,46 @@ public function decline(Request $request, $evenementId, $userId)
     }
     
     public function modifier(UpdateEvenementRequest $request, Evenement $evenement)
-    {
-        $validatedData = $request->validated();
-        
-        if ($request->hasFile('image')) {
-            // Supprimer l'ancienne image si elle existe
-            if ($evenement->image) {
-                Storage::disk('public')->delete($evenement->image);
-            }
-            // Stocker la nouvelle image
-            $image = $request->file('image')->store('images', 'public');
-            $validatedData['image'] = $image;
+{
+    // Valider les données du formulaire
+    $validatedData = $request->validated();
+    
+    // Gérer le téléchargement de la nouvelle image
+    if ($request->hasFile('image')) {
+        // Supprimer l'ancienne image si elle existe
+        if ($evenement->image && Storage::disk('public')->exists($evenement->image)) {
+            Storage::disk('public')->delete($evenement->image);
         }
-        
-        $evenement->update($validatedData);
-        
-        return redirect()->route('evenement')->with('success', 'Événement modifié avec succès');
+        // Stocker la nouvelle image
+        $imagePath = $request->file('image')->store('images', 'public');
+        $validatedData['image'] = $imagePath;
     }
     
+    // Mettre à jour l'événement avec les données validées
+    $evenement->update($validatedData);
+    dd($validatedData);
 
-    public function supprimer($id)
+    // Redirection avec un message de succès
+    return redirect()->route('evenement')->with('success', 'Événement modifié avec succès');
+
+}   
+    
+    
+    public function supprimer(Evenement $evenement, $id)
     {
         $evenement = Evenement::find($id);
-    
+        
         if (!$evenement) {
             return redirect()->back()->with('error', 'Événement non trouvé');
         }
-    
+        
         // Supprimer l'image liée
         if ($evenement->image) {
             Storage::delete($evenement->image);
         }
-    
+        
         $evenement->delete();
-    
+        
         return redirect()->back()->with('success', 'Événement supprimé avec succès');
     }
     

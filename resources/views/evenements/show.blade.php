@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,48 +20,55 @@
             color: #051d30;
             overflow-x: hidden;
         }
+
         .custom-header img {
             width: 100%;
-            background-size: cover;
             height: 70vh;
-            position: relative;
+            object-fit: cover;
             border-radius: 20px;
         }
-        .custom-header button {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-        }
+
         .custom-section {
             padding: 20px;
         }
+
         .custom-footer {
             margin-top: 20px;
         }
+
         .custom-footer img {
             width: 20px;
             height: 20px;
             margin-right: 5px;
         }
+
         .btn-lien {
             color: #FF8200;
             margin-left: -1rem;
         }
+
         .btn-red {
             border-radius: 10px;
             border: 1px solid #ff0000;
             background: #ff0000;
             color: white;
         }
+
+        @media (max-width: 768px) {
+            .custom-header img {
+                height: 40vh;
+            }
+        }
     </style>
 </head>
+
 <body>
-    <x-headerEvenement/>
+    <x-headerEvenement />
     <div class="container">
         <div class="custom-header mt-5">
             <img src="{{ Storage::url($evenement->image) }}" class="card-img-top" alt="Event Image">
         </div>
-        
+
         <div class="row mt-4">
             <div class="col-lg-8 col-md-12">
                 <a href="{{ route('accueil') }}" class="btn btn-link">Retour</a>
@@ -84,7 +92,7 @@
                 </div>
                 @endif
                 <h2>Liste des réservations</h2>
-                
+
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -107,17 +115,15 @@
                         @endforeach
                     </tbody>
                 </table>
-            </tbody>
-        </table>
-        <a href="{{ route('evenements.reservations', $evenement->id) }}" class="btn btn-lien">Voir tous</a>
-        
+                <a href="{{ route('evenements.reservations', $evenement->id) }}" class="btn btn-lien">Voir tous</a>
+            </div>
+        </div>
     </div>
-</div>
-</div>
 
-<!-- Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>
