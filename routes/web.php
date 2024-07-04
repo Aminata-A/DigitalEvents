@@ -17,8 +17,8 @@ Route::get('/evenement-detail', [EvenementController::class, 'evenementDetail'])
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/reservations', [EvenementUserController::class, 'index'])->name('reservations.index');
-    Route::get('/creation', [EvenementController::class, 'create'])->name('creation');
-    Route::post('/creation', [EvenementController::class, 'creation'])->name('creation.store');
+    Route::get('/creation', [EvenementController::class, 'create'])->name('creation')->middleware('permission:create event');
+    Route::post('/creation', [EvenementController::class, 'creation'])->name('creation.store')->middleware('permission:create event');
 });
 Route::get('/evenement/{id}', [EvenementController::class, 'evenementDetail'])->name('evenement.detail')->where('id', '[0-9]+');
 Route::post('/evenement/{id}/reserver', [EvenementController::class, 'reserver'])->name('evenement.reserver')->where('id', '[0-9]+');
@@ -60,7 +60,7 @@ Route::group(['prefix' => 'auth'], function () {
 
 
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::controller(RoleController::class)->group(function () {
         // Routes de ressource sans destroy, edit, update
