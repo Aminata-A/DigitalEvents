@@ -30,7 +30,7 @@ Route::get('/mes-evenements', [EvenementController::class, 'mesEvenements'])->na
 // Routes pour la création et gestion des événements')->where('id', '[0-9]')
 Route::resource('evenements', EvenementController::class);
 Route::put('/modifier/{id}', [EvenementController::class, 'modifier'])->name('modifier')->where('id', '[0-9]');
-Route::delete('/supprimer/{id}', [EvenementController::class, 'supprimer'])->name('supprimer')->where('id', '[0-9]');
+Route::delete('/supprimer/{id}', [EvenementController::class, 'supprimer'])->name('supprimer')->where('id', '[0-9]+');
 Route::get('/evenements/{id}', [EvenementController::class, 'show'])->name('evenements.show')->where('id', '[0-9]');
 Route::put('/reservations/decline/{id}', [EvenementController::class, 'decline'])->name('reservations.decline');
 Route::get('evenements/{id}/reservations', [EvenementUserController::class, 'showAllReservations'])->name('evenements.reservations');
