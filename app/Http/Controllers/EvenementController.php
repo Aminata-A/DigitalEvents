@@ -68,9 +68,7 @@ class EvenementController extends Controller
         $user = Auth::user();
         // Vérifier si l'utilisateur est l'organisateur de l'événement
         if ($evenement->user_id == $user->id) {
-            // Rediriger vers la vue pour l'organisateur
-            return view('evenements.show', compact('evenement', 'remaining_places', 'reservations'));
-        } else {
+           
             // Rediriger vers la vue pour un utilisateur normal
             return view('evenements.detail', compact('evenement', 'remaining_places'));
         }

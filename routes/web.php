@@ -13,7 +13,7 @@ use App\Models\Evenement;
 // Routes publiques (non authentifiées)
 Route::get('/', [EvenementController::class, 'accueil'])->name('accueil');
 Route::get('/evenement', [EvenementController::class, 'evenement'])->name('evenement');
-Route::get('/evenement-detail', [EvenementController::class, 'evenementDetail'])->name('evenement-detail');
+// Route::get('/evenement-detail', [EvenementController::class, 'evenementDetail'])->name('evenement-detail');
 
 
 
