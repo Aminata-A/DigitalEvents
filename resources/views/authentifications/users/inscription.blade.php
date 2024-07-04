@@ -89,6 +89,7 @@
                         <button type="submit" class="btn btn-primary form-control" style="background-color: #FF8200; border-color: #FF8200">S'inscrire</button>
                         <div class="mt-3 text-center">
                             <p>Vous avez déjà un compte? <a href="{{ route('login') }}">Cliquer ici</a></p>
+                            <p>Si vous êtes une association <a href="{{ route('register.association') }}">Cliquer ici</a> pour s'inscrire</p>
                         </div>
                     </form>
                 </div>

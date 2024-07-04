@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\StoreEvenementRequest;
 use App\Http\Requests\UpdateEvenementRequest;
+use Vinkla\Hashids\Facades\Hashids;
 
 class EvenementController extends Controller
 {
@@ -57,8 +58,9 @@ class EvenementController extends Controller
         return view('evenements.index', compact('evenements', 'activity_areas'));
     }
     
-    public function evenementDetail($id)
+    public function evenementDetail($hashid)
     {
+        $id = Hashids::decode($hashid)[0];
         $evenement = Evenement::with(['user'])->findOrFail($id);
     $remaining_places = $evenement->places - EvenementUser::where('evenement_id', $evenement->id)->count();
     $reservations = EvenementUser::where('evenement_id', $evenement->id)->with('user')->get();

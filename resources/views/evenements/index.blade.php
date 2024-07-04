@@ -46,7 +46,7 @@
                                 <p class="card-text">{{ $evenement->description }}</p>
                                 <div class="d-flex justify-content-between">
                                     <button class="badge orange">{{ $evenement->places }} places</button>
-                                    <a href="{{ route('evenements.show', ['id' => $evenement->id]) }}" class="badge text-dark">Voir Détails</a>
+                                    <a href="{{ route('evenements.show', ['id' => $evenement->hash_id]) }}" class="badge text-dark">Voir Détails</a>
                                 </div>
                             </div>
                         </div>

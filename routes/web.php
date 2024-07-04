@@ -13,14 +13,14 @@ use App\Models\Evenement;
 // Routes publiques (non authentifiées)
 Route::get('/', [EvenementController::class, 'accueil'])->name('accueil');
 Route::get('/evenement', [EvenementController::class, 'evenement'])->name('evenement');
-Route::get('/evenement-detail', [EvenementController::class, 'evenementDetail'])->name('evenement-detail');
+//Route::get('/evenement-detail', [EvenementController::class, 'evenementDetail'])->name('evenement-detail');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/reservations', [EvenementUserController::class, 'index'])->name('reservations.index');
     Route::get('/creation', [EvenementController::class, 'create'])->name('creation')->middleware('permission:create event');
     Route::post('/creation', [EvenementController::class, 'creation'])->name('creation.store')->middleware('permission:create event');
 });
-Route::get('/evenement/{id}', [EvenementController::class, 'evenementDetail'])->name('evenement.detail')->where('id', '[0-9]+');
+Route::get('/evenements/{hashid}', [EvenementController::class, 'evenementDetail'])->name('evenement.detail')->where('id', '[0-9]+');
 Route::post('/evenement/{id}/reserver', [EvenementController::class, 'reserver'])->name('evenement.reserver')->where('id', '[0-9]+');
 Route::get('/mes-evenements', [EvenementController::class, 'mesEvenements'])->name('mes.evenements');
 
@@ -32,9 +32,9 @@ Route::delete('/supprimer/{id}', [EvenementController::class, 'supprimer'])->nam
 Route::get('/evenements/{id}', [EvenementController::class, 'show'])->name('evenements.show')->where('id', '[0-9]+');
 Route::post('/reservations/decline/{evenementId}/{userId}', [EvenementController::class, 'decline'])->name('reservations.decline');
 
-Route::get('evenements/{id}/reservations', [EvenementUserController::class, 'showAllReservations'])->name('evenements.reservations');
+Route::get('evenements/{hash_id}/reservations', [EvenementUserController::class, 'showAllReservations'])->name('evenements.reservations');
 
-Route::get('evenements/{id}/reservations/download', [EvenementUserController::class, 'downloadReservations'])->name('evenements.reservations.download');
+Route::get('evenements/{hash_id}/reservations/download', [EvenementUserController::class, 'downloadReservations'])->name('evenements.reservations.download');
 Route::post('/reservations/decline/{evenementId}/{userId}', [EvenementController::class, 'decline'])->name('reservations.decline');
 
 

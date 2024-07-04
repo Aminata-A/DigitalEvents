@@ -43,6 +43,7 @@
 
 <body>
     @include('components.headerEvenement')
+    
     @if (!Auth::user()->hasRole('association'))
     <div class="alert alert-danger mt-4">
         Vous n'avez pas les permissions nécessaires pour créer un événement.
@@ -57,6 +58,17 @@
             <div class="col-lg-6 col-md-12">
                 <div class="container form-container">
                     <h1 class="">Créer un Événement</h1>
+                    @if (Auth::user()->validation_status === 'invalid')
+    <div class="alert alert-danger mt-4">
+        Votre compte n'est pas encore validé. Veuillez patientez.
+    </div>
+    @endif
+
+    @if (Auth::user()->account_status === 'disabled')
+    <div class="alert alert-danger mt-4">
+        Votre compte est désactivé. Veuillez contacter l'administrateur.
+    </div>
+    @endif
                     @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>

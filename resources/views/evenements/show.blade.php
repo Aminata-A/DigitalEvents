@@ -109,7 +109,7 @@
                 </table>
             </tbody>
         </table>
-        <a href="{{ route('evenements.reservations', $evenement->id) }}" class="btn btn-lien">Voir tous</a>
+        <a href="{{ route('evenements.reservations', $evenement->hash_id) }}" class="btn btn-lien">Voir tous</a>
         
     </div>
 </div>
