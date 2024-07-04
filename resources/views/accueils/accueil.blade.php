@@ -121,6 +121,7 @@
 
 
     <!-- resources/views/components/header.blade.php -->
+
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">DigitalEvents</a>
@@ -135,7 +136,9 @@
                     <a class="nav-link" href="{{ route('accueil')}}">Accueil</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="{{ route('evenement') }}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Événement</a>
+                    <a class="nav-link dropdown-toggle" href="{{ route('evenement') }}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Événement
+                    </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="{{ route('evenement') }}">Événement</a>
                         @auth
@@ -151,7 +154,6 @@
                 </li>
                 @auth
                 <li class="nav-item">
-
                     <a class="nav-link" href="{{ route('logout') }}">Déconnexion</a>
                 </li>
                 @else
@@ -164,12 +166,12 @@
             @auth
             <span class="navbar-text">
                 {{ Auth::user()->name }}
-
             </span>
             @endauth
         </div>
     </nav>
 </header>
+
 
 
     <!-- Banner -->
@@ -193,7 +195,6 @@
     </div>
 
     {{-- événements à venir --}}
-<!-- Événements à venir -->
 <div id="eventCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
     <div class="carousel-inner">
         @foreach ($evenements->chunk(3) as $index => $eventChunk)

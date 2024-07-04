@@ -46,7 +46,7 @@
                                 <p class="card-text">{{ $evenement->description }}</p>
                                 <div class="d-flex justify-content-between">
                                     <button class="badge orange">{{ $evenement->places }} places</button>
-                                    <a href="{{ route('evenement.detail', $evenement->id) }}" class="badge text-dark">Voir Détails</a>
+                                    <a href="{{ route('evenements.show', ['id' => $evenement->id]) }}" class="badge text-dark">Voir Détails</a>
                                 </div>
                             </div>
                         </div>
@@ -54,10 +54,10 @@
                     @endforeach
                 </div>
             </div>
-            
+
         </div>
     </div>
-    
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
