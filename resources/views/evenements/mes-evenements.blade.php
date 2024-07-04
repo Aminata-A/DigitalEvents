@@ -20,11 +20,10 @@
             <div class="col-md-3">
                 <!-- Ajouter un filtre par activité si nécessaire -->
             </div>
-            <div class="col-md-9">
                 <div class="row">
                     @foreach($evenements as $evenement)
-                        <div class="col-md-4">
-                            <div class="card mb-4">
+                        <div class="col-md-3">
+                            <div class="card ">
                                 <img src="{{ Storage::url($evenement->image) }}" class="card-img-top" alt="Event Image">
                                 <span class="activity-badge">{{ $evenement->user->activity_area }}</span>
                                 <div class="card-body">
@@ -32,10 +31,10 @@
                                     <p class="card-text">{{ $evenement->description }}</p>
                                     <div class="d-flex justify-content-between">
                                         <button class="badge orange">{{ $evenement->places }} places</button>
-                                        <form action="{{ route('supprimer', $evenement->id) }}" method="POST">
+                                        <form action="{{ route('supprimer', $evenement->id) }}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger rounded-pill " style="background: red; font-size:11px;">Supprimer</button>
+                                            <button type="submit" class="btn btn-danger badge " style="background: red" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet événement ?');">Supprimer</button>
                                         </form>
                                     </div>
                                 </div>
@@ -43,7 +42,6 @@
                         </div>
                     @endforeach
                 </div>
-            </div>
         </div>
     </div>
     

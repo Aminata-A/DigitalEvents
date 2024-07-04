@@ -87,49 +87,10 @@ class EvenementController extends Controller
             return view('evenements.detail', compact('evenement', 'remaining_places'));
         }
     }
-
-    // Si l'utilisateur n'est pas authentifié, rediriger vers la vue pour un utilisateur normal
-    return view('evenements.detail', compact('evenement', 'remaining_places'));
+        $remaining_places = $evenement->places - EvenementUser::where('evenement_id', $evenement->id)->count();
+        
+        return view('evenements.detail', compact('evenement', 'remaining_places'));
     }
-    
-    // public function reserver($id)
-    // {
-    //     // Vérifiez si l'utilisateur est authentifié
-    //     if (!Auth::check()) {
-    //         return redirect()->back()->withErrors(['message' => 'Vous devez être connecté pour réserver.']);
-    //     }
-    
-    //     $userId = Auth::id();
-    
-    //     // Vérifiez si l'utilisateur a déjà réservé pour cet événement
-    //     $existingReservation = EvenementUser::where('evenement_id', $id)
-    //         ->where('user_id', $userId)
-    //         ->first();
-    
-    //     if ($existingReservation) {
-    //         return redirect()->back()->withErrors(['message' => 'Vous avez déjà réservé pour cet événement.']);
-    //     }
-    
-    //     // Trouvez l'événement
-    //     $evenement = Evenement::findOrFail($id);
-    
-    //     // Vérifiez s'il y a des places disponibles
-    //     $remaining_places = $evenement->places - EvenementUser::where('evenement_id', $id)->count();
-    //     if ($remaining_places <= 0) {
-    //         return redirect()->back()->withErrors(['message' => 'Aucune place disponible.']);
-    //     }
-    
-    //     // Créez une nouvelle réservation
-    //     EvenementUser::create([
-    //         'evenement_id' => $id,
-    //         'user_id' => $userId,
-    //     ]);
-    
-    
-    
-    
-    //     return redirect()->back()->with('reservation_success', 'Réservation faite avec succès.');
-    // }
     
     public function reserver($id)
     {
@@ -171,7 +132,7 @@ class EvenementController extends Controller
         return redirect()->back()->with('reservation_success', 'Réservation faite avec succès.');
     }
     
-    
+
     public function mesEvenements()
     {
         // Récupérez l'utilisateur authentifié
@@ -185,7 +146,7 @@ class EvenementController extends Controller
             // Récupérez les événements auxquels l'utilisateur a participé
             $evenements = EvenementUser::where('user_id', $user->id)->with('evenement')->get();
         }
-        
+
         return view('evenements.mes-evenements', compact('evenements'));
     }
     
@@ -196,6 +157,12 @@ class EvenementController extends Controller
     
     public function creation(StoreEvenementRequest $request)
     {
+
+        // Vérifie si l'utilisateur a le rôle "association"
+        if (!Auth::user()->hasRole('association')) {
+            return redirect()->route('home')->with('error', 'Vous n\'avez pas les permissions nécessaires pour créer un événement.');
+        }
+        
         $validatedData = $request->validated();
         
         if ($request->hasFile('image')) {
@@ -218,6 +185,7 @@ class EvenementController extends Controller
         $validatedData['user_id'] = Auth::id(); // Récupérer l'ID de l'utilisateur connecté
         $validatedData['validation_status'] = 'valid';
         $validatedData['account_status'] = 'activated';
+        $validatedData['user_id'] = Auth::id();
         
         Evenement::create($validatedData);
         
@@ -292,6 +260,7 @@ public function decline(Request $request, $evenementId, $userId)
 }
 
 
+
     
     public function edit(Evenement $evenement)
     {
@@ -317,15 +286,24 @@ public function decline(Request $request, $evenementId, $userId)
         return redirect()->route('evenement')->with('success', 'Événement modifié avec succès');
     }
     
-    public function supprimer(Evenement $evenement)
+
+    public function supprimer($id)
     {
-        if ($evenement->image) {
-            Storage::disk('public')->delete($evenement->image);
+        $evenement = Evenement::find($id);
+    
+        if (!$evenement) {
+            return redirect()->back()->with('error', 'Événement non trouvé');
         }
-        
-        // Supprimer l'événement de la base de données
+    
+        // Supprimer l'image liée
+        if ($evenement->image) {
+            Storage::delete($evenement->image);
+        }
+    
         $evenement->delete();
-        
-        return redirect()->route('evenement')->with('success', 'Événement supprimé avec succès');
+    
+        return redirect()->back()->with('success', 'Événement supprimé avec succès');
     }
+    
+    
 }
