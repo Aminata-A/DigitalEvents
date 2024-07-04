@@ -58,6 +58,7 @@
                     <th>id</th>
                     <th>Nom Complet</th>
                     <th>Email</th>
+                    <th>Téléphone</th>
                 </tr>
             </thead>
             <tbody>
@@ -66,6 +67,7 @@
                         <td>{{ $reservation->id }}</td>
                         <td>{{ $reservation->name }}</td>
                         <td>{{ $reservation->email }}</td>
+                        <td>{{ $reservation->phone }}</td>
                     </tr>
                 @endforeach
             </tbody>
