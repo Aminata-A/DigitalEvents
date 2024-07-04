@@ -7,9 +7,12 @@ use App\Models\Evenement;
 use Illuminate\Http\Request;
 use App\Models\EvenementUser;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\ReservationConfirmed;
+use Illuminate\Support\Facades\Notification;
 use App\Http\Requests\StoreEvenementUserRequest;
 use App\Http\Requests\UpdateEvenementUserRequest;
 use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class EvenementUserController extends Controller
 {
@@ -29,12 +32,17 @@ class EvenementUserController extends Controller
     
         return view('reservations.index', compact('reservations'));
     }
+
     /**
      * Affiche le formulaire de création de réservation.
      */
     public function create()
     {
-        //
+        // Vous pouvez récupérer la liste des événements disponibles pour la réservation
+        $evenements = Evenement::all();
+        // Vous pouvez également récupérer la liste des utilisateurs si nécessaire
+        $users = User::all();
+        return view('reservations.create', compact('evenements', 'users'));
     }
 
     /**
@@ -63,6 +71,7 @@ class EvenementUserController extends Controller
     public function edit(EvenementUser $evenementUser)
     {
        //
+
     }
 
     /**
@@ -114,7 +123,7 @@ public function downloadReservations($id)
     // Générer le PDF
     $pdf = PDF::loadView('evenements.pdf', compact('evenement', 'reservations'));
 
-    
+
     // Télécharger le PDF
     return $pdf->stream('reservations.pdf');
 }
