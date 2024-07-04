@@ -3,20 +3,15 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'email',
@@ -33,30 +28,22 @@ class User extends Authenticatable
         'password',
         'is_association'
     ];
+
     public function evenement()
     {
-        $this->hasMany(Evenement::class);
+        return $this->hasMany(Evenement::class);
     }
+
     public function evenements()
     {
         return $this->belongsToMany(User::class);
     }
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -66,29 +53,30 @@ class User extends Authenticatable
     }
 
     protected $casts = [
-        'activity_area' => 'string', // Si nécessaire, caster en string
+        'activity_area' => 'string',
     ];
 
     public static function getDefaultAccountStatus()
     {
-        return 'activated'; 
+        return 'activated';
     }
 
     public static function getDefaultValidationStatus()
     {
-        return 'invalid'; 
+        return 'invalid';
     }
-    
-    protected static function booted()
+
+    // Ajout des getters pour les attributs firstname et lastname
+    public function getFirstnameAttribute()
     {
-        static::created(function ($user) {
-            if ($user->is_association) {
-                $user->assignRole('association');
-            } else {
-                $user->assignRole('user');
-            }
-        });
+        $split = explode(' ', $this->attributes['name']);
+        return array_shift($split);
     }
-    
-    
+
+    public function getLastnameAttribute()
+    {
+        $split = explode(' ', $this->attributes['name']);
+        array_shift($split);
+        return implode(' ', $split);
+    }
 }

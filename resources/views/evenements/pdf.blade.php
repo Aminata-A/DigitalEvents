@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document pdf des participants</title>
+    <title>Document PDF des participants</title>
     <style>
         body {
             font-family: "Montserrat", sans-serif;
@@ -26,21 +26,24 @@
     </style>
 </head>
 <body>
-    <h2>Liste réservation pour l'événement {{ $evenement->name }}</h2>
+    <h2>Liste des réservations pour l'événement {{ $evenement->name }}</h2>
     <table>
         <thead>
             <tr>
-                <th>id</th>
-                <th>Nom Complet</th>
+
+                <th>Prénom</th>
+                <th>Nom</th>
                 <th>Email</th>
+                <th>signature</th>
             </tr>
         </thead>
         <tbody>
             @foreach($reservations as $reservation)
                 <tr>
-                    <td>{{ $reservation->id }}</td>
-                    <td>{{ $reservation->name }}</td>
+                    <td>{{ $reservation->first_name }}</td>
+                    <td>{{ $reservation->last_name }}</td>
                     <td>{{ $reservation->email }}</td>
+                    <td></td>
                 </tr>
             @endforeach
         </tbody>
