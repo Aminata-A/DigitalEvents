@@ -139,9 +139,11 @@
                         @endforeach
                     </tbody>
                 </table>
-                <a href="{{ route('evenements.reservations', $evenement->id) }}" class="btn btn-lien">Voir tous</a>
-            </div>
-        </div>
+
+            </tbody>
+        </table>
+        <a href="{{ route('evenements.reservations', $evenement->hash_id) }}" class="btn btn-lien">Voir tous</a>
+        
     </div>
 
     <!-- Bootstrap JS and dependencies -->

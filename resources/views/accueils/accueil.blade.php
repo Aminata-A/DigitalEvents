@@ -208,7 +208,8 @@
                                     <h5 class="card-title">{{ $evenement->name }}</h5>
                                     <p class="card-text">{{ Str::limit($evenement->description, 150) }}</p>
                                     <p class="card-text"><small class="text-muted">Dernière mise à jour: {{ $evenement->updated_at->diffForHumans() }}</small></p>
-                                    <a href="{{ route('evenements.show', ['id' => $evenement->id]) }}" class="btn btn-primary">Voir plus</a>
+                                    <a href="{{ route('evenements.show', ['id' => $evenement->hash_id]) }}" class="btn btn-primary">Voir plus</a>
+                                    
                                 </div>
                             </div>
                         </div>

@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Notification;
 use App\Http\Requests\StoreEvenementUserRequest;
 use App\Http\Requests\UpdateEvenementUserRequest;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Vinkla\Hashids\Facades\Hashids;
+
 
 
 class EvenementUserController extends Controller
@@ -90,8 +92,9 @@ class EvenementUserController extends Controller
         // 
     }
 
-    public function showAllReservations($id)
+    public function showAllReservations($hashid)
 {
+    $id = Hashids::decode($hashid)[0];
     // Trouver l'événement correspondant à l'ID
     $evenement = Evenement::find($id);
 
@@ -107,8 +110,9 @@ class EvenementUserController extends Controller
     return view('evenements.liste', compact('evenement', 'reservations'));
 }
 
-public function downloadReservations($id)
+public function downloadReservations($hashid)
 {
+    $id = Hashids::decode($hashid)[0];
     // Trouver l'événement correspondant à l'ID
     $evenement = Evenement::find($id);
 

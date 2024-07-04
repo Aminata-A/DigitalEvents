@@ -48,7 +48,7 @@
 <body>
     <x-headerEvenement/>
     <div class="container">
-        <a target="blank" href="{{ route('evenements.reservations.download', $evenement->id) }}">
+        <a target="blank" href="{{ route('evenements.reservations.download', $evenement->hash_id) }}">
             <button class="btn-download">Télécharger</button>
         </a>
         <h2>Liste réservation</h2>
