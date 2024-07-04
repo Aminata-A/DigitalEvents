@@ -68,6 +68,17 @@ class EvenementController extends Controller
         $user = Auth::user();
         // Vérifier si l'utilisateur est l'organisateur de l'événement
         if ($evenement->user_id == $user->id) {
+            $evenement = Evenement::with(['users' => function ($query) {
+                $query->wherePivot('status', 'accepted');
+            }])->find($id);
+            
+            // Vérifier si l'événement existe
+            if (!$evenement) {
+                abort(404); // Ou gérer le cas de non trouvé d'une autre manière
+            }
+            
+            // Récupérer les réservations de l'événement à travers les utilisateurs avec statut 'accepted'
+            $reservations = $evenement->users;
             // Rediriger vers la vue pour l'organisateur
             return view('evenements.show', compact('evenement', 'remaining_places', 'reservations'));
         } else {
