@@ -204,7 +204,9 @@
                                 <p class="card-text">
                                     <small class="text-muted">Dernière mise à jour: {{ $evenement->updated_at->diffForHumans() }}</small>
                                 </p>
-                                <a href="{{ route('evenements.show', ['id' => $evenement->id]) }}" class="btn btn-primary">Voir plus</a>
+                                <a href="{{ route('evenement.detail', $evenement->id) }}" class="btn btn-primary">Voir plus</a>
+                                
+                                
                             </div>
                         </div>
                     </div>
