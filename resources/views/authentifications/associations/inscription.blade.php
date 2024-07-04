@@ -16,12 +16,12 @@
         }
 
         .col-md-4 img {
-            width: 800px; /* Maintient le rapport d'aspect de l'image */
-            height: 59rem;
+            width: 100%;
+            height: auto;
         }
 
         .form-control {
-            padding: 1rem;
+            padding: 0.8rem;
             border-radius: 10px;
             border-color: #FF8200;
         }
@@ -29,12 +29,10 @@
         .btn {
             background-color: #FF8200;
             color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             font-size: 1.2rem;
             padding: 0.75rem;
             border-radius: 10px;
+            width: 100%;
         }
 
         .text-center p {
@@ -43,10 +41,15 @@
 
         .form-container {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
+            grid-template-columns: 1fr;
+            gap: 1.5rem; /* Réduit l'espacement entre les champs */
         }
-        
+
+        @media (min-width: 768px) {
+            .form-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
     </style>
 </head>
 <body>
@@ -64,7 +67,7 @@
                         <div class="form-container">
                             <div class="form-group">
                                 <label for="name" class="form-label">Nom de l'association</label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="nom de l'association" value="{{ old('name') }}">
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Nom de l'association" value="{{ old('name') }}">
                                 @error('name')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -73,7 +76,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="adress" class="form-label">Adresse</label>
-                                <input type="text" class="form-control @error('adress') is-invalid @enderror" id="adress" name="adress" placeholder="adresse de l'association" value="{{ old('adress') }}">
+                                <input type="text" class="form-control @error('adress') is-invalid @enderror" id="adress" name="adress" placeholder="Adresse de l'association" value="{{ old('adress') }}">
                                 @error('adress')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -82,22 +85,13 @@
                             </div>
                             <div class="form-group">
                                 <label for="email" class="form-label">Adresse email</label>
-                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="adresse email" value="{{ old('email') }}">
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Adresse email" value="{{ old('email') }}">
                                 @error('email')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
-                            {{-- <div class="form-group">
-                                <label for="activity_area" class="form-label">Secteur d'activité</label>
-                                <input type="text" class="form-control @error('activity_area') is-invalid @enderror" id="activity_area" name="activity_area" placeholder="secteur d'activité" value="{{ old('activity_area') }}">
-                                @error('activity_area')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div> --}}
                             <div class="form-group">
                                 <label for="activity_area" class="form-label">Secteur d'activité</label>
                                 <select class="form-control @error('activity_area') is-invalid @enderror" id="activity_area" name="activity_area" aria-placeholder="Sélectionner un secteur d'activité">
@@ -119,8 +113,6 @@
                                     </div>
                                 @enderror
                             </div>
-                            
-                            
                             <div class="form-group">
                                 <label for="phone" class="form-label">Téléphone</label>
                                 <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" placeholder="Téléphone" value="{{ old('phone') }}">
@@ -132,7 +124,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="ninea" class="form-label">Ninea</label>
-                                <input type="text" class="form-control @error('ninea') is-invalid @enderror" id="ninea" name="ninea" placeholder="ninea" value="{{ old('ninea') }}">
+                                <input type="text" class="form-control @error('ninea') is-invalid @enderror" id="ninea" name="ninea" placeholder="Ninea" value="{{ old('ninea') }}">
                                 @error('ninea')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -141,7 +133,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="password" class="form-label">Mot de passe</label>
-                                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="mot de passe">
+                                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Mot de passe">
                                 @error('password')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -150,31 +142,31 @@
                             </div>
                             <div class="form-group">
                                 <label for="creation_date" class="form-label">Date fondation</label>
-                                <input type="date" class="form-control @error('creation_date') is-invalid @enderror" id="creation_date" name="creation_date" placeholder="date fondation">
+                                <input type="date" class="form-control @error('creation_date') is-invalid @enderror" id="creation_date" name="creation_date" placeholder="Date fondation">
                                 @error('creation_date')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" placeholder="description de l'association">{{ old('description') }}</textarea>
-                            @error('description')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="logo" class="form-label">Logo</label>
-                            <input type="file" class="form-control1 @error('logo') is-invalid @enderror" id="logo" name="logo">
-                            @error('logo')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                            <div class="form-group">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" placeholder="Description de l'association">{{ old('description') }}</textarea>
+                                @error('description')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="logo" class="form-label">Logo</label>
+                                <input type="file" class="form-control-file @error('logo') is-invalid @enderror" id="logo" name="logo">
+                                @error('logo')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
                         </div>
                         <button type="submit" class="btn form-control">S'inscrire</button>
                         <div class="text-center">
@@ -185,5 +177,8 @@
             </div>
         </div>
     </div>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
