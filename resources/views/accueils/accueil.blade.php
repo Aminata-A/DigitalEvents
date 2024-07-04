@@ -60,7 +60,7 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around;
-            
+
 
             /* margin-right: 280px; */
         }
@@ -133,6 +133,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="{{ route('evenement') }}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
                         Événement
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -150,6 +151,7 @@
                 </li>
                 @auth
                 <li class="nav-item">
+
                     <a class="nav-link" href="{{ route('logout') }}">Déconnexion</a>
                 </li>
                 @else
@@ -162,6 +164,7 @@
             @auth
             <span class="navbar-text">
                 {{ Auth::user()->name }}
+
             </span>
             @endauth
         </div>
@@ -208,6 +211,7 @@
                         @endforeach
                     </div>
                 </div>
+            </div>
             @endforeach
         </div>
         {{-- <button class="carousel-control-prev" type="button" data-bs-target="#eventCarousel" data-bs-slide="prev">

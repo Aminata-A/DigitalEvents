@@ -7,9 +7,12 @@ use App\Models\Evenement;
 use Illuminate\Http\Request;
 use App\Models\EvenementUser;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\ReservationConfirmed;
+use Illuminate\Support\Facades\Notification;
 use App\Http\Requests\StoreEvenementUserRequest;
 use App\Http\Requests\UpdateEvenementUserRequest;
 use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class EvenementUserController extends Controller
 {
@@ -51,7 +54,6 @@ class EvenementUserController extends Controller
     public function store(Request $request)
     {
         // 
-
     }
 
     /**
