@@ -13,14 +13,13 @@ use App\Models\Evenement;
 // Routes publiques (non authentifiées)
 Route::get('/', [EvenementController::class, 'accueil'])->name('accueil');
 Route::get('/evenement', [EvenementController::class, 'evenement'])->name('evenement');
-
+Route::get('/evenement-detail', [EvenementController::class, 'evenementDetail'])->name('evenement-detail');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/reservations', [EvenementUserController::class, 'index'])->name('reservations.index');
     Route::get('/creation', [EvenementController::class, 'create'])->name('creation');
     Route::post('/creation', [EvenementController::class, 'creation'])->name('creation.store');
 });
-
 Route::get('/evenement/{id}', [EvenementController::class, 'evenementDetail'])->name('evenement.detail')->where('id', '[0-9]+');
 Route::post('/evenement/{id}/reserver', [EvenementController::class, 'reserver'])->name('evenement.reserver')->where('id', '[0-9]+');
 Route::get('/mes-evenements', [EvenementController::class, 'mesEvenements'])->name('mes.evenements');
@@ -28,10 +27,10 @@ Route::get('/mes-evenements', [EvenementController::class, 'mesEvenements'])->na
 
 // Routes pour la création et gestion des événements')->where('id', '[0-9]')
 Route::resource('evenements', EvenementController::class);
-Route::put('/modifier/{id}', [EvenementController::class, 'modifier'])->name('modifier')->where('id', '[0-9]');
-Route::delete('/supprimer/{id}', [EvenementController::class, 'supprimer'])->name('supprimer')->where('id', '[0-9]');
-Route::get('/evenement/{id}', [EvenementController::class, 'show'])->name('evenements.show')->where('id', '[0-9]');
-Route::put('/reservations/decline/{id}', [EvenementController::class, 'decline'])->name('reservations.decline');
+Route::put('/modifier/{id}', [EvenementController::class, 'modifier'])->name('modifier')->where('id', '[0-9]+');
+Route::delete('/supprimer/{id}', [EvenementController::class, 'supprimer'])->name('supprimer')->where('id', '[0-9]+');
+Route::get('/evenements/{id}', [EvenementController::class, 'show'])->name('evenements.show')->where('id', '[0-9]+');
+Route::post('/reservations/decline/{evenementId}/{userId}', [EvenementController::class, 'decline'])->name('reservations.decline');
 Route::get('evenements/{id}/reservations', [EvenementUserController::class, 'showAllReservations'])->name('evenements.reservations');
 
 
