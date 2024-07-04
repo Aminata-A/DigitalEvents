@@ -60,7 +60,6 @@ class EvenementController extends Controller
     public function evenementDetail($id)
     {
         $evenement = Evenement::with(['user'])->findOrFail($id);
-<<<<<<< HEAD
     $remaining_places = $evenement->places - EvenementUser::where('evenement_id', $evenement->id)->count();
     $reservations = EvenementUser::where('evenement_id', $evenement->id)->with('user')->get();
 
@@ -87,55 +86,10 @@ class EvenementController extends Controller
             return view('evenements.detail', compact('evenement', 'remaining_places'));
         }
     }
-
-    // Si l'utilisateur n'est pas authentifié, rediriger vers la vue pour un utilisateur normal
-    return view('evenements.detail', compact('evenement', 'remaining_places'));
-    }
-    
-    // public function reserver($id)
-    // {
-    //     // Vérifiez si l'utilisateur est authentifié
-    //     if (!Auth::check()) {
-    //         return redirect()->back()->withErrors(['message' => 'Vous devez être connecté pour réserver.']);
-    //     }
-    
-    //     $userId = Auth::id();
-    
-    //     // Vérifiez si l'utilisateur a déjà réservé pour cet événement
-    //     $existingReservation = EvenementUser::where('evenement_id', $id)
-    //         ->where('user_id', $userId)
-    //         ->first();
-    
-    //     if ($existingReservation) {
-    //         return redirect()->back()->withErrors(['message' => 'Vous avez déjà réservé pour cet événement.']);
-    //     }
-    
-    //     // Trouvez l'événement
-    //     $evenement = Evenement::findOrFail($id);
-    
-    //     // Vérifiez s'il y a des places disponibles
-    //     $remaining_places = $evenement->places - EvenementUser::where('evenement_id', $id)->count();
-    //     if ($remaining_places <= 0) {
-    //         return redirect()->back()->withErrors(['message' => 'Aucune place disponible.']);
-    //     }
-    
-    //     // Créez une nouvelle réservation
-    //     EvenementUser::create([
-    //         'evenement_id' => $id,
-    //         'user_id' => $userId,
-    //     ]);
-    
-    
-    
-    
-    //     return redirect()->back()->with('reservation_success', 'Réservation faite avec succès.');
-    // }
-=======
         $remaining_places = $evenement->places - EvenementUser::where('evenement_id', $evenement->id)->count();
         
         return view('evenements.detail', compact('evenement', 'remaining_places'));
     }
->>>>>>> feature/newmodif
     
     public function reserver($id)
     {
@@ -177,15 +131,11 @@ class EvenementController extends Controller
         return redirect()->back()->with('reservation_success', 'Réservation faite avec succès.');
     }
     
-<<<<<<< HEAD
-    
-=======
->>>>>>> feature/newmodif
+
     public function mesEvenements()
     {
         // Récupérez l'utilisateur authentifié
         $user = Auth::user();
-<<<<<<< HEAD
         
         // Vérifiez si l'utilisateur est une association
         if ($user->hasRole('association')) {
@@ -195,10 +145,7 @@ class EvenementController extends Controller
             // Récupérez les événements auxquels l'utilisateur a participé
             $evenements = EvenementUser::where('user_id', $user->id)->with('evenement')->get();
         }
-=======
-        $evenements = EvenementUser::where('user_id', $user->id)->with('evenement')->get();
->>>>>>> feature/newmodif
-        
+
         return view('evenements.mes-evenements', compact('evenements'));
     }
     
@@ -209,14 +156,12 @@ class EvenementController extends Controller
     
     public function creation(StoreEvenementRequest $request)
     {
-<<<<<<< HEAD
-=======
+
         // Vérifie si l'utilisateur a le rôle "association"
         if (!Auth::user()->hasRole('association')) {
             return redirect()->route('home')->with('error', 'Vous n\'avez pas les permissions nécessaires pour créer un événement.');
         }
         
->>>>>>> feature/newmodif
         $validatedData = $request->validated();
         
         if ($request->hasFile('image')) {
@@ -224,7 +169,6 @@ class EvenementController extends Controller
             $validatedData['image'] = $image;
         }
         
-<<<<<<< HEAD
         $user = Auth::user();
         
         // Vérifier l'état de validation et le statut du compte de l'utilisateur
@@ -240,9 +184,7 @@ class EvenementController extends Controller
         $validatedData['user_id'] = Auth::id(); // Récupérer l'ID de l'utilisateur connecté
         $validatedData['validation_status'] = 'valid';
         $validatedData['account_status'] = 'activated';
-=======
         $validatedData['user_id'] = Auth::id();
->>>>>>> feature/newmodif
         
         Evenement::create($validatedData);
         
@@ -269,7 +211,6 @@ class EvenementController extends Controller
         return view('evenements.show', compact('evenement', 'reservations'));
     }
     
-<<<<<<< HEAD
 //     public function showEvent($evenementId)
 // {
 //     $event = Evenement::findOrFail($evenementId); // Adjust this as per your actual model and method
@@ -318,43 +259,7 @@ public function decline(Request $request, $evenementId, $userId)
 }
 
 
-=======
-    public function decline(Request $request, $id)
-    {
-        // Valider la requête
-        $request->validate([
-            'status' => 'required|in:declined',
-        ]);
-        
-        DB::beginTransaction();
-        
-        try {
-            // Trouver la réservation par son ID (user_id dans votre cas)
-            $reservation = EvenementUser::where('user_id', $id)->firstOrFail();
-            
-            if (!$reservation) {
-                throw new \Exception('Aucune réservation trouvée pour cet utilisateur.');
-            }
-            
-            // Mettre à jour le statut de la réservation
-            $reservation->status = $request->input('status');
-            $reservation->save();
-            
-            // Envoyer l'email de notification à l'utilisateur associé
-            Mail::to($reservation->user->email)->send(new ReservationDeclined($reservation));
-            
-            DB::commit();
-            
-            // Retourner à la page précédente avec un message de succès
-            return back()->with('success', 'La réservation a été déclinée et un email a été envoyé.');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            
-            // Retourner à la page précédente avec un message d'erreur
-            return back()->with('error', 'Une erreur est survenue : ' . $e->getMessage());
-        }
-    }
->>>>>>> feature/newmodif
+
     
     public function edit(Evenement $evenement)
     {
@@ -380,11 +285,8 @@ public function decline(Request $request, $evenementId, $userId)
         return redirect()->route('evenement')->with('success', 'Événement modifié avec succès');
     }
     
-<<<<<<< HEAD
-    public function supprimer(Evenement $evenement)
-=======
+
     public function supprimer($id)
->>>>>>> feature/newmodif
     {
         $evenement = Evenement::find($id);
     

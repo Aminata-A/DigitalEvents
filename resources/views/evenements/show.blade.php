@@ -105,13 +105,10 @@
                             </td>
                         </tr>
                         @endforeach
-                        <<<<<<< HEAD
                     </tbody>
                 </table>
-                =======
             </tbody>
         </table>
-        >>>>>>> feature/newmodif
         <a href="{{ route('evenements.reservations', $evenement->id) }}" class="btn btn-lien">Voir tous</a>
         
     </div>
