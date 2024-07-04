@@ -54,7 +54,7 @@
         <h2>Liste réservation</h2>
         <table class="custom-table mt-5">
             <thead>
-                <tr>
+                <tr >
                     <th>id</th>
                     <th>Nom Complet</th>
                     <th>Email</th>

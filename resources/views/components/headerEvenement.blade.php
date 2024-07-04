@@ -1,7 +1,7 @@
 <!-- resources/views/components/header.blade.php -->
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <img class="navbar-brand" src="{{ Storage::url('images/Logo.png') }}" alt="Logo image" width="100px">
+        <img class="navbar-brand" src="{{ asset('images/Logo.png') }}" alt="Logo image" width="100px">
         
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

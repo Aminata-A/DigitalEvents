@@ -6,6 +6,27 @@
     <title>Evenements</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('evenements/evenements.css') }}" />
+    <style>
+        .card {
+            height: 100%;
+        }
+
+        .card-img-top {
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-text {
+            flex-grow: 1;
+        }
+    </style>
+    </style>
 </head>
 <body>
     @include('components.headerEvenement')
@@ -22,7 +43,7 @@
             </div>
                 <div class="row">
                     @foreach($evenements as $evenement)
-                        <div class="col-md-3">
+                        <div class="col-md-3  pb-4">
                             <div class="card ">
                                 <img src="{{ Storage::url($evenement->image) }}" class="card-img-top" alt="Event Image">
                                 <span class="activity-badge">{{ $evenement->user->activity_area }}</span>
