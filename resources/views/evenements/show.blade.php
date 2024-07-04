@@ -84,29 +84,28 @@
                 </div>
                 @endif
                 <h2>Liste des réservations</h2>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Nom complet</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($reservations as $reservation)
-                            <tr>
-                                <td>{{ $reservation->name }}</td>
-                                <td>
-                                    <form action="{{ route('reservations.decline', $reservation->id) }}" method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                        <input type="hidden" name="status" value="declined">
-                                        <button type="submit" class="btn btn-red btn-sm">Décliner</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nom complet</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($reservations as $reservation)
+                    <tr>
+                        <td>{{ optional($reservation)->name }}</td>
+                        <td>
+                            <form action="{{ route('reservations.decline', ['evenementId' => $evenement->id, 'userId' => $reservation->pivot->user_id]) }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="status" value="declined">
+                                <button type="submit" class="btn btn-danger">Décliner</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
                 <a href="{{ route('evenements.reservations', $evenement->id) }}" class="btn btn-lien">Voir tous</a>
 
             </div>

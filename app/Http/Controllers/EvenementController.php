@@ -243,41 +243,54 @@ class EvenementController extends Controller
         return view('evenements.show', compact('evenement', 'reservations'));
     }
     
-    public function decline(Request $request, $id)
-    {
-        // Valider la requête
-        $request->validate([
-            'status' => 'required|in:declined',
-        ]);
-        
-        DB::beginTransaction();
-        
-        try {
-            // Trouver la réservation par son ID (user_id dans votre cas)
-            $reservation = EvenementUser::where('user_id', $id)->firstOrFail();
-            
-            if (!$reservation) {
-                throw new \Exception('Aucune réservation trouvée pour cet utilisateur.');
-            }
-            
-            // Mettre à jour le statut de la réservation
-            $reservation->status = $request->input('status');
-            $reservation->save();
-            
-            // Envoyer l'email de notification à l'utilisateur associé
-            Mail::to($reservation->user->email)->send(new ReservationDeclined($reservation));
-            
-            DB::commit();
-            
-            // Retourner à la page précédente avec un message de succès
-            return back()->with('success', 'La réservation a été déclinée et un email a été envoyé.');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            
-            // Retourner à la page précédente avec un message d'erreur
-            return back()->with('error', 'Une erreur est survenue : ' . $e->getMessage());
+//     public function showEvent($evenementId)
+// {
+//     $event = Evenement::findOrFail($evenementId); // Adjust this as per your actual model and method
+//     $reservations = EvenementUser::with('user')->where('evenement_id', $evenementId)->get();
+
+//     return view('your_view_name', compact('event', 'reservations'));
+// }
+
+    
+public function decline(Request $request, $evenementId, $userId)
+{
+    // Validate the request
+    $request->validate([
+        'status' => 'required|in:declined',
+    ]);
+
+    DB::beginTransaction();
+
+    try {
+        // Find the reservation by user_id and evenement_id
+        $reservation = EvenementUser::where('user_id', $userId)
+                                     ->where('evenement_id', $evenementId)
+                                     ->firstOrFail();
+
+        if (!$reservation) {
+            throw new \Exception('Aucune réservation trouvée pour cet utilisateur et cet événement.');
         }
+
+        // Update the reservation status
+        $reservation->status = $request->input('status');
+        $reservation->save();
+
+        // Send notification email to the associated user
+        Mail::to($reservation->user->email)->send(new ReservationDeclined($reservation));
+
+        DB::commit();
+
+        // Return to the previous page with a success message
+        return back()->with('success', 'La réservation a été déclinée et un email a été envoyé.');
+    } catch (\Exception $e) {
+        DB::rollBack();
+
+        // Return to the previous page with an error message
+        return back()->with('error', 'Une erreur est survenue : ' . $e->getMessage());
     }
+}
+
+
     
     public function edit(Evenement $evenement)
     {
