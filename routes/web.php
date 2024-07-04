@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\EvenementController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\EvenementUserController;
+use App\Models\Evenement;
 
 // Routes publiques (non authentifiées)
 Route::get('/', [EvenementController::class, 'accueil'])->name('accueil');
@@ -34,6 +35,8 @@ Route::delete('/supprimer/{id}', [EvenementController::class, 'supprimer'])->nam
 Route::get('/evenements/{id}', [EvenementController::class, 'show'])->name('evenements.show')->where('id', '[0-9]');
 Route::put('/reservations/decline/{id}', [EvenementController::class, 'decline'])->name('reservations.decline');
 Route::get('evenements/{id}/reservations', [EvenementUserController::class, 'showAllReservations'])->name('evenements.reservations');
+Route::post('/reservations/decline/{evenementId}/{userId}', [EvenementController::class, 'decline'])->name('reservations.decline');
+
 Route::get('evenements/{id}/reservations/download', [EvenementUserController::class, 'downloadReservations'])->name('evenements.reservations.download');
 
 
