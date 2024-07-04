@@ -57,25 +57,6 @@
             <div class="col-lg-6 col-md-12">
                 <div class="container form-container">
                     <h1 class="">Créer un Événement</h1>
-                    @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                    {{-- @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif --}}
-                    
                     <form action="{{ route('creation') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-row">

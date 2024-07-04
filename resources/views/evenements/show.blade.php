@@ -10,6 +10,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
         body {
             font-family: "Montserrat", sans-serif;
             font-size: 14px;
@@ -21,11 +22,26 @@
             overflow-x: hidden;
         }
 
+        .custom-header {
+            position: relative;
+        }
+
         .custom-header img {
             width: 100%;
             height: 70vh;
             object-fit: cover;
             border-radius: 20px;
+        }
+
+        .custom-header .btn-modify {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #FF8200;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            color: #fff;
         }
 
         .custom-section {
@@ -54,9 +70,16 @@
             color: white;
         }
 
+
         @media (max-width: 768px) {
             .custom-header img {
                 height: 40vh;
+            }
+
+            .custom-header .btn-modify {
+                top: 10px;
+                right: 10px;
+                padding: 5px 10px;
             }
         }
     </style>
@@ -67,11 +90,12 @@
     <div class="container">
         <div class="custom-header mt-5">
             <img src="{{ Storage::url($evenement->image) }}" class="card-img-top" alt="Event Image">
+            <a href="{{ route('evenements.edit', $evenement->id) }}" class="btn btn-primary btn-modify">Modifier l'événement</a>
         </div>
 
         <div class="row mt-4">
             <div class="col-lg-8 col-md-12">
-                <a href="{{ route('accueil') }}" class="btn btn-link">Retour</a>
+                <a href="{{ url()->previous() }}" class="btn btn-link">Retour</a>
                 <h1>{{ $evenement->name }}</h1>
                 <p>{{ $evenement->description }}</p>
                 <div class="custom-footer">

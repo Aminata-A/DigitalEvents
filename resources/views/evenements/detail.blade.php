@@ -33,9 +33,10 @@
             border-radius: 5px;
         }
         .btn-light {
-            background-color: #fff; 
-            color: #FF8200;
+            background-color: #FF8200;
+            color: #fff;
             border: none;
+
         }
         .info-item {
             margin-bottom: 10px;
@@ -83,6 +84,12 @@
             display: flex;
             flex-direction: column;
         }
+        .btn-dark{
+            background: transparent;
+            color: #FF8200;
+            border: none;
+            
+        }
         @media (max-width: 767px) {
             .banniere {
                 height: 40vh; /* Diminuer la hauteur de la bannière pour les petits écrans */
@@ -90,11 +97,8 @@
             .btn-reserver {
                 bottom: 10px;
             }
-            
-
         }
         @media (min-width: 768px) {
-
             .body_detail {
                 flex-direction: row;
             }
@@ -105,6 +109,11 @@
     @include('components.headerEvenement')
     
     <div class="container mt-4">
+        <!-- Bouton Retour -->
+        <div class="mb-4">
+            <a href="{{ url()->previous() }}" class="btn btn-dark">Retour</a>
+        </div>
+        
         <!-- Afficher le message de succès -->
         @if(session('reservation_success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -141,13 +150,6 @@
                     @else
                     <p class="text-danger">Aucune place disponible</p>
                     @endif
-                    @auth
-                    @if (Auth::user()->id === $evenement->user_id)
-                    <div class="text-right">
-                        <a href="{{ route('evenements.edit', $evenement->id) }}" class="btn btn-primary rounded-pill" style="background: #FF8200; border:none;">Modifier l'événement</a>
-                    </div>
-                    @endif
-                    @endauth
                 </div>
             </div>
             <div>
@@ -159,11 +161,9 @@
                             <i class="fas fa-users" style="color: #FF8200"></i> <strong>Places disponibles :</strong> {{ $remaining_places }}
                         </div>
                         <div class="info-item">
-                            <i class="far fa-calendar-alt" style="color: #FF8200"></i> <strong>Date de début :</strong> {{ $evenement->event_start_date }}
+                            <i class="far fa-calendar-alt" style="color: #FF8200"></i> <strong>Date :</strong>du  {{ $evenement->event_start_date }} au {{ $evenement->event_end_date }}
                         </div>
-                        <div class="info-item">
-                            <i class="far fa-calendar-alt" style="color: #FF8200"></i> <strong>Date de fin :</strong> {{ $evenement->event_end_date }}
-                        </div>
+
                         <div class="info-item">
                             <i class="fas fa-map-marker-alt" style="color: #FF8200"></i> <strong>Lieu :</strong> {{ $evenement->location }}
                         </div>
