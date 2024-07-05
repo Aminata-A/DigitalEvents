@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>Liste des participants</title>
+=======
+    <title>Document PDF des participants</title>
+>>>>>>> cc0d12c6a033c262952d7da82f5e0e0c9fad0f40
     <style>
         body {
             font-family: "Montserrat", sans-serif;
@@ -35,11 +39,11 @@
         <p>Organisme : {{ $evenement->user->name }}</p>
         <p>Lieu : {{ $evenement->location }}</p>
         <p>Date : ...../...../.......</p>
-        
+
     </div>
     <h2>Liste des réservations pour l'événement {{ $evenement->name }}</h2>
     <h4>Liste des participants</h4>
-    
+
 
     <table>
         <thead>
@@ -50,21 +54,24 @@
                 <th>Email</th>
                 <th>Téléphone</th>
                 <th>Signature</th>
+
             </tr>
         </thead>
         <tbody>
             @foreach($reservations as $reservation)
                 <tr>
+
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $reservation->first_name }}</td>
                     <td>{{ $reservation->last_name }}</td>
                     <td>{{ $reservation->email }}</td>
                     <td>{{ $reservation->phone }}</td>
+
                     <td></td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-    
+
 </body>
 </html>

@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class User extends Authenticatable
 {
@@ -23,7 +22,7 @@ class User extends Authenticatable
         'phone',
         'description',
         'logo',
-        'adress',
+        'address',
         'contact_detail',
         'activity_area',
         'ninea',
@@ -33,14 +32,6 @@ class User extends Authenticatable
         'password',
         'is_association'
     ];
-    public function evenement()
-    {
-        $this->hasMany(Evenement::class);
-    }
-    public function evenements()
-    {
-        return $this->belongsToMany(User::class);
-    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -65,33 +56,36 @@ class User extends Authenticatable
         ];
     }
 
-    protected $casts = [
-        'activity_area' => 'string', // Si nécessaire, caster en string
-    ];
-
-    public static function getDefaultAccountStatus()
+    /**
+     * Get the user's first name.
+     *
+     * @return string
+     */
+    public function getFirstNameAttribute()
     {
-        return 'activated'; 
+        $parts = explode(' ', $this->name);
+        return $parts[0] ?? '';
     }
 
-    public static function getDefaultValidationStatus()
+    /**
+     * Get the user's last name.
+     *
+     * @return string
+     */
+    public function getLastNameAttribute()
     {
-        return 'invalid'; 
+        $parts = explode(' ', $this->name);
+        return isset($parts[1]) ? $parts[1] : '';
     }
 
-    public function getFirstNameAttribute() {
-        $parts = explode(' ', $this->name);
-        return $parts[0];
-    }
-
-    public function getLastNameAttribute() {
-        $parts = explode(' ', $this->name);
-        return count($parts) > 1 ? $parts[1] : '';
-    }
-    
     protected static function booted()
     {
-        static::created(function ($user) {
+        // Séparation du nom complet en prénom et nom de famille lors de la création de l'utilisateur
+        static::creating(function ($user) {
+            $split = explode(" ", $user->name);
+            $user->firstname = array_shift($split); // Prénom
+            $user->lastname = implode(" ", $split); // Nom de famille restant
+
             if ($user->is_association) {
                 $user->assignRole('association');
             } else {
@@ -99,6 +93,4 @@ class User extends Authenticatable
             }
         });
     }
-    
-    
 }
