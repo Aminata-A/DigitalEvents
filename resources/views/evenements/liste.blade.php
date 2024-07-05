@@ -48,16 +48,17 @@
 <body>
     <x-headerEvenement/>
     <div class="container">
-        <a target="blank" href="{{ route('evenements.reservations.download', $evenement->id) }}">
+        <a target="blank" href="{{ route('evenements.reservations.download', $evenement->hash_id) }}">
             <button class="btn-download">Télécharger</button>
         </a>
         <h2>Liste réservation</h2>
         <table class="custom-table mt-5">
             <thead>
-                <tr>
+                <tr >
                     <th>id</th>
                     <th>Nom Complet</th>
                     <th>Email</th>
+                    <th>Téléphone</th>
                 </tr>
             </thead>
             <tbody>
@@ -66,6 +67,7 @@
                         <td>{{ $reservation->id }}</td>
                         <td>{{ $reservation->name }}</td>
                         <td>{{ $reservation->email }}</td>
+                        <td>{{ $reservation->phone }}</td>
                     </tr>
                 @endforeach
             </tbody>

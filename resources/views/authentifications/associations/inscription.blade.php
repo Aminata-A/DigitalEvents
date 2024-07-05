@@ -14,18 +14,20 @@
             padding: 0;
             margin: 0;
         }
-
-        .col-md-4 img {
-            width: 100%;
-            height: auto;
+        
+        .col-md-6 img {
+            position: fixed;
+            width: 50%;
+            height: 100vh;
+            overflow-x: hidden;
+            display: block;
         }
-
+        
         .form-control {
             padding: 0.8rem;
             border-radius: 10px;
             border-color: #FF8200;
         }
-
         .btn {
             background-color: #FF8200;
             color: white;
@@ -34,31 +36,44 @@
             border-radius: 10px;
             width: 100%;
         }
-
+        
         .text-center p {
             margin-top: 1rem;
         }
-
+        
         .form-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem; /* Réduit l'espacement entre les champs */
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            width: 100%;
         }
-
-        @media (min-width: 768px) {
-            .form-container {
-                grid-template-columns: repeat(2, 1fr);
+        
+        .form-group {
+            flex: 1 1 calc(50% - 1.5rem);
+            margin-bottom: 0;
+        }
+        
+        .form-group-full {
+            flex: 1 1 100%;
+        }
+        
+        @media (max-width: 767px) {
+            .form-group {
+                flex: 1 1 100%;
+            }
+            .col-md-6 img {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
     <div class="">
-        <div class="row d-flex align-items-center">
-            <div class="col-md-4 m-0">
+        <div class="row d-flex ">
+            <div class="col-md-6 ">
                 <img src="{{ asset('auth/img/bienvenue.png') }}" alt="Image" class="img-fluid">
             </div>
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <div class="card-body">
                     <h2 class="card-title">Inscription</h2>
                     <form method="POST" action="{{ route('register-traitement.association') }}" enctype="multipart/form-data">
@@ -69,27 +84,27 @@
                                 <label for="name" class="form-label">Nom de l'association</label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Nom de l'association" value="{{ old('name') }}">
                                 @error('name')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                                 @enderror
                             </div>
                             <div class="form-group">
                                 <label for="adress" class="form-label">Adresse</label>
                                 <input type="text" class="form-control @error('adress') is-invalid @enderror" id="adress" name="adress" placeholder="Adresse de l'association" value="{{ old('adress') }}">
                                 @error('adress')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                                 @enderror
                             </div>
                             <div class="form-group">
                                 <label for="email" class="form-label">Adresse email</label>
                                 <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Adresse email" value="{{ old('email') }}">
                                 @error('email')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                                 @enderror
                             </div>
                             <div class="form-group">
@@ -108,67 +123,67 @@
                                     <option value="Mariages" {{ old('activity_area') == 'Mariages' ? 'selected' : '' }}>Mariages</option>
                                 </select>
                                 @error('activity_area')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                                 @enderror
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Téléphone</label>
                                 <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" placeholder="Téléphone" value="{{ old('phone') }}">
                                 @error('phone')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                                 @enderror
                             </div>
                             <div class="form-group">
                                 <label for="ninea" class="form-label">Ninea</label>
                                 <input type="text" class="form-control @error('ninea') is-invalid @enderror" id="ninea" name="ninea" placeholder="Ninea" value="{{ old('ninea') }}">
                                 @error('ninea')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                                 @enderror
                             </div>
                             <div class="form-group">
                                 <label for="password" class="form-label">Mot de passe</label>
                                 <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Mot de passe">
                                 @error('password')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                                 @enderror
                             </div>
                             <div class="form-group">
                                 <label for="creation_date" class="form-label">Date fondation</label>
                                 <input type="date" class="form-control @error('creation_date') is-invalid @enderror" id="creation_date" name="creation_date" placeholder="Date fondation">
                                 @error('creation_date')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                                 @enderror
                             </div>
-                            <div class="form-group">
+                            <div class="form-group form-group-full">
                                 <label for="description" class="form-label">Description</label>
                                 <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" placeholder="Description de l'association">{{ old('description') }}</textarea>
                                 @error('description')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                                 @enderror
                             </div>
-                            <div class="form-group">
+                            <div class="form-group form-group-full mb-4">
                                 <label for="logo" class="form-label">Logo</label>
                                 <input type="file" class="form-control-file @error('logo') is-invalid @enderror" id="logo" name="logo">
                                 @error('logo')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                                 @enderror
                             </div>
                         </div>
-                        <button type="submit" class="btn form-control">S'inscrire</button>
+                        <button type="submit" class="btn form-control d-flex justify-content-center align-items-center">S'inscrire</button>
                         <div class="text-center">
                             <p class="mt-2">Vous avez déjà un compte ? Cliquez <a href="{{ route('login') }}">ici</a></p>
                         </div>
@@ -177,8 +192,7 @@
             </div>
         </div>
     </div>
-
+    
     <!-- Bootstrap JavaScript -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+    <script src
+    

@@ -16,7 +16,7 @@
             background-image: url('{{ asset('img/vert_minimaliste_evenement_printemps_banniere_1.png') }}'); /* Chemin vers votre image de bannière */
             background-size: cover;
             background-position: center;
-            padding: 100px 0;
+            padding: 30px 0;
             text-align: center;
             color: #fff; /* Couleur du texte sur l'image */
         }
@@ -161,6 +161,18 @@
                                 <p class="card-text">{{ Str::limit($evenement->description, 150) }}</p>
                                 <p class="card-text"><small class="text-muted">Dernière mise à jour: {{ $evenement->updated_at->diffForHumans() }}</small></p>
                                 <a href="{{ route('evenements.show', ['id' => $evenement->id]) }}" class="btn btn-primary">Voir plus</a>
+{{-- =======
+                        <div class="col-md-3">
+                            <div class="card mb-3 mx-2">
+                                <img src="{{ asset('images/image_24.png') }}" class="card-img-top" alt="Image Événement">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $evenement->name }}</h5>
+                                    <p class="card-text">{{ Str::limit($evenement->description, 150) }}</p>
+                                    <p class="card-text"><small class="text-muted">Dernière mise à jour: {{ $evenement->updated_at->diffForHumans() }}</small></p>
+                                    <a href="{{ route('evenements.show', ['id' => $evenement->hash_id]) }}" class="btn btn-primary">Voir plus</a>
+                                    
+                                </div>
+>>>>>>> 43e2a04a6837be32997abecdcd497fbde8e3e9e0 --}}
                             </div>
                         </div>
                     </div>

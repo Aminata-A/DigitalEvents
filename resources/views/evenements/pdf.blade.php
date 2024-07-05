@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document pdf des participants</title>
+    <title>Liste des participants</title>
     <style>
         body {
             font-family: "Montserrat", sans-serif;
@@ -23,27 +23,48 @@
         th {
             background-color: #f2f2f2;
         }
+        h2 {
+            color: #FF9B33;
+            text-align: center;
+            font-size: 20px
+        }
     </style>
 </head>
 <body>
-    <h2>Liste réservation pour l'événement {{ $evenement->name }}</h2>
+    <div>
+        <p>Organisme : {{ $evenement->user->name }}</p>
+        <p>Lieu : {{ $evenement->location }}</p>
+        <p>Date : ...../...../.......</p>
+        
+    </div>
+    <h2>Liste des réservations pour l'événement {{ $evenement->name }}</h2>
+    <h4>Liste des participants</h4>
+    
+
     <table>
         <thead>
             <tr>
-                <th>id</th>
-                <th>Nom Complet</th>
+                <th>Numéro</th>
+                <th>Prénom</th>
+                <th>Nom</th>
                 <th>Email</th>
+                <th>Téléphone</th>
+                <th>Signature</th>
             </tr>
         </thead>
         <tbody>
             @foreach($reservations as $reservation)
                 <tr>
-                    <td>{{ $reservation->id }}</td>
-                    <td>{{ $reservation->name }}</td>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $reservation->first_name }}</td>
+                    <td>{{ $reservation->last_name }}</td>
                     <td>{{ $reservation->email }}</td>
+                    <td>{{ $reservation->phone }}</td>
+                    <td></td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+    
 </body>
 </html>

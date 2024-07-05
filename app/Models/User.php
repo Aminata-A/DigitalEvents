@@ -78,6 +78,16 @@ class User extends Authenticatable
     {
         return 'invalid'; 
     }
+
+    public function getFirstNameAttribute() {
+        $parts = explode(' ', $this->name);
+        return $parts[0];
+    }
+
+    public function getLastNameAttribute() {
+        $parts = explode(' ', $this->name);
+        return count($parts) > 1 ? $parts[1] : '';
+    }
     
     protected static function booted()
     {
