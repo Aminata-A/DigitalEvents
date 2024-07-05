@@ -21,7 +21,7 @@
     <div class="row text-center py-4">
         <div class="col-md-4 d-flex justify-content-center">
             <i class="bi bi-geo-alt mr-2"></i>
-            <p>Cite keur gorgui</p>
+            <p>Sacré Coeur 3 - Derrière Expresso sénégal</p>
         </div>
         <div class="col-md-4 d-flex justify-content-center">
             <i class="bi bi-telephone mr-2"></i>
@@ -29,7 +29,7 @@
         </div>
         <div class="col-md-4 d-flex justify-content-center">
             <i class="bi bi-envelope mr-2"></i>
-            <p>Simplon@gmail.com</p>
+            <p>digitalevents@gmail.com</p>
         </div>
     </div>
 </footer>
