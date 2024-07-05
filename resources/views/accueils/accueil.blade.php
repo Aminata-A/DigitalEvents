@@ -16,7 +16,7 @@
             background-image: url('{{ asset('img/vert_minimaliste_evenement_printemps_banniere_1.png') }}'); /* Chemin vers votre image de bannière */
             background-size: cover;
             background-position: center;
-            padding: 100px 0;
+            padding: 20px 0;
             text-align: center;
             color: #fff; /* Couleur du texte sur l'image */
         }
@@ -45,7 +45,7 @@
             padding-bottom: 5px;
         }
         .card-event {
-            flex: 1 0 30%;
+            flex: 1 0 15%;
             margin: 5px; /* Réduisez la marge ici pour diminuer l'espace entre les cartes */
             padding-bottom: 100px;
         }
@@ -73,7 +73,7 @@
 
         .types-section {
             margin-top: 50px;
-            padding: 50px 0;
+            padding: 20px 0;
 
         }
 
