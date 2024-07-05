@@ -27,7 +27,7 @@
         .banner p {
             font-size: 24px;
         }
-                .events {
+        .events {
             padding: 20px 0;
             display: flex;
             flex-wrap: wrap;
@@ -193,45 +193,40 @@
     </div>
 
     {{-- événements à venir --}}
-<!-- Événements à venir -->
-
-<div id="eventCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
-    <div class="carousel-inner">
-        @foreach ($evenements->chunk(3) as $index => $eventChunk)
-            <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                <div class="row gx-0 justify-content-center">
-                    @foreach ($eventChunk as $evenement)
-                        <div class="col-md-3">
-                            <div class="card mb-3 mx-2">
-                                <img src="{{ asset('images/image_24.png') }}" class="card-img-top" alt="Image Événement">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $evenement->name }}</h5>
-                                    <p class="card-text">{{ Str::limit($evenement->description, 150) }}</p>
-                                    <p class="card-text"><small class="text-muted">Dernière mise à jour: {{ $evenement->updated_at->diffForHumans() }}</small></p>
-                                    <a href="{{ route('evenements.show', ['id' => $evenement->hash_id]) }}" class="btn btn-primary">Voir plus</a>
-                                    
+    <div id="eventCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
+        <div class="carousel-inner">
+            @foreach ($evenements->chunk(3) as $index => $eventChunk)
+                <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                    <div class="row justify-content-center"> <!-- Centrage horizontal des cards -->
+                        @foreach ($eventChunk as $evenement)
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 mb-3"> <!-- Tailles des colonnes pour la grille responsive -->
+                                <div class="card" style="max-width: 500px;"> <!-- Ajustement de la largeur maximale -->
+                                    <img src="{{ asset('storage/' . $evenement->image) }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Image Événement">
+                                    <div class="card-body text-center"> <!-- Centrage vertical du contenu -->
+                                        <h5 class="card-title">{{ $evenement->name }}</h5>
+                                        <p class="card-text">{{ Str::limit($evenement->description, 150) }}</p>
+                                        <p class="card-text"><small class="text-muted">Dernière mise à jour: {{ $evenement->updated_at->diffForHumans() }}</small></p>
+                                        <a href="{{ route('evenements.show', ['id' => $evenement->hash_id]) }}" class="btn btn-info">Voir plus</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+        </div>
+        <a class="carousel-control-prev" href="#eventCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon text-primary"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#eventCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon text-primary"></span>
+            <span class="sr-only">Next</span>
+        </a>
+
+
     </div>
-    <a class="carousel-control-prev" href="#eventCarousel" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#eventCarousel" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
-</div>
 
-
-
-
-</div>
 <!-- Nos types d'événements Section -->
 <section class="types-section">
     <div class="container">

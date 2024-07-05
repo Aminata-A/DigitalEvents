@@ -20,7 +20,7 @@ class ReservationConfirmed extends Mailable
     {
         $this->reservation = $reservation;
     }
-
+//méthode de configuration de l'email qui sera envoyé
     public function build()
     {
         return $this->subject('Votre réservation a été accepté')
