@@ -46,7 +46,7 @@
                         <a class="btn rounded-pill mx-3 mb-1" href="{{ route('login') }}" style="background-color: #FF8200; color: white;">Connexion</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn rounded-pill mx-3" href="{{ route('register-user') }}" style="background-color: white; color: #FF8200; border: 1px solid #FF8200;">Inscription</a>
+                        <a class="btn rounded-pill mx-3" href="{{ route('register') }}" style="background-color: white; color: #FF8200; border: 1px solid #FF8200;">Inscription</a>
                     </li>
                 @endauth
             </ul>
