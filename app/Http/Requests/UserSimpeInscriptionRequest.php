@@ -24,7 +24,7 @@ class UserSimpeInscriptionRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'phone' => ['required', 'string', 'max:20', 'regex:/^(77|78|70|76)[0-9]{7}$/'],
+            'phone' => ['required', 'string', 'max:20', 'regex:/^(77|78|70|76)[0-9]{7}$/', 'unique:users,phone'],
             'password' => 'required|string|min:8',
             'logo' => 'required|image|mimes:jpeg,png,gif|max:2048',
         ];
@@ -45,6 +45,7 @@ class UserSimpeInscriptionRequest extends FormRequest
             'phone.string' => 'Le champ téléphone doit être une chaîne de caractères.',
             'phone.max' => 'Le champ téléphone ne doit pas dépasser 20 caractères.',
             'phone.regex' => 'Le champ téléphone doit être un numéro valide commençant par 77, 78, 70 ou 76.',
+            'phone.unique' => 'Ce numéro téléphone est déjà utilisée.',
 
             'password.required' => 'Le champ mot de passe est requis.',
             'password.string' => 'Le champ mot de passe doit être une chaîne de caractères.',
