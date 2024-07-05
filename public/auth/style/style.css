@@ -19,8 +19,8 @@ body {
 }
 
 .col-md-6 img {
-    width: 700px; /* Maintient le rapport d'aspect de l'image */
-    height: 53rem;
+    width: 700px;
+    height: 100vh; /* Maintient le rapport d'aspect de l'image */
     overflow-x: hidden;
     display: block;
 }

@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="{{ asset('auth/style/style.css') }}" />
 </head>
 <body>
-    <div class="container">
-        <div class="row align-items-center vh-100">
+    <div class="">
+        <div class="row align-items-center">
             <div class="col-md-6 d-none d-md-block">
                 <img src="{{ asset('auth/img/bienvenue.png') }}" alt="Image" class="img-fluid">
             </div>
