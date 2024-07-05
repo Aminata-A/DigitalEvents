@@ -11,18 +11,18 @@
         .card {
             height: 100%;
         }
-
+        
         .card-img-top {
             height: 150px;
             object-fit: cover;
         }
-
+        
         .card-body {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
-
+        
         .card-text {
             flex-grow: 1;
         }
@@ -31,7 +31,7 @@
 
 <body>
     @include('components.headerEvenement')
-
+    
     <div class="container mt-4">
         <div class="banniere">
             <img src="https://img.freepik.com/vecteurs-libre/modele-sans-couture-lignes-organiques-irregulieres-orange_1409-4190.jpg?t=st=1719417420~exp=1719421020~hmac=e0da1aea7e251917a9394925bb9a5f1211ffe8353400c44f56ff1a9f0c86ebf8&w=826" alt="Banner Image">
@@ -68,7 +68,7 @@
                                 <p class="card-text">{{ $evenement->description }}</p>
                                 <div class="d-flex justify-content-between">
                                     <button class="badge orange">{{ $evenement->places }} places</button>
-
+                                    
                                     <a href="{{ route('evenements.show', ['id' => $evenement->hash_id]) }}" class="badge text-dark">Voir Détails</a>
                                 </div>
                             </div>
@@ -77,10 +77,11 @@
                     @endforeach
                 </div>
             </div>
-
+            
         </div>
     </div>
-
+    @include('components.footer')
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

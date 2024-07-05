@@ -36,7 +36,7 @@
             background-color: #FF8200;
             color: #fff;
             border: none;
-
+            
         }
         .info-item {
             margin-bottom: 10px;
@@ -163,7 +163,7 @@
                         <div class="info-item">
                             <i class="far fa-calendar-alt" style="color: #FF8200"></i> <strong>Date :</strong>du  {{ $evenement->event_start_date }} au {{ $evenement->event_end_date }}
                         </div>
-
+                        
                         <div class="info-item">
                             <i class="fas fa-map-marker-alt" style="color: #FF8200"></i> <strong>Lieu :</strong> {{ $evenement->location }}
                         </div>
@@ -188,5 +188,7 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </div>
+    @include('components.footer')
+    
 </body>
 </html>
