@@ -286,6 +286,9 @@ class EvenementController extends Controller
             // Stocker la nouvelle image
             $imagePath = $request->file('image')->store('images', 'public');
             $validatedData['image'] = $imagePath;
+        } else {
+            // Conserver l'ancienne image
+            $validatedData['image'] = $evenement->image;
         }
         
         // Mettre à jour l'événement avec les données validées
@@ -295,6 +298,7 @@ class EvenementController extends Controller
         return redirect()->route('evenement')->with('success', 'Événement modifié avec succès');
     }
     
+
     
     
     public function supprimer(Evenement $evenement, $id)

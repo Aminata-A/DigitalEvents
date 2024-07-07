@@ -134,7 +134,17 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="image">Image</label>
+                            <label for="image">Image actuelle</label>
+                            @if ($evenement->image)
+                                <div>
+                                    <img src="{{ asset('storage/' . $evenement->image) }}" alt="Image de l'événement" style="max-width: 200px; max-height: 200px;">
+                                </div>
+                            @else
+                                <p>Aucune image disponible.</p>
+                            @endif
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Changer l'image</label>
                             <input type="file" class="form-control-file @error('image') is-invalid @enderror" id="image" name="image">
                             @error('image')
                             <span class="invalid-feedback" role="alert">
@@ -142,6 +152,7 @@
                             </span>
                             @enderror
                         </div>
+                        
                         
                         <button type="submit" class="btn evenement rounded-pill px-3">Modifier l'événement</button>
                         <a href="{{ route('evenement') }}" class="btn btn-annuler rounded-pill px-3">Annuler</a>
